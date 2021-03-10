@@ -1,0 +1,62 @@
+CRUD Pais
+-Cadastro = OK
+-Update = OK
+-Delete = OK
+
+CRUD Estado
+-Cadastro = OK
+-Update = OK
+-Delete = OK
+
+CRUD Cidade
+-Cadastro = OK
+-Update = OK
+-Delete = OK
+
+CRUD Usuario
+-Cadastro = OK
+-Update = OK
+-Delete = OK
+
+CRUD Cliente
+-Cadastro = OK
+-Update = OK
+
+CRUD Endereço
+-Cadastro = OK
+-Update = OK
+
+CRUD Telefone
+-Cadastro = OK
+-Update = OK
+
+CRUD Status
+-Cadastro = OK
+-Update = OK
+-Delete = OK
+
+CRUD Perfil
+-Cadastro = OK
+-Update = OK
+-Delete = OK
+
+CRUD Acesso
+-Cadastro = OK
+-Delete = OK
+
+*Montar fluxo de análise
+
+-Adicionar Status novos = OK
+-Arrumar fluxo de aprovação básico = OK
+
+*Fazer fluxo internacional
+-Criar enviar para análise de aprovação de controle de risco = OK
+-Criar parte de aprovação de controle de risco = OK
+
+-criar procedure de reprovado = OK
+-criar procedure de correção de cadastro = OK
+
+
+
+
+

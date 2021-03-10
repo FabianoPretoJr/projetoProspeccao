@@ -1,0 +1,36 @@
+/*
+CREATE PROCEDURE ValidaCampoVazio
+	@Campo	NVARCHAR
+AS
+BEGIN
+	SET @Campo = LTRIM(@Campo);
+
+	IF(DATALENGTH(@Campo) = 0)
+		BEGIN
+			RETURN 0;
+		END
+	ELSE
+		BEGIN
+			RETURN 1;
+		END
+END
+*/
+
+CREATE FUNCTION ISEMPTY(@Campo VARCHAR(1000))
+RETURNS BIT
+AS
+BEGIN
+	DECLARE @Retorno BIT;
+	
+	SET @Campo = LTRIM(@Campo);
+	IF(DATALENGTH(@Campo) = 0)
+		BEGIN
+			SET @Retorno = 0;
+		END
+	ELSE
+		BEGIN
+			SET @Retorno = 1;
+		END
+
+	RETURN @Retorno;
+END;

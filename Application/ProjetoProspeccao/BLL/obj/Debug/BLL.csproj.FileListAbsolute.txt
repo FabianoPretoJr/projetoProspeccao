@@ -1,0 +1,6 @@
+C:\Users\Fabiano\Desktop\ARQUIVOS\Estudo estágio\Application\ProjetoProspeccao\BLL\bin\Debug\BLL.dll
+C:\Users\Fabiano\Desktop\ARQUIVOS\Estudo estágio\Application\ProjetoProspeccao\BLL\bin\Debug\BLL.pdb
+C:\Users\Fabiano\Desktop\ARQUIVOS\Estudo estágio\Application\ProjetoProspeccao\BLL\obj\Debug\BLL.csprojAssemblyReference.cache
+C:\Users\Fabiano\Desktop\ARQUIVOS\Estudo estágio\Application\ProjetoProspeccao\BLL\obj\Debug\BLL.csproj.CoreCompileInputs.cache
+C:\Users\Fabiano\Desktop\ARQUIVOS\Estudo estágio\Application\ProjetoProspeccao\BLL\obj\Debug\BLL.dll
+C:\Users\Fabiano\Desktop\ARQUIVOS\Estudo estágio\Application\ProjetoProspeccao\BLL\obj\Debug\BLL.pdb
