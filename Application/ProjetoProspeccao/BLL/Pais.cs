@@ -1,27 +1,22 @@
 ﻿namespace BLL
 {
-    public class Pais
+    public class Pais : BaseClass
     {
-        private int _idPais;
-        public int IdPais
+        public Pais(string nomePais)
         {
-            get { return _idPais; }
-            set { _idPais = value; }
+            this.NomePais = nomePais;
+        }
+
+        public Pais(int id, string nomePais) : base(id)
+        {
+            this.NomePais = nomePais;
         }
 
         private string _nomePais;
         public string NomePais
         {
             get { return _nomePais; }
-            set { _nomePais = value; }
+            private set { _nomePais = value; }
         }
-
-        private bool _ativo;
-        public bool  Ativo
-        {
-            get { return _ativo; }
-            set { _ativo = value; }
-        }
-
     }
 }

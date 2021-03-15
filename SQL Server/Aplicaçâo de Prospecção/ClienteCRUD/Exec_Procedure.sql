@@ -1,16 +1,17 @@
 EXEC CadastroCliente 
-	'Jeziel', 
+	'Fabiano Preto', 
 	'44315144673', --cpf
 	'633299126', 
-	'12/09/2003', 
-	'jeziel@email.com', 
+	'12/09/2001', 
+	'fabiano@email.com', 
 	'985592015', 
 	'25946135', 
-	'Rua Jacare', 
+	'Rua Jácare', 
 	'2351', 
 	NULL, 
 	'Flórida', 
-	3;
+	1,
+	2;
 
 EXEC AtualizarCliente
 	1,
@@ -32,7 +33,8 @@ EXEC CadastroCliente --INTERNACIONAL
 	'15', 
 	NULL, 
 	'Carolina', 
-	20;
+	20,
+	2;
 
 EXEC AtualizarTelefone 1, '996685684', 1;
 

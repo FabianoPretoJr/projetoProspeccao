@@ -7,3 +7,12 @@ C:\Users\Fabiano\Desktop\ARQUIVOS\Estudo estágio\Application\ProjetoProspeccao\
 C:\Users\Fabiano\Desktop\ARQUIVOS\Estudo estágio\Application\ProjetoProspeccao\DAL\obj\Debug\DAL.csproj.CopyComplete
 C:\Users\Fabiano\Desktop\ARQUIVOS\Estudo estágio\Application\ProjetoProspeccao\DAL\obj\Debug\DAL.dll
 C:\Users\Fabiano\Desktop\ARQUIVOS\Estudo estágio\Application\ProjetoProspeccao\DAL\obj\Debug\DAL.pdb
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\DAL\bin\Debug\DAL.dll
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\DAL\bin\Debug\DAL.pdb
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\DAL\bin\Debug\BLL.dll
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\DAL\bin\Debug\BLL.pdb
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\DAL\obj\Debug\DAL.csprojAssemblyReference.cache
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\DAL\obj\Debug\DAL.csproj.CopyComplete
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\DAL\obj\Debug\DAL.dll
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\DAL\obj\Debug\DAL.pdb

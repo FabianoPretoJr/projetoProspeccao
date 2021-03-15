@@ -17,14 +17,14 @@ BEGIN
 			IF(@ExisteCidade <= 0)
 				THROW 50000, 'Cidade não encontrada na base de dados', 1;
 
-			IF(dbo.ISEMPTY(@CEP) = 0)
-				THROW 50000, 'Campo CEP está vazio', 1;
+			/*IF(dbo.ISEMPTY(@CEP) = 0)
+				THROW 50000, 'Campo CEP está vazio', 1;*/
 			IF(dbo.ISEMPTY(@Rua) = 0)
 				THROW 50000, 'Campo rua está vazio', 1;
 			IF(dbo.ISEMPTY(@Numero) = 0)
 				THROW 50000, 'Campo número está vazio', 1;
-			IF(dbo.ISEMPTY(@Complemento) = 0)
-				THROW 50000, 'Campo complemento está vazio', 1;
+			/*IF(dbo.ISEMPTY(@Complemento) = 0)
+				THROW 50000, 'Campo complemento está vazio', 1;*/
 			IF(dbo.ISEMPTY(@Bairro) = 0)
 				THROW 50000, 'Campo bairro está vazio', 1;
 

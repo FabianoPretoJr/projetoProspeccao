@@ -10,16 +10,24 @@ CREATE PROCEDURE CadastroCliente
 	@Numero			VARCHAR(6),
 	@Complemento	VARCHAR(15),
 	@Bairro			VARCHAR(20),
-	@IdCidade		INT
+	@IdCidade		INT,
+	@IdUsuario		INT
 AS
 BEGIN
 	BEGIN TRY
 		BEGIN TRAN
-			DECLARE @IdStatus		INT,
-					@IdUsuario		INT;
+			DECLARE @IdStatus		INT;
+
+			EXEC UsuarioValido @IdUsuario;
+
+			IF(NOT EXISTS(SELECT * FROM Acesso a
+							INNER JOIN Usuario u ON (u.id_usuario = a.id_usuario)
+							INNER JOIN Perfil  p ON (p.id_perfil = a.id_perfil)
+						  WHERE a.id_usuario = @IdUsuario AND p.nome_perfil = 'OPERAÇÃO')
+			)
+				THROW 50000, 'Usuário não possui permissão para cadastrar cliente', 1;
 
 			SELECT @IdStatus = id_status FROM StatusAnalise WHERE nome_status = 'Cadastrato';
-			SET @IdUsuario = 2;
 
 			IF(dbo.ISEMPTY(@Nome) = 0)
 					THROW 50000, 'Campo nome está vazio', 1;

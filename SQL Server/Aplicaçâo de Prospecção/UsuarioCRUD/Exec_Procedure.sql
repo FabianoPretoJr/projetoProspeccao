@@ -19,6 +19,7 @@ EXEC CriarAcessoUsuario 1, 3;
 EXEC CriarAcessoUsuario 2, 2;
 EXEC CriarAcessoUsuario 3, 4;
 EXEC CriarAcessoUsuario 4, 4;
+EXEC CriarAcessoUsuario 4, 3;
 
 EXEC DeletarAcessoUsuario 3, 4;
 

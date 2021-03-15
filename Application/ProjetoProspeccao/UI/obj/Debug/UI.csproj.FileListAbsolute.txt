@@ -10,3 +10,15 @@ C:\Users\Fabiano\Desktop\ARQUIVOS\Estudo estágio\Application\ProjetoProspeccao\
 C:\Users\Fabiano\Desktop\ARQUIVOS\Estudo estágio\Application\ProjetoProspeccao\UI\obj\Debug\UI.csproj.CopyComplete
 C:\Users\Fabiano\Desktop\ARQUIVOS\Estudo estágio\Application\ProjetoProspeccao\UI\obj\Debug\UI.exe
 C:\Users\Fabiano\Desktop\ARQUIVOS\Estudo estágio\Application\ProjetoProspeccao\UI\obj\Debug\UI.pdb
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\UI\bin\Debug\UI.exe.config
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\UI\bin\Debug\UI.exe
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\UI\bin\Debug\UI.pdb
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\UI\bin\Debug\BLL.dll
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\UI\bin\Debug\DAL.dll
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\UI\bin\Debug\BLL.pdb
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\UI\bin\Debug\DAL.pdb
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\UI\obj\Debug\UI.csprojAssemblyReference.cache
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\UI\obj\Debug\UI.csproj.CoreCompileInputs.cache
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\UI\obj\Debug\UI.csproj.CopyComplete
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\UI\obj\Debug\UI.exe
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\UI\obj\Debug\UI.pdb

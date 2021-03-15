@@ -56,6 +56,17 @@ CRUD Acesso
 -criar procedure de reprovado = OK
 -criar procedure de correção de cadastro = OK
 
+--------------------------------------------------------------------------------------------------------------------------------------
+
+-Criar método de cliente internacional = OK
+-Criar validação para verificar opção se é válida para usuário logado
+
+1	ADMINISTRAÇÃO => TUDO
+2	OPERAÇÃO => Cadastro, Enviar para Gerência, Enviar para Controle de Risco, Corrigir Cadastro
+3	GERÊNCIA => Aprovar, Reprovar, Enviar para Correção de Cadastro
+4	CONTROLE DE RISCO => Enviar para Gerência, Aprovar, Reprovar, Enviar para Correção de Cadastro
+
+-implementar cada de service
 
 
 

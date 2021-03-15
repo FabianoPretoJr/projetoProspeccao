@@ -10,7 +10,7 @@ namespace DAL
         public Conexao()
         {
             con = new SqlConnection();
-            con.ConnectionString = @"Data Source=Fabiano;
+            con.ConnectionString = @"Data Source=BRPC003855;
                                      Initial Catalog=DBProspeccao;
                                      Integrated Security=true";
         }

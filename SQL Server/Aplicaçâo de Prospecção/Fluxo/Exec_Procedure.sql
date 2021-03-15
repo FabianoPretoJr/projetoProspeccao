@@ -5,12 +5,13 @@ SELECT * FROM Acesso;
 SELECT * FROM Perfil;
 SELECT * FROM StatusAnalise;
 SELECT * FROM Endereco;
+select * from Analise;
 
-EXEC EnviarAnaliseGerencia @IdCliente = 16, @IdUsuario = 2;
+EXEC EnviarAnaliseGerencia @IdCliente = 8, @IdUsuario = 4;
 
-EXEC EnviarAnaliseControleDeRisco @IdCliente = 16, @IdUsuario = 2;
+EXEC EnviarAnaliseControleDeRisco @IdCliente = 8, @IdUsuario = 2;
 
-EXEC AprovarFluxo @IdCliente = 16, @IdUsuario = 1;
+EXEC AprovarFluxo @IdCliente = 8, @IdUsuario = 4;
 
 EXEC ReprovarFluxo @IdCliente = 17, @IdUsuario = 3;
 
