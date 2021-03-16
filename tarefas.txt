@@ -67,7 +67,7 @@ CRUD Acesso
 4	CONTROLE DE RISCO => Enviar para Gerência, Aprovar, Reprovar, Enviar para Correção de Cadastro
 
 -implementar cada de service
-
+-implementar a interface
 
 
 

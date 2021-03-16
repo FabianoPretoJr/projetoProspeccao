@@ -4,22 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL
+namespace BLL.Models
 {
-    public class Telefone : BaseClass
+    public class TelefoneModel : BaseModel
     {
-        public Telefone(string numeroTelefone)
+        public TelefoneModel(string numeroTelefone)
         {
             this.NumeroTelefone = numeroTelefone;
         }
 
-        public Telefone(string numeroTelefone, int idCliente)
+        public TelefoneModel(string numeroTelefone, int idCliente)
         {
             this.NumeroTelefone = numeroTelefone;
             this.IdCliente = idCliente;
         }
 
-        public Telefone(int id, string numeroTelefone, int idCliente) : base(id)
+        public TelefoneModel(int id, string numeroTelefone, int idCliente) : base(id)
         {
             this.NumeroTelefone = numeroTelefone;
             this.IdCliente = idCliente;

@@ -1,15 +1,15 @@
-﻿using System;
-using BLL;
-using System.Data;
+﻿using BLL.DTO.Cliente;
+using BLL.Interfaces.DAL;
+using System;
 using System.Data.SqlClient;
 
 namespace DAL
 {
-    public class ClienteDAL
+    public class ClienteDAL : IClienteDAL
     {
         Conexao con = new Conexao();
 
-        public void CadastrarUsuario(Cliente cliente, Telefone telefone, Endereco endereco, Usuario usuario)
+        public void CadastrarCliente(ClienteCadastroDTO cliente)
         {
             try
             {
@@ -22,19 +22,19 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@rg", cliente.Rg);
                 cmd.Parameters.AddWithValue("@dataNascimento", cliente.DataNascimento);
                 cmd.Parameters.AddWithValue("@email", cliente.Email);
-                cmd.Parameters.AddWithValue("@numeroTelefone", telefone.NumeroTelefone);
-                cmd.Parameters.AddWithValue("@cep", endereco.Cep);
-                cmd.Parameters.AddWithValue("@rua", endereco.Rua);
-                cmd.Parameters.AddWithValue("@numero", endereco.Numero);
-                cmd.Parameters.AddWithValue("@complemento", endereco.Complemento);
-                cmd.Parameters.AddWithValue("@bairro", endereco.Bairro);
-                cmd.Parameters.AddWithValue("@idCidade", endereco.IdCidade);
-                cmd.Parameters.AddWithValue("@idUsuario", usuario.Id);
+                cmd.Parameters.AddWithValue("@numeroTelefone", cliente.NumeroTelefone);
+                cmd.Parameters.AddWithValue("@cep", cliente.Cep);
+                cmd.Parameters.AddWithValue("@rua", cliente.Rua);
+                cmd.Parameters.AddWithValue("@numero", cliente.Numero);
+                cmd.Parameters.AddWithValue("@complemento", cliente.Complemento);
+                cmd.Parameters.AddWithValue("@bairro", cliente.Bairro);
+                cmd.Parameters.AddWithValue("@idCidade", cliente.IdCidade);
+                cmd.Parameters.AddWithValue("@idUsuario", cliente.IdUsuario);
 
                 cmd.ExecuteNonQuery();
                 con.Desconectar();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }

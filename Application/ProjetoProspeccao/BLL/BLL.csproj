@@ -32,7 +32,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,15 +43,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseClass.cs" />
-    <Compile Include="Cliente.cs" />
-    <Compile Include="Endereco.cs" />
-    <Compile Include="Fluxo.cs" />
-    <Compile Include="Pais.cs" />
-    <Compile Include="Perfil.cs" />
+    <Compile Include="DTO\Cliente\ClienteCadastroDTO.cs" />
+    <Compile Include="DTO\Fluxo\FluxoDTO.cs" />
+    <Compile Include="DTO\Usuario\UsuarioAutenticarDTO.cs" />
+    <Compile Include="DTO\Usuario\UsuarioVerificarResultadoDTO.cs" />
+    <Compile Include="Enums\EPerfil.cs" />
+    <Compile Include="Interfaces\DAL\IClienteDAL.cs" />
+    <Compile Include="Interfaces\DAL\IFluxoDAL.cs" />
+    <Compile Include="Interfaces\DAL\IUsuarioDAL.cs" />
+    <Compile Include="Interfaces\Services\Cliente\IClienteService.cs" />
+    <Compile Include="Interfaces\Services\Fluxo\IFluxoService.cs" />
+    <Compile Include="Interfaces\Services\Usuario\IUsuarioService.cs" />
+    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\ClienteModel.cs" />
+    <Compile Include="Models\EnderecoModel.cs" />
+    <Compile Include="Models\FluxoModel.cs" />
+    <Compile Include="Models\PerfilModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Telefone.cs" />
-    <Compile Include="Usuario.cs" />
+    <Compile Include="Models\TelefoneModel.cs" />
+    <Compile Include="Models\UsuarioModel.cs" />
+    <Compile Include="Service\Cliente\ClienteService.cs" />
+    <Compile Include="Service\Fluxo\FluxoService.cs" />
+    <Compile Include="Service\Usuario\UsuarioService.cs" />
+    <Compile Include="Validacoes\ValidarEmail.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

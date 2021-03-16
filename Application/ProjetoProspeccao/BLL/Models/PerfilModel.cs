@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL
+namespace BLL.Models
 {
-    public class Perfil : BaseClass
+    public class PerfilModel : BaseModel
     {
-        public Perfil(string nomePerfil)
+        public PerfilModel(string nomePerfil)
         {
             this.NomePerfil = nomePerfil;
         }
 
-        public Perfil(int id, string nomePerfil) : base(id)
+        public PerfilModel(int id, string nomePerfil) : base(id)
         {
             this.NomePerfil = nomePerfil;
         }

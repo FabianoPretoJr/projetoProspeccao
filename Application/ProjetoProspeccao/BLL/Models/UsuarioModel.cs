@@ -1,14 +1,14 @@
-﻿namespace BLL
+﻿namespace BLL.Models
 {
-    public class Usuario : BaseClass
+    public class UsuarioModel : BaseModel
     {
-        public Usuario(string login, string senha)
+        public UsuarioModel(string login, string senha)
         {
             this.Login = login;
             this.Senha = senha;
         }
 
-        public Usuario(int id, string login, string senha) : base(id)
+        public UsuarioModel(int id, string login, string senha) : base(id)
         {
             this.Login = login;
             this.Senha = senha;

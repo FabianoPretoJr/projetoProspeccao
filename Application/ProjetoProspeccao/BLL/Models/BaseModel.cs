@@ -1,10 +1,10 @@
-﻿namespace BLL
+﻿namespace BLL.Models
 {
-    public abstract class BaseClass
+    public abstract class BaseModel
     {
-        public BaseClass() { }
+        public BaseModel() { }
 
-        public BaseClass(int id)
+        public BaseModel(int id)
         {
             this.Id = id;
         }

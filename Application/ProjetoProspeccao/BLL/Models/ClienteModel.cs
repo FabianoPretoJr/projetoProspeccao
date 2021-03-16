@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL
+namespace BLL.Models
 {
-    public class Cliente : BaseClass
+    public class ClienteModel : BaseModel
     {
-        public Cliente(string nome, string cpf, string rg, DateTime dataNascimento, string email)
+        public ClienteModel(string nome, string cpf, string rg, DateTime dataNascimento, string email)
         {
             this.Nome = nome;
             this.Cpf = cpf;
@@ -17,7 +17,7 @@ namespace BLL
             this.Email = email;
         }
 
-        public Cliente(int id, string nome, string cpf, string rg, DateTime dataNascimento, string email) : base(id)
+        public ClienteModel(int id, string nome, string cpf, string rg, DateTime dataNascimento, string email) : base(id)
         {
             this.Nome = nome;
             this.Cpf = cpf;
@@ -62,7 +62,7 @@ namespace BLL
         }
 
         private int _idStatus;
-        public int IdStatus
+        private int IdStatus
         {
             get { return _idStatus; }
             set { _idStatus = value; }

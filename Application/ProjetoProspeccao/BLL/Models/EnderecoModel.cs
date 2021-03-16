@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL
+namespace BLL.Models
 {
-    public class Endereco : BaseClass
+    public class EnderecoModel : BaseModel
     {
-        public Endereco(
+        public EnderecoModel(
         string cep,
         string rua,
         string numero,
@@ -24,7 +24,7 @@ namespace BLL
             this.IdCidade = idCidade;
         }
 
-        public Endereco(
+        public EnderecoModel(
             string cep, 
             string rua, 
             string numero, 
@@ -42,7 +42,7 @@ namespace BLL
             this.IdCliente = idCliente;
         }
 
-        public Endereco(
+        public EnderecoModel(
             int id, 
             string cep, 
             string rua, 

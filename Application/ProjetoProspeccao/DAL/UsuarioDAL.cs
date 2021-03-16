@@ -1,16 +1,16 @@
-﻿using System;
+﻿using BLL.DTO.Usuario;
+using BLL.Interfaces.DAL;
+using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
-using BLL;
 
 namespace DAL
 {
-    public class UsuarioDAL
+    public class UsuarioDAL : IUsuarioDAL
     {
         Conexao con = new Conexao();
 
-        public bool Autenticar(ref Usuario usuario)
+        public bool Autenticar(ref UsuarioAutenticarDTO usuario)
         {
             try
             {
@@ -26,15 +26,12 @@ namespace DAL
 
                 bool retorno;
 
-                if(dr.HasRows)
+                if (dr.HasRows)
                 {
-                    string login, senha;
-
                     dr.Read();
-                    int id = Convert.ToInt32(dr["id_usuario"]);
-                    login = dr["login_usuario"].ToString();
-                    senha = dr["senha"].ToString();
-                    usuario = new Usuario(id, login, senha);
+                    usuario.IdUsuario = Convert.ToInt32(dr["id_usuario"]);
+                    usuario.Login = dr["login_usuario"].ToString();
+                    usuario.Senha = dr["senha"].ToString();
                     dr.Close();
 
                     retorno = true;
@@ -47,32 +44,32 @@ namespace DAL
                 con.Desconectar();
                 return retorno;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 return false;
             }
         }
 
-        public List<Perfil> VerificarPerfil(Usuario usuario)
+        public List<UsuarioVerificarResultadoDTO> Verificar(UsuarioAutenticarDTO usuario)
         {
-            List<Perfil> list = new List<Perfil>();
+            List<UsuarioVerificarResultadoDTO> list = new List<UsuarioVerificarResultadoDTO>();
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con.Conectar();
 
             cmd.CommandText = @"SELECT p.* FROM acesso a inner JOIN Usuario u ON (u.id_usuario = a.id_usuario) inner JOIN Perfil  p ON (p.id_perfil = a.id_perfil) WHERE a.id_usuario = @idUsuario";
 
-            cmd.Parameters.AddWithValue("@idUsuario", usuario.Id);
+            cmd.Parameters.AddWithValue("@idUsuario", usuario.IdUsuario);
 
             SqlDataReader dr = cmd.ExecuteReader();
 
             while (dr.Read())
             {
-                int id = Convert.ToInt32(dr["id_perfil"]);
-                string nome = dr["nome_perfil"].ToString();
-                Perfil perfil = new Perfil(id, nome);
-                list.Add(perfil);
+                UsuarioVerificarResultadoDTO usuarioResultado = new UsuarioVerificarResultadoDTO();
+                usuarioResultado.IdPerfil = Convert.ToInt32(dr["id_perfil"]);
+                usuarioResultado.NomePerfil = dr["nome_perfil"].ToString();
+                list.Add(usuarioResultado);
             }
 
             con.Desconectar();

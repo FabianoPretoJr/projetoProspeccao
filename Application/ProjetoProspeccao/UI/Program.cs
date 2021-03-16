@@ -1,8 +1,14 @@
-﻿using System;
+﻿using BLL.DTO.Cliente;
+using BLL.DTO.Fluxo;
+using BLL.DTO.Usuario;
+using BLL.Enums;
+using BLL.Service.Cliente;
+using BLL.Service.Fluxo;
+using BLL.Service.Usuario;
+using DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using BLL;
-using DAL;
 
 namespace UI
 {
@@ -10,30 +16,28 @@ namespace UI
     {
         static void Main(string[] args)
         {
-            string login, senha;
-            FluxoDAL fluxoDAL = new FluxoDAL();
-
             Console.WriteLine("\n\nAutenticação");
 
             try
             {
-                Console.Write("\nLogin: ");
-                login = Console.ReadLine();
-                Console.Write("\nSenha: ");
-                senha = Console.ReadLine();
+                UsuarioAutenticarDTO usuarioAutenticarDTO = new UsuarioAutenticarDTO();
 
-                Usuario usuario = new Usuario(login, senha);
-                UsuarioDAL usuarioDAL = new UsuarioDAL();
+                Console.Write("\nLogin: ");
+                usuarioAutenticarDTO.Login = Console.ReadLine();
+                Console.Write("\nSenha: ");
+                usuarioAutenticarDTO.Senha = Console.ReadLine();
+
+                UsuarioService usuarioService = new UsuarioService(new UsuarioDAL());
 
                 Console.Clear();
 
-                if (usuarioDAL.Autenticar(ref usuario))
+                if (usuarioService.Autenticar(ref usuarioAutenticarDTO))
                 {
-                    List<Perfil> list = usuarioDAL.VerificarPerfil(usuario);
+                    List<UsuarioVerificarResultadoDTO> list = usuarioService.Verificar(usuarioAutenticarDTO);
 
-                    Console.WriteLine("\n\nId: " + usuario.Id);
-                    Console.WriteLine("Login: " + usuario.Login);
-                    Console.WriteLine("Senha: " + usuario.Senha);
+                    Console.WriteLine("\n\nId: " + usuarioAutenticarDTO.IdUsuario);
+                    Console.WriteLine("Login: " + usuarioAutenticarDTO.Login);
+                    Console.WriteLine("Senha: " + usuarioAutenticarDTO.Senha);
                     Console.WriteLine("Acesso:");
                     foreach(var item in list)
                     {
@@ -49,25 +53,28 @@ namespace UI
                         switch (opcao)
                         {
                             case 1:
-                                if (list.Any(l => l.Id == 2)) //usar enum
-                                        CadastrarUsuario(usuario);
+                                if (list.Any(l => l.IdPerfil == (int)EPerfil.Operacao))
+                                        CadastrarCliente(usuarioAutenticarDTO);
                                 else
                                     Console.WriteLine("Acesso negado");
                                 break;
                             case 2:
-                                EnviarAnaliseGerencia(fluxoDAL, usuario);
+                                if(list.Any(l => l.IdPerfil == (int)EPerfil.Operacao || l.IdPerfil == (int)EPerfil.Controle_de_risco))
+                                    EnviarAnaliseGerencia(usuarioAutenticarDTO);
+                                else
+                                    Console.WriteLine("Acesso negado");
                                 break;
                             case 3:
-                                EnviarAnaliseControleDeRisco(fluxoDAL, usuario); //colocar depois do aprovar
+                                EnviarAnaliseControleDeRisco(usuarioAutenticarDTO); //colocar depois do aprovar
                                 break;
                             case 4:
-                                AprovarFluxo(fluxoDAL, usuario);
+                                AprovarFluxo(usuarioAutenticarDTO);
                                 break;
                             case 5:
-                                ReprovarFluxo(fluxoDAL, usuario);
+                                ReprovarFluxo(usuarioAutenticarDTO);
                                 break;
                             case 6:
-                                CorrecaoDeCadastro(fluxoDAL, usuario);
+                                CorrecaoDeCadastro(usuarioAutenticarDTO);
                                 break;
                             default:
                                 Console.Clear();
@@ -92,14 +99,18 @@ namespace UI
             }
         }
 
-        private static void CorrecaoDeCadastro(FluxoDAL fluxoDAL, Usuario usuario)
+        private static void CorrecaoDeCadastro(UsuarioAutenticarDTO usuario)
         {
             Console.WriteLine("\n\nCorreção de cadastro");
 
             try
             {
-                Fluxo fluxo = new Fluxo(InformarIdCliente(), usuario.Id);
-                fluxoDAL.CorrecaoDeCadastro(fluxo);
+                FluxoDTO fluxoDTO = new FluxoDTO();
+                fluxoDTO.IdCliente = InformarIdCliente();
+                fluxoDTO.IdUsuario = usuario.IdUsuario;
+
+                FluxoService fluxo = new FluxoService(new FluxoDAL());
+                fluxo.CorrecaoDeCadastro(fluxoDTO);
             }
             catch (Exception e)
             {
@@ -107,14 +118,18 @@ namespace UI
             }
         }
 
-        private static void ReprovarFluxo(FluxoDAL fluxoDAL, Usuario usuario)
+        private static void ReprovarFluxo(UsuarioAutenticarDTO usuario)
         {
             Console.WriteLine("\n\nReprovar cliente");
 
             try
             {
-                Fluxo fluxo = new Fluxo(InformarIdCliente(), usuario.Id);
-                fluxoDAL.ReprovarFluxo(fluxo);
+                FluxoDTO fluxoDTO = new FluxoDTO();
+                fluxoDTO.IdCliente = InformarIdCliente();
+                fluxoDTO.IdUsuario = usuario.IdUsuario;
+
+                FluxoService fluxo = new FluxoService(new FluxoDAL());
+                fluxo.ReprovarFluxo(fluxoDTO);
             }
             catch (Exception e)
             {
@@ -122,14 +137,18 @@ namespace UI
             }
         }
 
-        private static void EnviarAnaliseControleDeRisco(FluxoDAL fluxoDAL, Usuario usuario)
+        private static void EnviarAnaliseControleDeRisco(UsuarioAutenticarDTO usuario)
         {
             Console.WriteLine("\n\nEnviar cliente para análise do controle de risco");
 
             try
             {
-                Fluxo fluxo = new Fluxo(InformarIdCliente(), usuario.Id);
-                fluxoDAL.EnviarAnaliseControleDeRisco(fluxo);
+                FluxoDTO fluxoDTO = new FluxoDTO();
+                fluxoDTO.IdCliente = InformarIdCliente();
+                fluxoDTO.IdUsuario = usuario.IdUsuario;
+
+                FluxoService fluxo = new FluxoService(new FluxoDAL());
+                fluxo.EnviarAnaliseControleDeRisco(fluxoDTO);
             }
             catch (Exception e)
             {
@@ -137,47 +156,42 @@ namespace UI
             }
         }
 
-        private static void CadastrarUsuario(Usuario usuario)
+        private static void CadastrarCliente(UsuarioAutenticarDTO usuario)
         {
             Console.WriteLine("\n\nCadastrar cliente");
 
-            string nome, cpf, rg, email, nTelefone, cep = null, rua, nCasa, complemento = null, bairro;
-            int idCidade;
-            DateTime dataNascimento;
+            ClienteCadastroDTO clienteDTO = new ClienteCadastroDTO();
 
             try
             {
                 Console.Write("Nome: ");
-                nome = Console.ReadLine();
+                clienteDTO.Nome = Console.ReadLine();
                 Console.Write("CPF: ");
-                cpf = Console.ReadLine();
+                clienteDTO.Cpf = Console.ReadLine();
                 Console.Write("RG: ");
-                rg = Console.ReadLine();
+                clienteDTO.Rg = Console.ReadLine();
                 Console.Write("Data de nascimento: ");
-                dataNascimento = Convert.ToDateTime(Console.ReadLine());
+                clienteDTO.DataNascimento = Convert.ToDateTime(Console.ReadLine());
                 Console.Write("Email: ");
-                email = Console.ReadLine();
+                clienteDTO.Email = Console.ReadLine();
                 Console.Write("Número de telefone: ");
-                nTelefone = Console.ReadLine();
+                clienteDTO.NumeroTelefone = Console.ReadLine();
                 Console.Write("CEP: ");
-                cep = Console.ReadLine();
+                clienteDTO.Cep = Console.ReadLine();
                 Console.Write("Rua: ");
-                rua = Console.ReadLine();
+                clienteDTO.Rua = Console.ReadLine();
                 Console.Write("Número da casa: ");
-                nCasa = Console.ReadLine();
+                clienteDTO.Numero = Console.ReadLine();
                 Console.Write("Complemento: ");
-                complemento = Console.ReadLine();
+                clienteDTO.Complemento = Console.ReadLine();
                 Console.Write("Bairro: ");
-                bairro = Console.ReadLine();
+                clienteDTO.Bairro = Console.ReadLine();
                 Console.Write("Id cidade: ");
-                idCidade = int.Parse(Console.ReadLine());
+                clienteDTO.IdCidade = int.Parse(Console.ReadLine());
+                clienteDTO.IdUsuario = usuario.IdUsuario;
 
-                Cliente cliente = new Cliente(nome, cpf, rg, dataNascimento, email);
-                Telefone telefone = new Telefone(nTelefone);
-                Endereco endereco = new Endereco(cep, rua, nCasa, complemento, bairro, idCidade);
-
-                ClienteDAL clienteDAL = new ClienteDAL();
-                clienteDAL.CadastrarUsuario(cliente, telefone, endereco, usuario);
+                ClienteService cliente = new ClienteService(new ClienteDAL());
+                cliente.CadastrarCliente(clienteDTO);
             }
             catch(Exception e)
             {
@@ -185,14 +199,18 @@ namespace UI
             }
         }
 
-        private static void AprovarFluxo(FluxoDAL fluxoDAL, Usuario usuario)
+        private static void AprovarFluxo(UsuarioAutenticarDTO usuario)
         {
             Console.WriteLine("\n\nAprovar cliente - Gerência");
 
             try
             {
-                Fluxo fluxo = new Fluxo(InformarIdCliente(), usuario.Id);
-                fluxoDAL.AprovarFluxo(fluxo);
+                FluxoDTO fluxoDTO = new FluxoDTO();
+                fluxoDTO.IdCliente = InformarIdCliente();
+                fluxoDTO.IdUsuario = usuario.IdUsuario;
+
+                FluxoService fluxo = new FluxoService(new FluxoDAL());
+                fluxo.AprovarFluxo(fluxoDTO);
             }
             catch(Exception e)
             {
@@ -200,14 +218,18 @@ namespace UI
             }
         }
 
-        private static void EnviarAnaliseGerencia(FluxoDAL fluxoDAL, Usuario usuario)
+        private static void EnviarAnaliseGerencia(UsuarioAutenticarDTO usuario)
         {
             Console.WriteLine("\n\nEnviar cliente para análise da gerência");
 
             try
             {
-                Fluxo fluxo = new Fluxo(InformarIdCliente(), usuario.Id);
-                fluxoDAL.EnviarAnaliseGerencia(fluxo);
+                FluxoDTO fluxoDTO = new FluxoDTO();
+                fluxoDTO.IdCliente = InformarIdCliente();
+                fluxoDTO.IdUsuario = usuario.IdUsuario;
+
+                FluxoService fluxo = new FluxoService(new FluxoDAL());
+                fluxo.EnviarAnaliseGerencia(fluxoDTO);
             }
             catch(Exception e)
             {

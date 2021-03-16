@@ -1,8 +1,8 @@
-﻿namespace BLL
+﻿namespace BLL.Models
 {
-    public class Fluxo
+    public class FluxoModel
     {
-        public Fluxo(int idCliente, int idUsuario)
+        public FluxoModel(int idCliente, int idUsuario)
         {
             this.IdCliente = idCliente;
             this.IdUsuario = idUsuario;
