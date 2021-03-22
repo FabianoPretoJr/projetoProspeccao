@@ -1,29 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BLL.Models
+﻿namespace BLL.Models
 {
-    public class EnderecoModel : BaseModel
+    public class EnderecoModel
     {
-        public EnderecoModel(
-        string cep,
-        string rua,
-        string numero,
-        string complemento,
-        string bairro,
-        int idCidade)
-        {
-            this.Cep = cep;
-            this.Rua = rua;
-            this.Numero = numero;
-            this.Complemento = complemento;
-            this.Bairro = bairro;
-            this.IdCidade = idCidade;
-        }
-
         public EnderecoModel(
             string cep, 
             string rua, 
@@ -42,72 +20,74 @@ namespace BLL.Models
             this.IdCliente = idCliente;
         }
 
-        public EnderecoModel(
-            int id, 
-            string cep, 
-            string rua, 
-            string numero, 
-            string complemento, 
-            string bairro, 
-            int idCidade, 
-            int idCliente) : base(id)
+        private int _id;
+        public int Id
         {
-            this.Cep = cep;
-            this.Rua = rua;
-            this.Numero = numero;
-            this.Complemento = complemento;
-            this.Bairro = bairro;
-            this.IdCidade = idCidade;
-            this.IdCliente = idCliente;
+            get { return _id; }
+            private set { _id = value; }
         }
 
         private string _cep;
         public string Cep
         {
             get { return _cep; }
-            set { _cep = value; }
+            private set { _cep = value; }
         }
 
         private string _rua;
         public string Rua
         {
             get { return _rua; }
-            set { _rua = value; }
+            private set { _rua = value; }
         }
 
         private string _numero;
         public string Numero
         {
             get { return _numero; }
-            set { _numero = value; }
+            private set { _numero = value; }
         }
 
         private string _complemento;
         public string Complemento
         {
             get { return _complemento; }
-            set { _complemento = value; }
+            private set { _complemento = value; }
         }
 
         private string _bairro;
         public string Bairro
         {
             get { return _bairro; }
-            set { _bairro = value; }
+            private set { _bairro = value; }
         }
 
         private int _idCidade;
         public int IdCidade
         {
             get { return _idCidade; }
-            set { _idCidade = value; }
+            private set { _idCidade = value; }
+        }
+
+        private CidadeModel _cidade;
+        public CidadeModel Cidade
+        {
+            get { return _cidade; }
+            private set { _cidade = value; }
         }
 
         private int _idCliente;
         public int IdCliente
         {
             get { return _idCliente; }
-            set { _idCliente = value; }
+            private set { _idCliente = value; }
+        }
+
+        private ClienteModel _cliente;
+        public ClienteModel Cliente
+        {
+            get { return _cliente; }
+            private set { _cliente = value; }
         }
     }
 }

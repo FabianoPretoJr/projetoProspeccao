@@ -8,31 +8,20 @@ BEGIN
 			EXEC ClienteValido @IdCliente;
 			EXEC UsuarioValido @IdUsuario;
 
-			DECLARE	@IdStatusAtual		INT,
-					@PaisCliente		VARCHAR(25);
+			DECLARE	@IdStatusAtual		INT;
 
 			SELECT @IdStatusAtual = id_status FROM Cliente WHERE id_cliente = @IdCliente;
-
-			SELECT @PaisCliente = p.nome_pais
-				FROM Endereco e
-					INNER JOIN Cidade c	 ON (c.id_cidade = e.id_cidade)
-					INNER JOIN Estado es ON (es.id_estado = c.id_estado)
-					INNER JOIN Pais   p  ON (p.id_pais = es.id_pais)
-				WHERE e.id_cliente = @IdCliente;
 
 			IF(@IdStatusAtual = 6)
 				THROW 50000, 'Este cliente foi reprovado', 1;
 
-			IF(@IdStatusAtual <> 1 AND @PaisCliente = 'Brasil')
+			IF(@IdStatusAtual <> 1)
 				THROW 50000, 'Este cliente não está em fase de cadastro', 1;
-
-			IF(@IdStatusAtual <> 5 AND @PaisCliente <> 'Brasil')
-				THROW 50000, 'Este cliente não está em fase de aprovado pela gerência', 1;
 
 			IF(NOT EXISTS(SELECT * FROM Acesso a
 							INNER JOIN Usuario u ON (u.id_usuario = a.id_usuario)
 							INNER JOIN Perfil  p ON (p.id_perfil = a.id_perfil)
-						  WHERE a.id_usuario = @IdUsuario AND ((p.nome_perfil = 'OPERAÇÃO' AND @PaisCliente = 'Brasil') OR (p.nome_perfil = 'CONTROLE DE RISCO' AND @PaisCliente <> 'Brasil' AND @IdStatusAtual = 5))) 
+						  WHERE a.id_usuario = @IdUsuario AND p.nome_perfil = 'OPERAÇÃO') 
 			)
 				THROW 50000, 'Usuário não possui permissão para essa modificação', 1;
 

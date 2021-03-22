@@ -59,15 +59,17 @@ CRUD Acesso
 --------------------------------------------------------------------------------------------------------------------------------------
 
 -Criar método de cliente internacional = OK
--Criar validação para verificar opção se é válida para usuário logado
+-Criar validação para verificar opção se é válida para usuário logado = OK
 
-1	ADMINISTRAÇÃO => TUDO
-2	OPERAÇÃO => Cadastro, Enviar para Gerência, Enviar para Controle de Risco, Corrigir Cadastro
-3	GERÊNCIA => Aprovar, Reprovar, Enviar para Correção de Cadastro
-4	CONTROLE DE RISCO => Enviar para Gerência, Aprovar, Reprovar, Enviar para Correção de Cadastro
+-implementar classe de service = OK
+-implementar a interface = OK
+-implementar inversão de controle = OK
 
--implementar cada de service
--implementar a interface
+-refatorar aprovação de cliente internacional para já enviar ao controle de risco = 
 
-
+==PESQUISAR
+-Arquitetura em camadas
+-design patterns
+-repository
+-Estudar CQRS
 

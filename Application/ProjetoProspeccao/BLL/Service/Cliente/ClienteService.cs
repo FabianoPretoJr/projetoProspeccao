@@ -1,7 +1,9 @@
 ﻿using BLL.DTO.Cliente;
 using BLL.Interfaces.DAL;
 using BLL.Interfaces.Services.Cliente;
-using System;
+using BLL.Validacoes;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BLL.Service.Cliente
 {
@@ -14,16 +16,26 @@ namespace BLL.Service.Cliente
             _clienteDAL = clienteDAL;
         }
 
-        public void CadastrarCliente(ClienteCadastroDTO cliente)
+        public ClienteCadastroResultadoDTO CadastrarCliente(ClienteCadastroDTO cliente)
         {
-            try
+            var erros = ValidacaoService.ValidarErros(cliente);
+            ClienteCadastroResultadoDTO clienteCadastroResultado = new ClienteCadastroResultadoDTO();
+            if (erros.Count() > 0)
+            {
+                clienteCadastroResultado.Erros.AddRange(erros);
+                return clienteCadastroResultado;
+            }
+            else
             {
                 _clienteDAL.CadastrarCliente(cliente);
+                return null;
             }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+        }
+
+        public IEnumerable<ClienteListagemDTO> ListarClientes()
+        {
+            var listaClientes = _clienteDAL.ListarClientes();
+            return listaClientes;
         }
     }
 }

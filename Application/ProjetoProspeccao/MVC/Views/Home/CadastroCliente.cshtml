@@ -1,0 +1,75 @@
+﻿@model BLL.DTO.Cliente.ClienteCadastroDTO
+@{
+    ViewData["Title"] = "Clientes";
+}
+
+
+<h2>Cadastro de Cliente</h2>
+<hr />
+
+<form class="form-horizontal" asp-action="CadastrarCliente" asp-controller="Clientes" method="POST">
+    <input type="hidden" asp-for="IdUsuario" value="2" />
+
+    <label asp-for="Nome"></label>
+    <input asp-for="Nome" type="text" class="form-control" placeholder="Nome do cliente" />
+    <span asp-validation-for="Nome"></span><br />
+
+    <label asp-for="Cpf"></label>
+    <input asp-for="Cpf" type="text" class="form-control" placeholder="CPF do cliente" />
+    <span asp-validation-for="Cpf"></span><br />
+
+    <label asp-for="Rg"></label>
+    <input asp-for="Rg" type="text" class="form-control" placeholder="RG do cliente" />
+    <span asp-validation-for="Rg"></span><br />
+
+    <label asp-for="DataNascimento"></label>
+    <input asp-for="DataNascimento" type="date" class="form-control" placeholder="Data de nascimento do cliente" />
+    <span asp-validation-for="DataNascimento"></span><br />
+
+    <label asp-for="Email"></label>
+    <input asp-for="Email" type="email" class="form-control" placeholder="Email do cliente" />
+    <span asp-validation-for="Email"></span><br />
+
+    <label asp-for="NumeroTelefone"></label>
+    <input asp-for="NumeroTelefone" type="text" class="form-control" placeholder="Número de Telefone do cliente" />
+    <span asp-validation-for="NumeroTelefone"></span><br />
+
+    <label asp-for="Cep"></label>
+    <input asp-for="Cep" type="text" class="form-control" placeholder="CEP do cliente" />
+    <span asp-validation-for="Cep"></span><br />
+
+    <label asp-for="Rua"></label>
+    <input asp-for="Rua" type="text" class="form-control" placeholder="Rua do cliente" />
+    <span asp-validation-for="Rua"></span><br />
+
+    <label asp-for="Numero"></label>
+    <input asp-for="Numero" type="text" class="form-control" placeholder="Número residencial do cliente" />
+    <span asp-validation-for="Numero"></span><br />
+
+    <label asp-for="Complemento"></label>
+    <input asp-for="Complemento" type="text" class="form-control" placeholder="Completo de endereço do cliente" />
+    <span asp-validation-for="Complemento"></span><br />
+
+    <label asp-for="Bairro"></label>
+    <input asp-for="Bairro" type="text" class="form-control" placeholder="Bairro do cliente" />
+    <span asp-validation-for="Bairro"></span><br />
+
+    <label>Pais</label>
+    <select class="form-control" onchange="listarEstados(this)">
+        <option value="">Selecione</option>
+        @foreach (var pais in @ViewBag.listaPais)
+        {
+            <option value="@pais.Id">@pais.NomePais</option>
+        }
+    </select><br />
+
+    <div id="renderEstado"></div><br />
+    <div id="renderCidade"></div>
+
+    <input type="hidden" asp-for="IdCidade" id="idCidade" />
+    <span asp-validation-for="IdCidade"></span><br /><br />
+
+    <button class="btn btn-success">Cadastrar cliente</button>
+</form>
+
+<script src="~/js/cad-cliente.js"></script>

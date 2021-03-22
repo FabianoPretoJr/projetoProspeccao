@@ -17,7 +17,7 @@ namespace DAL
 
         public SqlConnection Conectar()
         {
-            if(con.State == ConnectionState.Closed)
+            if (con.State == ConnectionState.Closed)
             {
                 con.Open();
             }
@@ -26,7 +26,7 @@ namespace DAL
 
         public void Desconectar()
         {
-            if(con.State == ConnectionState.Open)
+            if (con.State == ConnectionState.Open)
             {
                 con.Close();
             }

@@ -34,10 +34,10 @@ BEGIN
 				THROW 50000, 'Usuário não possui permissão para essa modificação', 1;
 
 			INSERT INTO Analise (id_status, id_cliente, id_usuario, data_hora)
-				VALUES (1, @IdCliente, @IdUsuario, GETDATE());
+				VALUES (2, @IdCliente, @IdUsuario, GETDATE());
 
 			UPDATE Cliente
-				SET id_status = 1
+				SET id_status = 2
 				WHERE id_cliente = @IdCliente;
 		COMMIT TRAN
 	END TRY

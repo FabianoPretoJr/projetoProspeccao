@@ -1,9 +1,9 @@
 EXEC CadastroCliente 
-	'Fabiano Preto', 
-	'44315144673', --cpf
+	'Anerinda', 
+	'41635141543', --cpf
 	'633299126', 
 	'12/09/2001', 
-	'fabiano@email.com', 
+	'anerinda@email.com', 
 	'985592015', 
 	'25946135', 
 	'Rua Jácare', 
@@ -22,11 +22,11 @@ EXEC AtualizarCliente
 	'paulo2@email.com';
 
 EXEC CadastroCliente --INTERNACIONAL
-	'Matheus', 
-	'415434768134', --cpf
+	'Antonia', 
+	'165414768134', --cpf
 	'633154126', 
 	'01/11/1999', 
-	'matheus@email.com', 
+	'antonia@email.com', 
 	'985596548', 
 	NULL, 
 	'Street Green', 

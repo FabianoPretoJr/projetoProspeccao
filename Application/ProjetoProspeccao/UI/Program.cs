@@ -9,6 +9,7 @@ using DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace UI
 {
@@ -31,18 +32,17 @@ namespace UI
 
                 Console.Clear();
 
-                if (usuarioService.Autenticar(ref usuarioAutenticarDTO))
-                {
-                    List<UsuarioVerificarResultadoDTO> list = usuarioService.Verificar(usuarioAutenticarDTO);
+                var respostaAutenticarUsuario = usuarioService.Autenticar(ref usuarioAutenticarDTO);
+                if (respostaAutenticarUsuario.Erros.Count() > 0)
+                    ExibirErros(respostaAutenticarUsuario.Erros);
 
-                    Console.WriteLine("\n\nId: " + usuarioAutenticarDTO.IdUsuario);
-                    Console.WriteLine("Login: " + usuarioAutenticarDTO.Login);
-                    Console.WriteLine("Senha: " + usuarioAutenticarDTO.Senha);
-                    Console.WriteLine("Acesso:");
-                    foreach(var item in list)
-                    {
-                        Console.WriteLine("\t- " + item.NomePerfil);
-                    }
+                if (respostaAutenticarUsuario.RetornoAutenticacaoUsuario)
+                {
+                    var respostaPerfilUsuario = usuarioService.ListarPerfilsDeUsuario(usuarioAutenticarDTO);
+                    if (respostaPerfilUsuario.Erros.Count() > 0)
+                        ExibirErros(respostaPerfilUsuario.Erros);
+
+                    ApresentarDadosUsuario(usuarioAutenticarDTO, respostaPerfilUsuario.PerfilsDeUsuario);
 
                     int opcao = ObterOpcao();
 
@@ -53,49 +53,139 @@ namespace UI
                         switch (opcao)
                         {
                             case 1:
-                                if (list.Any(l => l.IdPerfil == (int)EPerfil.Operacao))
-                                        CadastrarCliente(usuarioAutenticarDTO);
+                                if (respostaPerfilUsuario.PerfilsDeUsuario.Any(l => l.IdPerfil == (int)EPerfil.Operacao))
+                                    CadastrarCliente(usuarioAutenticarDTO);
                                 else
-                                    Console.WriteLine("Acesso negado");
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("\n\nAcesso negado");
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                }
                                 break;
                             case 2:
-                                if(list.Any(l => l.IdPerfil == (int)EPerfil.Operacao || l.IdPerfil == (int)EPerfil.Controle_de_risco))
+                                if (respostaPerfilUsuario.PerfilsDeUsuario.Any(l => l.IdPerfil == (int)EPerfil.Operacao))
                                     EnviarAnaliseGerencia(usuarioAutenticarDTO);
                                 else
-                                    Console.WriteLine("Acesso negado");
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("\n\nAcesso negado");
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                }
                                 break;
                             case 3:
-                                EnviarAnaliseControleDeRisco(usuarioAutenticarDTO); //colocar depois do aprovar
+                                if (respostaPerfilUsuario.PerfilsDeUsuario.Any(l => l.IdPerfil == (int)EPerfil.Gerencia))
+                                    EnviarAnaliseControleDeRisco(usuarioAutenticarDTO); // juntar com aprovar
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("\n\nAcesso negado");
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                }
                                 break;
                             case 4:
-                                AprovarFluxo(usuarioAutenticarDTO);
+                                if (respostaPerfilUsuario.PerfilsDeUsuario.Any(l => l.IdPerfil == (int)EPerfil.Gerencia || l.IdPerfil == (int)EPerfil.Controle_de_risco))
+                                    AprovarFluxo(usuarioAutenticarDTO);
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("\n\nAcesso negado");
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                }
                                 break;
                             case 5:
-                                ReprovarFluxo(usuarioAutenticarDTO);
+                                if (respostaPerfilUsuario.PerfilsDeUsuario.Any(l => l.IdPerfil == (int)EPerfil.Gerencia || l.IdPerfil == (int)EPerfil.Controle_de_risco))
+                                    ReprovarFluxo(usuarioAutenticarDTO);
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("\n\nAcesso negado");
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                }
                                 break;
                             case 6:
-                                CorrecaoDeCadastro(usuarioAutenticarDTO);
+                                if (respostaPerfilUsuario.PerfilsDeUsuario.Any(l => l.IdPerfil == (int)EPerfil.Gerencia || l.IdPerfil == (int)EPerfil.Controle_de_risco))
+                                    CorrecaoDeCadastro(usuarioAutenticarDTO);
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("\n\nAcesso negado");
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                }
+                                break;
+                            case 7:
+                                if (respostaPerfilUsuario.PerfilsDeUsuario.Any(l => l.IdPerfil == (int)EPerfil.Operacao))
+                                    DevolverCadastro(usuarioAutenticarDTO);
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("\n\nAcesso negado");
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                }
                                 break;
                             default:
                                 Console.Clear();
+                                Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("\n\nOpção inválida!!!");
+                                Console.ForegroundColor = ConsoleColor.White;
                                 break;
                         }
+
+                        ApresentarDadosUsuario(usuarioAutenticarDTO, respostaPerfilUsuario.PerfilsDeUsuario);
 
                         opcao = ObterOpcao();
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Acesso negado");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("\n\nAcesso negado");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
 
                 Console.WriteLine("\n\nAté a próxima!!!");
                 Console.ReadKey();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(e.Message);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+        }
+
+        private static void ApresentarDadosUsuario(UsuarioAutenticarDTO usuarioAutenticarDTO, List<PerfilDeUsuarioDTO> list)
+        {
+            Console.WriteLine("\n\n<=====DADOS DO USUÁRIO=====>\n");
+            Console.WriteLine("Id: " + usuarioAutenticarDTO.IdUsuario);
+            Console.WriteLine("Login: " + usuarioAutenticarDTO.Login);
+            Console.WriteLine("Senha: " + usuarioAutenticarDTO.Senha);
+            Console.WriteLine("Acesso:");
+            foreach (var item in list)
+            {
+                Console.WriteLine("\t- " + item.NomePerfil);
+            }
+        }
+
+        private static void DevolverCadastro(UsuarioAutenticarDTO usuario)
+        {
+            Console.WriteLine("\n\nDevolver cadastro ao Fluxo");
+
+            try
+            {
+                FluxoDTO fluxoDTO = new FluxoDTO();
+                fluxoDTO.IdCliente = InformarIdCliente();
+                fluxoDTO.IdUsuario = usuario.IdUsuario;
+
+                FluxoService fluxo = new FluxoService(new FluxoDAL());
+                var respostaFluxo = fluxo.DevolverCadastro(fluxoDTO);
+                if (respostaFluxo != null)
+                    ExibirErros(respostaFluxo.Erros);
+            }
+            catch (Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
@@ -110,11 +200,15 @@ namespace UI
                 fluxoDTO.IdUsuario = usuario.IdUsuario;
 
                 FluxoService fluxo = new FluxoService(new FluxoDAL());
-                fluxo.CorrecaoDeCadastro(fluxoDTO);
+                var respostaFluxo = fluxo.CorrecaoDeCadastro(fluxoDTO);
+                if (respostaFluxo != null)
+                    ExibirErros(respostaFluxo.Erros);
             }
             catch (Exception e)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(e.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
@@ -129,11 +223,15 @@ namespace UI
                 fluxoDTO.IdUsuario = usuario.IdUsuario;
 
                 FluxoService fluxo = new FluxoService(new FluxoDAL());
-                fluxo.ReprovarFluxo(fluxoDTO);
+                var respostaFluxo = fluxo.ReprovarFluxo(fluxoDTO);
+                if (respostaFluxo != null)
+                    ExibirErros(respostaFluxo.Erros);
             }
             catch (Exception e)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(e.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
@@ -148,11 +246,15 @@ namespace UI
                 fluxoDTO.IdUsuario = usuario.IdUsuario;
 
                 FluxoService fluxo = new FluxoService(new FluxoDAL());
-                fluxo.EnviarAnaliseControleDeRisco(fluxoDTO);
+                var respostaFluxo = fluxo.EnviarAnaliseControleDeRisco(fluxoDTO);
+                if (respostaFluxo != null)
+                    ExibirErros(respostaFluxo.Erros);
             }
             catch (Exception e)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(e.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
@@ -191,11 +293,15 @@ namespace UI
                 clienteDTO.IdUsuario = usuario.IdUsuario;
 
                 ClienteService cliente = new ClienteService(new ClienteDAL());
-                cliente.CadastrarCliente(clienteDTO);
+                var respostaCadastro = cliente.CadastrarCliente(clienteDTO);
+                if (respostaCadastro != null)
+                    ExibirErros(respostaCadastro.Erros);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(e.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
@@ -210,11 +316,15 @@ namespace UI
                 fluxoDTO.IdUsuario = usuario.IdUsuario;
 
                 FluxoService fluxo = new FluxoService(new FluxoDAL());
-                fluxo.AprovarFluxo(fluxoDTO);
+                var respostaFluxo = fluxo.AprovarFluxo(fluxoDTO);
+                if (respostaFluxo != null)
+                    ExibirErros(respostaFluxo.Erros);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(e.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
@@ -229,11 +339,15 @@ namespace UI
                 fluxoDTO.IdUsuario = usuario.IdUsuario;
 
                 FluxoService fluxo = new FluxoService(new FluxoDAL());
-                fluxo.EnviarAnaliseGerencia(fluxoDTO);
+                var respostaFluxo = fluxo.EnviarAnaliseGerencia(fluxoDTO);
+                if (respostaFluxo != null)
+                    ExibirErros(respostaFluxo.Erros);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(e.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
@@ -253,11 +367,24 @@ namespace UI
             Console.WriteLine("4 - Aprovar cliente");
             Console.WriteLine("5 - Reprovar cliente");
             Console.WriteLine("6 - Correção de cadastro");
+            Console.WriteLine("7 - Devolver cadastro ao fluxo");
             Console.WriteLine("0 - Sair");
 
             Console.Write("\nSelecione a sua opção: ");
             int opcao = int.Parse(Console.ReadLine());
             return opcao;
+        }
+
+        public static void ExibirErros(IEnumerable<ValidationResult> erros)
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\n\n<=====ERROS=====>\n");
+            foreach (var error in erros)
+            {
+                Console.WriteLine(error.ErrorMessage);
+            }
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }

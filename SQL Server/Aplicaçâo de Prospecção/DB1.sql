@@ -106,6 +106,8 @@ SELECT * FROM Pais;
 SELECT * FROM Estado;
 SELECT * FROM Cidade;
 
+SELECT * FROM PaisEstadoCidade;
+
 /*
 DROP TABLE Acesso;
 DROP TABLE Perfil;

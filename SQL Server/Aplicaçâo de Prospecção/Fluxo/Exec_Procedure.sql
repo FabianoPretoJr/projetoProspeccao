@@ -7,25 +7,25 @@ SELECT * FROM StatusAnalise;
 SELECT * FROM Endereco;
 select * from Analise;
 
-EXEC EnviarAnaliseGerencia @IdCliente = 8, @IdUsuario = 4;
+EXEC EnviarAnaliseGerencia @IdCliente = 16, @IdUsuario = 4;
 
-EXEC EnviarAnaliseControleDeRisco @IdCliente = 8, @IdUsuario = 2;
+EXEC EnviarAnaliseControleDeRisco @IdCliente = 16, @IdUsuario = 4;
 
-EXEC AprovarFluxo @IdCliente = 8, @IdUsuario = 4;
+EXEC AprovarFluxo @IdCliente = 16, @IdUsuario = 4;
 
-EXEC ReprovarFluxo @IdCliente = 17, @IdUsuario = 3;
+EXEC ReprovarFluxo @IdCliente = 15, @IdUsuario = 4;
 
-EXEC CorrecaoDeCadastro @IdCliente = 17, @IdUsuario = 1;
+EXEC CorrecaoDeCadastro @IdCliente = 16, @IdUsuario = 1;
 
-EXEC DevolverCadastro @IdCliente = 17, @IdUsuario = 2;
+EXEC DevolverCadastro @IdCliente = 12, @IdUsuario = 2;
 
 /*
 1 - gerência
 2 - operação
 3 - controle de risco
 
+N = 15
 I = 16
-N = 17
 
 1 - Cadastrato
 2 - Aguradando análise da gerência

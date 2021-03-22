@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL.Models
 {
-    public class ClienteModel : BaseModel
+    public class ClienteModel
     {
         public ClienteModel(string nome, string cpf, string rg, DateTime dataNascimento, string email)
         {
@@ -17,8 +13,9 @@ namespace BLL.Models
             this.Email = email;
         }
 
-        public ClienteModel(int id, string nome, string cpf, string rg, DateTime dataNascimento, string email) : base(id)
+        public ClienteModel(int id, string nome, string cpf, string rg, DateTime dataNascimento, string email)
         {
+            this.Id = id;
             this.Nome = nome;
             this.Cpf = cpf;
             this.Rg = rg;
@@ -26,46 +23,60 @@ namespace BLL.Models
             this.Email = email;
         }
 
+        private int _id;
+        public int Id
+        {
+            get { return _id; }
+            private set { _id = value; }
+        }
+
         private string _nome;
         public string Nome
         {
             get { return _nome; }
-            set { _nome = value; }
+            private set { _nome = value; }
         }
 
         private string _cpf;
         public string Cpf
         {
             get { return _cpf; }
-            set { _cpf = value; }
+            private set { _cpf = value; }
         }
 
         private string _rg;
         public string Rg
         {
             get { return _rg; }
-            set { _rg = value; }
+            private set { _rg = value; }
         }
 
         private DateTime _dataNascimento;
         public DateTime DataNascimento
         {
             get { return _dataNascimento; }
-            set { _dataNascimento = value; }
+            private set { _dataNascimento = value; }
         }
 
         private string _email;
         public string Email
         {
             get { return _email; }
-            set { _email = value; }
+            private set { _email = value; }
         }
 
         private int _idStatus;
-        private int IdStatus
+        public int IdStatus
         {
             get { return _idStatus; }
-            set { _idStatus = value; }
+            private set { _idStatus = value; }
+        }
+
+        private StatusAnaliseModel _statusAnalise;
+        public StatusAnaliseModel StatusAnalise
+        {
+            get { return _statusAnalise; }
+            private set { _statusAnalise = value; }
         }
     }
 }

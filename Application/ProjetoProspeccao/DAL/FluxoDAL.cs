@@ -26,7 +26,7 @@ namespace DAL
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                throw e;
             }
         }
 
@@ -47,7 +47,7 @@ namespace DAL
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                throw e;
             }
         }
 
@@ -68,7 +68,7 @@ namespace DAL
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                throw e;
             }
         }
 
@@ -89,7 +89,7 @@ namespace DAL
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                throw e;
             }
         }
 
@@ -110,7 +110,7 @@ namespace DAL
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                throw e;
             }
         }
 
@@ -131,7 +131,7 @@ namespace DAL
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                throw e;
             }
         }
     }

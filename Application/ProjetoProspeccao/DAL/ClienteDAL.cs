@@ -1,6 +1,7 @@
 ﻿using BLL.DTO.Cliente;
 using BLL.Interfaces.DAL;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace DAL
@@ -36,7 +37,43 @@ namespace DAL
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                throw e;
+            }
+        }
+
+        public IEnumerable<ClienteListagemDTO> ListarClientes()
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con.Conectar();
+
+                cmd.CommandText = @"SELECT * FROM Cliente";
+
+                SqlDataReader dr = cmd.ExecuteReader();
+          
+                List<ClienteListagemDTO> listaCliente = new List<ClienteListagemDTO>();
+
+                while (dr.Read())
+                {
+                    ClienteListagemDTO cliente = new ClienteListagemDTO();
+
+                    cliente.Id = Convert.ToInt32(dr["id_cliente"]);
+                    cliente.Nome = dr["nome"].ToString();
+                    cliente.CPF = dr["cpf"].ToString();
+                    cliente.RG = dr["rg"].ToString();
+                    cliente.DataNascimento = Convert.ToDateTime(dr["data_nascimento"]);
+                    cliente.Email = dr["email"].ToString();
+
+                    listaCliente.Add(cliente);
+                }
+
+                con.Desconectar();
+                return listaCliente;
+            }
+            catch(Exception e)
+            {
+                throw e;
             }
         }
     }

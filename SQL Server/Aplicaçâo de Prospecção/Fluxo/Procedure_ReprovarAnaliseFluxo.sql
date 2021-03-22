@@ -28,11 +28,10 @@ BEGIN
 							INNER JOIN Usuario u ON (u.id_usuario = a.id_usuario)
 							INNER JOIN Perfil  p ON (p.id_perfil = a.id_perfil)
 						  WHERE a.id_usuario = @IdUsuario AND 
-						  ((p.nome_perfil = 'GERÊNCIA' AND @PaisCliente = 'Brasil' AND @IdStatusAtual = 2) OR
-						  (p.nome_perfil = 'GERÊNCIA' AND @PaisCliente <> 'Brasil' AND @IdStatusAtual = 2) OR
+						  ((p.nome_perfil = 'GERÊNCIA' AND @IdStatusAtual = 2) OR
 						  (p.nome_perfil = 'CONTROLE DE RISCO' AND @PaisCliente <> 'Brasil' AND @IdStatusAtual = 4)))
 			)                                  
-				THROW 50000, 'Usuário não possui permissão para essa modificação', 1; --VERIFICAR UM CASO DE TENTAR UM USUÁRIO QUE SEJA GERÊNTE E DO CONTROLE DE RISCO
+				THROW 50000, 'Usuário não possui permissão para essa modificação', 1;
 
 			INSERT INTO Analise (id_status, id_cliente, id_usuario, data_hora)
 						VALUES (6, @IdCliente, @IdUsuario, GETDATE());

@@ -1,42 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BLL.Models
+﻿namespace BLL.Models
 {
-    public class TelefoneModel : BaseModel
+    public class TelefoneModel
     {
-        public TelefoneModel(string numeroTelefone)
-        {
-            this.NumeroTelefone = numeroTelefone;
-        }
-
         public TelefoneModel(string numeroTelefone, int idCliente)
         {
             this.NumeroTelefone = numeroTelefone;
             this.IdCliente = idCliente;
         }
 
-        public TelefoneModel(int id, string numeroTelefone, int idCliente) : base(id)
+        private int _id;
+        public int Id
         {
-            this.NumeroTelefone = numeroTelefone;
-            this.IdCliente = idCliente;
+            get { return _id; }
+            private set { _id = value; }
         }
 
         private string _numeroTelefone;
         public string NumeroTelefone
         {
             get { return _numeroTelefone; }
-            set { _numeroTelefone = value; }
+            private set { _numeroTelefone = value; }
         }
 
         private int _idCliente;
         public int IdCliente
         {
             get { return _idCliente; }
-            set { _idCliente = value; }
+            private set { _idCliente = value; }
+        }
+
+        private ClienteModel _clienteModel;
+        public ClienteModel ClienteModel
+        {
+            get { return _clienteModel; }
+            set { _clienteModel = value; }
         }
     }
 }

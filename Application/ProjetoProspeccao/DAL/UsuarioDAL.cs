@@ -12,6 +12,7 @@ namespace DAL
 
         public bool Autenticar(ref UsuarioAutenticarDTO usuario)
         {
+            bool retorno;
             try
             {
                 SqlCommand cmd = new SqlCommand();
@@ -23,8 +24,6 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@senha", usuario.Senha);
 
                 SqlDataReader dr = cmd.ExecuteReader();
-
-                bool retorno;
 
                 if (dr.HasRows)
                 {
@@ -42,37 +41,43 @@ namespace DAL
                 }
 
                 con.Desconectar();
-                return retorno;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-                return false;
+                throw e;
             }
+            return retorno;
         }
 
-        public List<UsuarioVerificarResultadoDTO> Verificar(UsuarioAutenticarDTO usuario)
+        public List<PerfilDeUsuarioDTO> ListarPerfilsDeUsuario(UsuarioAutenticarDTO usuario)
         {
-            List<UsuarioVerificarResultadoDTO> list = new List<UsuarioVerificarResultadoDTO>();
-
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con.Conectar();
-
-            cmd.CommandText = @"SELECT p.* FROM acesso a inner JOIN Usuario u ON (u.id_usuario = a.id_usuario) inner JOIN Perfil  p ON (p.id_perfil = a.id_perfil) WHERE a.id_usuario = @idUsuario";
-
-            cmd.Parameters.AddWithValue("@idUsuario", usuario.IdUsuario);
-
-            SqlDataReader dr = cmd.ExecuteReader();
-
-            while (dr.Read())
+            List<PerfilDeUsuarioDTO> list = new List<PerfilDeUsuarioDTO>();
+            try
             {
-                UsuarioVerificarResultadoDTO usuarioResultado = new UsuarioVerificarResultadoDTO();
-                usuarioResultado.IdPerfil = Convert.ToInt32(dr["id_perfil"]);
-                usuarioResultado.NomePerfil = dr["nome_perfil"].ToString();
-                list.Add(usuarioResultado);
-            }
 
-            con.Desconectar();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con.Conectar();
+
+                cmd.CommandText = @"SELECT p.* FROM acesso a inner JOIN Usuario u ON (u.id_usuario = a.id_usuario) inner JOIN Perfil  p ON (p.id_perfil = a.id_perfil) WHERE a.id_usuario = @idUsuario";
+
+                cmd.Parameters.AddWithValue("@idUsuario", usuario.IdUsuario);
+
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    PerfilDeUsuarioDTO perfilDeUsuarioDTO = new PerfilDeUsuarioDTO();
+                    perfilDeUsuarioDTO.IdPerfil = Convert.ToInt32(dr["id_perfil"]);
+                    perfilDeUsuarioDTO.NomePerfil = dr["nome_perfil"].ToString();
+                    list.Add(perfilDeUsuarioDTO);
+                }
+
+                con.Desconectar();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
             return list;
         }
     }
