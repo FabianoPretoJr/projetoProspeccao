@@ -34,9 +34,9 @@ BEGIN
 				THROW 50000, 'Usuário não possui permissão para essa modificação', 1;
 
 			IF(@PaisCliente = 'Brasil' OR @IdStatusAtual = 2)
-					SET @IdStatus = 3;
+				SET @IdStatus = 3;
 			ELSE
-					SET @IdStatus = 5;
+				SET @IdStatus = 5;
 
 			INSERT INTO Analise (id_status, id_cliente, id_usuario, data_hora)
 						VALUES (@IdStatus, @IdCliente, @IdUsuario, GETDATE());
@@ -44,6 +44,11 @@ BEGIN
 			UPDATE Cliente
 				SET id_status = @IdStatus
 				WHERE @IdCliente = id_cliente;
+
+			IF(@PaisCliente <> 'Brasil' AND @IdStatus = 3)
+				BEGIN
+					EXEC EnviarAnaliseControleDeRisco @IdCliente, @IdUsuario;
+				END
 		COMMIT TRAN
 	END TRY
 	BEGIN CATCH

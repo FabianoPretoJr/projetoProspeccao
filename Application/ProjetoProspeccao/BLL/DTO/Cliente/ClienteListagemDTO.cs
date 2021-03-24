@@ -10,5 +10,6 @@ namespace BLL.DTO.Cliente
         public string RG { get; set; }
         public DateTime DataNascimento { get; set; }
         public string Email { get; set; }
+        public int IdStatus { get; set; }
     }
 }

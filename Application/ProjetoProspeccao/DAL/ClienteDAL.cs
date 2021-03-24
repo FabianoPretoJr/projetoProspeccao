@@ -64,6 +64,7 @@ namespace DAL
                     cliente.RG = dr["rg"].ToString();
                     cliente.DataNascimento = Convert.ToDateTime(dr["data_nascimento"]);
                     cliente.Email = dr["email"].ToString();
+                    cliente.IdStatus = Convert.ToInt32(dr["id_status"]);
 
                     listaCliente.Add(cliente);
                 }
@@ -72,6 +73,85 @@ namespace DAL
                 return listaCliente;
             }
             catch(Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public IEnumerable<ClienteListagemDTO> ListarClientes(int idStatus)
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con.Conectar();
+
+                cmd.CommandText = @"SELECT * FROM Cliente WHERE id_status = @idStatus";
+
+                cmd.Parameters.AddWithValue("@idStatus", idStatus);
+
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                List<ClienteListagemDTO> listaCliente = new List<ClienteListagemDTO>();
+
+                while (dr.Read())
+                {
+                    ClienteListagemDTO cliente = new ClienteListagemDTO();
+
+                    cliente.Id = Convert.ToInt32(dr["id_cliente"]);
+                    cliente.Nome = dr["nome"].ToString();
+                    cliente.CPF = dr["cpf"].ToString();
+                    cliente.RG = dr["rg"].ToString();
+                    cliente.DataNascimento = Convert.ToDateTime(dr["data_nascimento"]);
+                    cliente.Email = dr["email"].ToString();
+                    cliente.IdStatus = Convert.ToInt32(dr["id_status"]);
+
+                    listaCliente.Add(cliente);
+                }
+
+                con.Desconectar();
+                return listaCliente;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public IEnumerable<ClienteListagemDTO> ListarClientes(int idStatus1, int idStatus2)
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con.Conectar();
+
+                cmd.CommandText = @"SELECT * FROM Cliente WHERE id_status = @idStatus1 OR id_status = @idStatus2";
+
+                cmd.Parameters.AddWithValue("@idStatus1", idStatus1);
+                cmd.Parameters.AddWithValue("@idStatus2", idStatus2);
+
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                List<ClienteListagemDTO> listaCliente = new List<ClienteListagemDTO>();
+
+                while (dr.Read())
+                {
+                    ClienteListagemDTO cliente = new ClienteListagemDTO();
+
+                    cliente.Id = Convert.ToInt32(dr["id_cliente"]);
+                    cliente.Nome = dr["nome"].ToString();
+                    cliente.CPF = dr["cpf"].ToString();
+                    cliente.RG = dr["rg"].ToString();
+                    cliente.DataNascimento = Convert.ToDateTime(dr["data_nascimento"]);
+                    cliente.Email = dr["email"].ToString();
+                    cliente.IdStatus = Convert.ToInt32(dr["id_status"]);
+
+                    listaCliente.Add(cliente);
+                }
+
+                con.Desconectar();
+                return listaCliente;
+            }
+            catch (Exception e)
             {
                 throw e;
             }

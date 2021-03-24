@@ -38,7 +38,7 @@
             <th>RG</th>
             <th>Data Nascimento</th>
             <th>E-mail</th>
-            <th>Botões</th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -50,6 +50,24 @@
                 <td>@cliente.RG</td>
                 <td>@cliente.DataNascimento.ToString("dd/MM/yyyy")</td>
                 <td>@cliente.Email</td>
+                <td>
+                    @switch (cliente.IdStatus)
+                    {
+                        case 1:
+                            <a href="/Clientes/EnviarAnaliseGerencia/@cliente.Id" class="btn btn-success">Enviar Análise da Gerência</a>
+                            break;
+                        case 2:
+                            <a href="/Clientes/AprovarFluxo/@cliente.Id" class="btn btn-success">Aprovar</a>
+                            <a href="/Clientes/CorrecaoDeCadastro/@cliente.Id" class="btn btn-warning">Correção</a>
+                            <a href="/Clientes/ReprovarFluxo/@cliente.Id" class="btn btn-danger">Reprovar</a>
+                            break;
+                        case 4:
+                            <a href="/Clientes/AprovarFluxo/@cliente.Id" class="btn btn-success">Aprovar</a>
+                            <a href="/Clientes/CorrecaoDeCadastro/@cliente.Id" class="btn btn-warning">Correção</a>
+                            <a href="/Clientes/ReprovarFluxo/@cliente.Id" class="btn btn-danger">Reprovar</a>
+                            break;
+                    }
+                </td>
             </tr>
         }
     </tbody>

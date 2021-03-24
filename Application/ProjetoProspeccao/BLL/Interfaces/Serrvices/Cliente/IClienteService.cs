@@ -1,5 +1,6 @@
 ﻿using BLL.DTO.Cliente;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace BLL.Interfaces.Services.Cliente
 {
@@ -7,5 +8,6 @@ namespace BLL.Interfaces.Services.Cliente
     {
         ClienteCadastroResultadoDTO CadastrarCliente(ClienteCadastroDTO clienteCadastroDTO);
         IEnumerable<ClienteListagemDTO> ListarClientes();
+        IEnumerable<ClienteListagemDTO> ListarClientes(IEnumerable<Claim> perfils);
     }
 }

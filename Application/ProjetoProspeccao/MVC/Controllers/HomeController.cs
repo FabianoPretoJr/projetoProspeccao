@@ -1,13 +1,12 @@
 ﻿using BLL.Interfaces.Serrvices.PaisEstadoCidade;
 using BLL.Interfaces.Services.Cliente;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MVC.Models;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace MVC.Controllers
 {
@@ -29,15 +28,26 @@ namespace MVC.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Clientes", "Home");
+            else
+                return View();
         }
 
+        //public IActionResult Dashboard()
+        //{
+        //    return View();
+        //}
+
+        [Authorize]
         public IActionResult Clientes()
         {
-            var listaCliente = _serviceCliente.ListarClientes();
+            var perfils = User.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+            var listaCliente = _serviceCliente.ListarClientes(perfils);
             return View(listaCliente);
         }
 
+        [Authorize(Roles = "2")]
         public IActionResult CadastroCliente()
         {
             ViewBag.listaPais = _servicePaisEstadoCidade.ListarPais();

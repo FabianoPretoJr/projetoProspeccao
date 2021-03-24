@@ -72,27 +72,6 @@ namespace DAL
             }
         }
 
-        public void EnviarAnaliseControleDeRisco(FluxoDTO fluxo)
-        {
-            try
-            {
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = con.Conectar();
-
-                cmd.CommandText = @"EXEC EnviarAnaliseControleDeRisco @idCliente, @idUsuario";
-
-                cmd.Parameters.AddWithValue("@idCliente", fluxo.IdCliente);
-                cmd.Parameters.AddWithValue("@idUsuario", fluxo.IdUsuario);
-
-                cmd.ExecuteNonQuery();
-                con.Desconectar();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
         public void EnviarAnaliseGerencia(FluxoDTO fluxo)
         {
             try

@@ -1,5 +1,26 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model BLL.DTO.Usuario.UsuarioAutenticarDTO
 @{
+    ViewData["Title"] = "Login";
 }
+@{
+    Layout = "_Layout";
+}
+
+<center>
+    <h2>Login</h2>
+    <hr />
+
+    <div style="width: 40%">
+        <form class="form-horizontal" asp-action="Autenticar" asp-controller="Usuario" method="POST">
+            <label>Login</label>
+            <input asp-for="Login" type="text" class="form-control" placeholder="Digite seu user" />
+            <span asp-validation-for="Login"></span><br />
+
+            <label>Senha</label>
+            <input asp-for="Senha" type="text" class="form-control" placeholder="Digite sua senha" />
+            <span asp-validation-for="Senha"></span><br /><br />
+
+            <button type="submit" class="btn btn-success">Acessar</button>
+        </form>
+    </div>
+</center>

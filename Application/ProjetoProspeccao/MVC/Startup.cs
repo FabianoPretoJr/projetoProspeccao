@@ -1,8 +1,10 @@
 using BLL.Interfaces.DAL;
 using BLL.Interfaces.Serrvices.PaisEstadoCidade;
 using BLL.Interfaces.Services.Cliente;
+using BLL.Interfaces.Services.Usuario;
 using BLL.Service.Cliente;
 using BLL.Service.PaisEstadoCidade;
+using BLL.Service.Usuario;
 using DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +16,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
+using BLL.Interfaces.Services.Fluxo;
+using BLL.Service.Fluxo;
 
 namespace MVC
 {
@@ -31,10 +37,23 @@ namespace MVC
         {
             services.AddControllersWithViews();
 
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => options.LoginPath = "/Home/Index");
+
             services.AddTransient<IClienteService, ClienteService>();
             services.AddTransient<IClienteDAL, ClienteDAL>();
             services.AddTransient<IPaisEstadoCidadeService, PaisEstadoCidadeService>();
             services.AddTransient<IPaisEstadoCidadeDAL, PaisEstadoCidadeDAL>();
+            services.AddTransient<IUsuarioService, UsuarioService>();
+            services.AddTransient<IUsuarioDAL, UsuarioDAL>();
+            services.AddTransient<IFluxoService, FluxoService>();
+            services.AddTransient<IFluxoDAL, FluxoDAL>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,7 +74,11 @@ namespace MVC
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
+
+            app.UseCookiePolicy();
 
             app.UseEndpoints(endpoints =>
             {

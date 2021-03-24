@@ -1,9 +1,12 @@
 ﻿using BLL.DTO.Cliente;
+using BLL.Enums;
 using BLL.Interfaces.DAL;
 using BLL.Interfaces.Services.Cliente;
 using BLL.Validacoes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 
 namespace BLL.Service.Cliente
 {
@@ -36,6 +39,18 @@ namespace BLL.Service.Cliente
         {
             var listaClientes = _clienteDAL.ListarClientes();
             return listaClientes;
+        }
+
+        public IEnumerable<ClienteListagemDTO> ListarClientes(IEnumerable<Claim> perfils)
+        {
+            if (perfils.Any(p => p.Value == ((int)EPerfil.Operacao).ToString()))
+                return _clienteDAL.ListarClientes(1, 7);
+            else if (perfils.Any(p => p.Value == ((int)EPerfil.Gerencia).ToString()))
+                return _clienteDAL.ListarClientes(2);
+            else if (perfils.Any(p => p.Value == ((int)EPerfil.Controle_de_risco).ToString()))
+                return _clienteDAL.ListarClientes(4);
+            else
+                return null; // ARRUMA ISSO DEPOIS
         }
     }
 }

@@ -7,7 +7,6 @@ namespace BLL.Interfaces.DAL
         void AprovarFluxo(FluxoDTO fluxoDTO);
         void CorrecaoDeCadastro(FluxoDTO fluxoDTO);
         void DevolverCadastro(FluxoDTO fluxoDTO);
-        void EnviarAnaliseControleDeRisco(FluxoDTO fluxoDTO);
         void EnviarAnaliseGerencia(FluxoDTO fluxoDTO);
         void ReprovarFluxo(FluxoDTO fluxoDTO);
     }

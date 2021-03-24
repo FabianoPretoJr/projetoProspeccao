@@ -72,16 +72,6 @@ namespace UI
                                     Console.ForegroundColor = ConsoleColor.White;
                                 }
                                 break;
-                            case 3:
-                                if (respostaPerfilUsuario.PerfilsDeUsuario.Any(l => l.IdPerfil == (int)EPerfil.Gerencia))
-                                    EnviarAnaliseControleDeRisco(usuarioAutenticarDTO); // juntar com aprovar
-                                else
-                                {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine("\n\nAcesso negado");
-                                    Console.ForegroundColor = ConsoleColor.White;
-                                }
-                                break;
                             case 4:
                                 if (respostaPerfilUsuario.PerfilsDeUsuario.Any(l => l.IdPerfil == (int)EPerfil.Gerencia || l.IdPerfil == (int)EPerfil.Controle_de_risco))
                                     AprovarFluxo(usuarioAutenticarDTO);
@@ -235,29 +225,6 @@ namespace UI
             }
         }
 
-        private static void EnviarAnaliseControleDeRisco(UsuarioAutenticarDTO usuario)
-        {
-            Console.WriteLine("\n\nEnviar cliente para análise do controle de risco");
-
-            try
-            {
-                FluxoDTO fluxoDTO = new FluxoDTO();
-                fluxoDTO.IdCliente = InformarIdCliente();
-                fluxoDTO.IdUsuario = usuario.IdUsuario;
-
-                FluxoService fluxo = new FluxoService(new FluxoDAL());
-                var respostaFluxo = fluxo.EnviarAnaliseControleDeRisco(fluxoDTO);
-                if (respostaFluxo != null)
-                    ExibirErros(respostaFluxo.Erros);
-            }
-            catch (Exception e)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(e.Message);
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-        }
-
         private static void CadastrarCliente(UsuarioAutenticarDTO usuario)
         {
             Console.WriteLine("\n\nCadastrar cliente");
@@ -363,7 +330,6 @@ namespace UI
             Console.WriteLine("\n\n<=====MENU DE AÇÕES=====>\n");
             Console.WriteLine("1 - Cadastrar cliente");
             Console.WriteLine("2 - Enviar cliente para análise da gerência");
-            Console.WriteLine("3 - Enviar cliente para análise do controle de risco");
             Console.WriteLine("4 - Aprovar cliente");
             Console.WriteLine("5 - Reprovar cliente");
             Console.WriteLine("6 - Correção de cadastro");

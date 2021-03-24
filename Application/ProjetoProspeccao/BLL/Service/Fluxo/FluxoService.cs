@@ -63,22 +63,6 @@ namespace BLL.Service.Fluxo
             }
         }
 
-        public FluxoResultadoDTO EnviarAnaliseControleDeRisco(FluxoDTO fluxoDTO)
-        {
-            FluxoResultadoDTO fluxoResultado = new FluxoResultadoDTO();
-            var erros = ValidacaoService.ValidarErros(fluxoDTO);
-            if (erros.Count() > 0)
-            {
-                fluxoResultado.Erros.AddRange(erros);
-                return fluxoResultado;
-            }
-            else
-            {
-                _fluxoDAL.EnviarAnaliseControleDeRisco(fluxoDTO);
-                return null;
-            }
-        }
-
         public FluxoResultadoDTO EnviarAnaliseGerencia(FluxoDTO fluxoDTO)
         {
             FluxoResultadoDTO fluxoResultado = new FluxoResultadoDTO();

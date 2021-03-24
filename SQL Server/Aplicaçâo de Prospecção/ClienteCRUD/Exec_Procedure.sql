@@ -22,11 +22,11 @@ EXEC AtualizarCliente
 	'paulo2@email.com';
 
 EXEC CadastroCliente --INTERNACIONAL
-	'Antonia', 
-	'165414768134', --cpf
+	'Claudio', 
+	'165414761734', --cpf
 	'633154126', 
 	'01/11/1999', 
-	'antonia@email.com', 
+	'claudio@email.com', 
 	'985596548', 
 	NULL, 
 	'Street Green', 
