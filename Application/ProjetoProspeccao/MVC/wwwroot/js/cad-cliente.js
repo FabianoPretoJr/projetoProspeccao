@@ -11,7 +11,7 @@ function listarEstados(id) {
     $.get(endereco, function (dados, status) {
         $("#renderEstado").append(`
             <label id="titleEstado">Estado</label>
-            <select class="form-control" id="estado" onchange="listarCidades(this)">
+            <select class="form-control" id="estado" onchange="listarCidades(this)" required>
                 <option value="">Selecione</option>
                 ${dados.map(item => {
                     return `<option key=${item.id} value="${item.id}">${item.nomeEstado}</option>`
@@ -29,7 +29,7 @@ function listarCidades(id) {
     $.get(endereco, function (dados, status) {
         $("#renderCidade").append(`
             <label id="titleCidade">Cidade</label>
-            <select class="form-control" id="cidade" onchange="adcIdCidade(this)">
+            <select class="form-control" id="cidade" onchange="adcIdCidade(this)" required>
                 <option value="">Selecione</option>
                 ${dados.map(item => {
             return `<option key=${item.id} value="${item.id}">${item.nomeCidade}</option>`

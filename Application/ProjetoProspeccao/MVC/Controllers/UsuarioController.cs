@@ -3,12 +3,13 @@ using BLL.Interfaces.Services.Usuario;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using MVC.Models;
+using System.Linq;
+using MVC.Utils;
 
 namespace MVC.Controllers
 {
@@ -24,20 +25,53 @@ namespace MVC.Controllers
         [HttpPost]
         public IActionResult Autenticar(UsuarioAutenticarDTO usuario)
         {
-            if(ModelState.IsValid)
+            try
             {
-                var respostaAutenticarUsuario = _serviceUsuario.Autenticar(ref usuario);
-                if (respostaAutenticarUsuario.RetornoAutenticacaoUsuario)
+                if (ModelState.IsValid)
                 {
-                    Login(usuario);
-                    return RedirectToAction("Clientes", "Home");
+                    var respostaAutenticarUsuario = _serviceUsuario.Autenticar(ref usuario);
+
+                    if(respostaAutenticarUsuario.Erros.Count() > 0)
+                    {
+                        ErrosView listaErros = new ErrosView();
+                        listaErros.Erros.AddRange(Erros.ListarErros(respostaAutenticarUsuario.Erros));
+                        return View("../Home/ExibirErros", listaErros);
+                    }
+                    else
+                    {
+                        if (respostaAutenticarUsuario.RetornoAutenticacaoUsuario)
+                        {
+                            var respostaPerfilUsuario = _serviceUsuario.ListarPerfilsDeUsuario(usuario);
+
+                            if (respostaPerfilUsuario.Erros.Count() > 0)
+                            {
+                                ErrosView listaErros = new ErrosView();
+                                listaErros.Erros.AddRange(Erros.ListarErros(respostaPerfilUsuario.Erros));
+                                return View("../Home/ExibirErros", listaErros);
+                            }
+                            else
+                            {
+                                Login(usuario, respostaPerfilUsuario);
+                                return RedirectToAction("Clientes", "Home");
+                            }
+                        }
+                        else
+                        {
+                            ViewBag.AcessoNegado = "Acesso negado";
+                            return View("../Home/Index");
+                        }
+                    }
                 }
                 else
+                {
                     return View("../Home/Index");
+                }
             }
-            else
+            catch(Exception e)
             {
-                return View("../Home/Index");
+                ErrosView listaErros = new ErrosView();
+                listaErros.Erros.Add(e.Message);
+                return View("../Home/ExibirErros", listaErros);
             }
         }
 
@@ -47,10 +81,8 @@ namespace MVC.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private async void Login(UsuarioAutenticarDTO usuario)
+        private async void Login(UsuarioAutenticarDTO usuario, ListaPerfilsDeUsuarioResultadoDTO respostaPerfilUsuario)
         {
-            var respostaPerfilUsuario = _serviceUsuario.ListarPerfilsDeUsuario(usuario);
-
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, usuario.Login),

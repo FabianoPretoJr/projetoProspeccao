@@ -7,7 +7,10 @@ namespace BLL.Interfaces.Services.Cliente
     public interface IClienteService
     {
         ClienteCadastroResultadoDTO CadastrarCliente(ClienteCadastroDTO clienteCadastroDTO);
-        IEnumerable<ClienteListagemDTO> ListarClientes();
+        ClienteCorrecaoDTO ObterDadosCliente(int idCliente);
+        ClienteCorrecaoResultadoDTO CorrigirCliente(ClienteCorrecaoDTO cliente);
+        IEnumerable<ClienteListagemDTO> ListarClientesEncerrados();
         IEnumerable<ClienteListagemDTO> ListarClientes(IEnumerable<Claim> perfils);
+        void ExcluirCliente(ClienteExcluirDTO cliente);
     }
 }

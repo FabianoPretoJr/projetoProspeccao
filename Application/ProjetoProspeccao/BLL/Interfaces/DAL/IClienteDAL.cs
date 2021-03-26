@@ -6,8 +6,10 @@ namespace BLL.Interfaces.DAL
     public interface IClienteDAL
     {
         void CadastrarCliente(ClienteCadastroDTO cliente);
-        IEnumerable<ClienteListagemDTO> ListarClientes();
-        IEnumerable<ClienteListagemDTO> ListarClientes(int idStatus);
-        IEnumerable<ClienteListagemDTO> ListarClientes(int idStatus1, int idStatus2);
+        ClienteCorrecaoDTO ObterDadosCliente(int idCliente);
+        void CorrigirCliente(ClienteCorrecaoDTO cliente);
+        IEnumerable<ClienteListagemDTO> ListarClientesEncerrados();
+        IEnumerable<ClienteListagemDTO> ListarClientes(int[] idsStatus);
+        void ExcluirCliente(ClienteExcluirDTO cliente);
     }
 }

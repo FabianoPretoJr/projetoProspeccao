@@ -1,0 +1,19 @@
+﻿@model MVC.Models.ErrosView;
+@{
+    ViewData["Title"] = "Erros";
+}
+@{
+    Layout = "_Layout";
+}
+
+<center>
+    <h2>Erros</h2>
+    <hr />
+
+    <ul>
+    @foreach(var erro in Model.Erros)
+    {
+        <li>erro</li>
+    }
+    </ul>
+</center>

@@ -13,12 +13,17 @@
     <div style="width: 40%">
         <form class="form-horizontal" asp-action="Autenticar" asp-controller="Usuario" method="POST">
             <label>Login</label>
-            <input asp-for="Login" type="text" class="form-control" placeholder="Digite seu user" />
+            <input asp-for="Login" type="text" class="form-control" placeholder="Digite seu user" maxlength="45" required />
             <span asp-validation-for="Login"></span><br />
 
             <label>Senha</label>
-            <input asp-for="Senha" type="text" class="form-control" placeholder="Digite sua senha" />
+            <input asp-for="Senha" type="password" class="form-control" placeholder="Digite sua senha" maxlength="15" required />
             <span asp-validation-for="Senha"></span><br /><br />
+
+            @if(@ViewBag.AcessoNegado != null)
+            {
+                <span>@ViewBag.AcessoNegado</span><br /><br />
+            }
 
             <button type="submit" class="btn btn-success">Acessar</button>
         </form>

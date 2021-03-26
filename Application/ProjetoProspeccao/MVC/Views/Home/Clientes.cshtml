@@ -55,6 +55,7 @@
                     {
                         case 1:
                             <a href="/Clientes/EnviarAnaliseGerencia/@cliente.Id" class="btn btn-success">Enviar Análise da Gerência</a>
+                            <a href="/Clientes/ExcluirCliente/@cliente.Id" class="btn btn-danger">Excluir</a>
                             break;
                         case 2:
                             <a href="/Clientes/AprovarFluxo/@cliente.Id" class="btn btn-success">Aprovar</a>
@@ -65,6 +66,11 @@
                             <a href="/Clientes/AprovarFluxo/@cliente.Id" class="btn btn-success">Aprovar</a>
                             <a href="/Clientes/CorrecaoDeCadastro/@cliente.Id" class="btn btn-warning">Correção</a>
                             <a href="/Clientes/ReprovarFluxo/@cliente.Id" class="btn btn-danger">Reprovar</a>
+                            break;
+                        case 7:
+                            <a href="/Home/CorrigirCadastro/@cliente.Id" class="btn btn-warning">Corrigir cadastro</a>
+                            break;
+                        default:
                             break;
                     }
                 </td>

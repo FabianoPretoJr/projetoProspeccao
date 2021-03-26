@@ -241,5 +241,10 @@ C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProsp
 C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
 C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
-C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\obj\Debug\netcoreapp3.1\Razor\Views\Home\Dashboard.cshtml.g.cs
 C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\obj\Debug\netcoreapp3.1\Razor\Views\Home\ClientesEncerrados.cshtml.g.cs
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\obj\Debug\netcoreapp3.1\Razor\Views\Home\CorrigirCadastro.cshtml.g.cs
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\obj\Debug\netcoreapp3.1\Razor\Views\Home\ClientesControleRisco.cshtml.g.cs
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\obj\Debug\netcoreapp3.1\Razor\Views\Home\ClientesGerencia.cshtml.g.cs
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\obj\Debug\netcoreapp3.1\Razor\Views\Home\ClientesOperacao.cshtml.g.cs
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\obj\Debug\netcoreapp3.1\Razor\Views\Home\ExibirErros.cshtml.g.cs

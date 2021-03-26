@@ -27,7 +27,7 @@ BEGIN
 			)
 				THROW 50000, 'Usuário não possui permissão para cadastrar cliente', 1;
 
-			SELECT @IdStatus = id_status FROM StatusAnalise WHERE nome_status = 'Cadastrato';
+			SELECT @IdStatus = 1;
 
 			IF(dbo.ISEMPTY(@Nome) = 0)
 					THROW 50000, 'Campo nome está vazio', 1;

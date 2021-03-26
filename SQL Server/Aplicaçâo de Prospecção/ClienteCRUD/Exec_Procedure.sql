@@ -40,7 +40,10 @@ EXEC AtualizarTelefone 1, '996685684', 1;
 
 EXEC AtualizarEndereco 1, '12345678', 'Rua Vinte', '254', NULL, 'Paraiso', 1, 1;
 
+EXEC ExcluirCliente 33, 2;
+
 SELECT * FROM Cliente;
 SELECT * FROM Telefone;
 SELECT * FROM Endereco;
+SELECT * FROM Analise;
 SELECT * FROM PaisEstadoCidade;

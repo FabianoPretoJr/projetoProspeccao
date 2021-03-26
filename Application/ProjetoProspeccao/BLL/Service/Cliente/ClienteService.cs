@@ -35,22 +35,60 @@ namespace BLL.Service.Cliente
             }
         }
 
-        public IEnumerable<ClienteListagemDTO> ListarClientes()
+        public ClienteCorrecaoDTO ObterDadosCliente(int idCliente)
         {
-            var listaClientes = _clienteDAL.ListarClientes();
-            return listaClientes;
+            return _clienteDAL.ObterDadosCliente(idCliente);
+        }
+
+        public ClienteCorrecaoResultadoDTO CorrigirCliente(ClienteCorrecaoDTO cliente)
+        {
+            var erros = ValidacaoService.ValidarErros(cliente);
+            ClienteCorrecaoResultadoDTO clienteCorrecaoResultado = new ClienteCorrecaoResultadoDTO();
+            if (erros.Count() > 0)
+            {
+                clienteCorrecaoResultado.Erros.AddRange(erros);
+                return clienteCorrecaoResultado;
+            }
+            else
+            {
+                _clienteDAL.CorrigirCliente(cliente);
+                return null;
+            }
         }
 
         public IEnumerable<ClienteListagemDTO> ListarClientes(IEnumerable<Claim> perfils)
         {
+            List<int> idsStatus = new List<int>(); 
+
+            if(perfils.Any(p => p.Value == ((int)EPerfil.Administracao).ToString()))
+            {
+                idsStatus.Add((int)EStatus.Cadastrado);
+                idsStatus.Add((int)EStatus.analise_gerencia);
+                idsStatus.Add((int)EStatus.analise_controle_risco);
+                idsStatus.Add((int)EStatus.correcao_cadastro);
+            }
             if (perfils.Any(p => p.Value == ((int)EPerfil.Operacao).ToString()))
-                return _clienteDAL.ListarClientes(1, 7);
-            else if (perfils.Any(p => p.Value == ((int)EPerfil.Gerencia).ToString()))
-                return _clienteDAL.ListarClientes(2);
-            else if (perfils.Any(p => p.Value == ((int)EPerfil.Controle_de_risco).ToString()))
-                return _clienteDAL.ListarClientes(4);
-            else
-                return null; // ARRUMA ISSO DEPOIS
+            {
+                idsStatus.Add((int)EStatus.Cadastrado);
+                idsStatus.Add((int)EStatus.correcao_cadastro);
+            }
+            if (perfils.Any(p => p.Value == ((int)EPerfil.Gerencia).ToString()))
+                idsStatus.Add((int)EStatus.analise_gerencia);
+            if (perfils.Any(p => p.Value == ((int)EPerfil.Controle_de_risco).ToString()))
+                idsStatus.Add((int)EStatus.analise_controle_risco);
+
+            return _clienteDAL.ListarClientes(idsStatus.Distinct().ToArray());
+        }
+
+        public IEnumerable<ClienteListagemDTO> ListarClientesEncerrados()
+        {
+            var listaClientes = _clienteDAL.ListarClientesEncerrados();
+            return listaClientes;
+        }
+
+        public void ExcluirCliente(ClienteExcluirDTO cliente)
+        {
+            _clienteDAL.ExcluirCliente(cliente);
         }
     }
 }
