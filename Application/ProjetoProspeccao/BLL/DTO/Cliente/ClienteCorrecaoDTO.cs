@@ -46,7 +46,6 @@ namespace BLL.DTO.Cliente
         [DisplayName("Nº Telefone")]
         public string NumeroTelefone { get; set; }
 
-        [Required(ErrorMessage = "Campo CEP de cliente é obrigatório")]
         [StringLength(8, ErrorMessage = "Deve conter 8 caracteres o campo CEP de cliente")]
         [DisplayName("CEP")]
         public string Cep { get; set; }

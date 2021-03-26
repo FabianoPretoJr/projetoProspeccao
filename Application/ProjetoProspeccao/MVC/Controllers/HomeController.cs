@@ -41,7 +41,8 @@ namespace MVC.Controllers
             try
             {
                 var perfils = User.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
-                var listaCliente = _serviceCliente.ListarClientes(perfils);
+                var idUsuario = Convert.ToInt32(User.Claims.First(c => c.Type == "IdUsuario").Value);
+                var listaCliente = _serviceCliente.ListarClientes(perfils, idUsuario);
                 return View(listaCliente);
             }
             catch(Exception e)
@@ -68,7 +69,7 @@ namespace MVC.Controllers
             }
         }
 
-        [Authorize(Roles = "2")]
+        [Authorize(Roles = "1, 2")]
         public IActionResult CadastroCliente()
         {
             try
@@ -84,7 +85,7 @@ namespace MVC.Controllers
             }
         }
 
-        [Authorize(Roles = "2")]
+        [Authorize(Roles = "1, 2")]
         public IActionResult CorrigirCadastro(int id)
         {
             try

@@ -9,7 +9,7 @@ namespace BLL.Interfaces.DAL
         ClienteCorrecaoDTO ObterDadosCliente(int idCliente);
         void CorrigirCliente(ClienteCorrecaoDTO cliente);
         IEnumerable<ClienteListagemDTO> ListarClientesEncerrados();
-        IEnumerable<ClienteListagemDTO> ListarClientes(int[] idsStatus);
+        IEnumerable<ClienteListagemDTO> ListarClientes(int[] idsStatus, int idUsuario);
         void ExcluirCliente(ClienteExcluirDTO cliente);
     }
 }

@@ -29,9 +29,13 @@ BEGIN
 							INNER JOIN Perfil  p ON (p.id_perfil = a.id_perfil)
 						  WHERE a.id_usuario = @IdUsuario AND 
 						  ((p.nome_perfil = 'GERÊNCIA' AND @IdStatusAtual = 2) OR
-						  (p.nome_perfil = 'CONTROLE DE RISCO' AND @PaisCliente <> 'Brasil' AND @IdStatusAtual = 4)))
+						  (p.nome_perfil = 'CONTROLE DE RISCO' AND @PaisCliente <> 'Brasil' AND @IdStatusAtual = 4) OR
+						  (p.nome_perfil = 'ADMINISTRAÇÃO')))
 			)                                  
 				THROW 50000, 'Usuário não possui permissão para essa modificação', 1;
+
+			IF(EXISTS(SELECT * FROM Analise WHERE id_cliente = @IdCliente AND id_usuario = @IdUsuario))
+				THROW 50000, 'Usuário não pode interagir de novo com o fluxo desde cliente', 1;
 
 			IF(@PaisCliente = 'Brasil' OR @IdStatusAtual = 2)
 				SET @IdStatus = 3;

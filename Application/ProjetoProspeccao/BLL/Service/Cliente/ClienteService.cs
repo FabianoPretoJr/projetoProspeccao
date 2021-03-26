@@ -56,11 +56,11 @@ namespace BLL.Service.Cliente
             }
         }
 
-        public IEnumerable<ClienteListagemDTO> ListarClientes(IEnumerable<Claim> perfils)
+        public IEnumerable<ClienteListagemDTO> ListarClientes(IEnumerable<Claim> perfils, int idUsuario)
         {
             List<int> idsStatus = new List<int>(); 
 
-            if(perfils.Any(p => p.Value == ((int)EPerfil.Administracao).ToString()))
+            if (perfils.Any(p => p.Value == ((int)EPerfil.Administracao).ToString()))
             {
                 idsStatus.Add((int)EStatus.Cadastrado);
                 idsStatus.Add((int)EStatus.analise_gerencia);
@@ -77,7 +77,7 @@ namespace BLL.Service.Cliente
             if (perfils.Any(p => p.Value == ((int)EPerfil.Controle_de_risco).ToString()))
                 idsStatus.Add((int)EStatus.analise_controle_risco);
 
-            return _clienteDAL.ListarClientes(idsStatus.Distinct().ToArray());
+            return _clienteDAL.ListarClientes(idsStatus.Distinct().ToArray(), idUsuario);
         }
 
         public IEnumerable<ClienteListagemDTO> ListarClientesEncerrados()

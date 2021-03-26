@@ -120,10 +120,16 @@ namespace DAL
 
                 cmd.CommandText = "EXEC AtualizarEndereco @idEndereco, @cep, @rua, @numero, @complemento, @bairro, @idCliente, @idCidade";
                 cmd.Parameters.AddWithValue("@idEndereco", cliente.IdEndereco);
-                cmd.Parameters.AddWithValue("@cep", cliente.Cep);
+                if (cliente.Cep == null)
+                    cmd.Parameters.AddWithValue("@cep", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("@cep", cliente.Cep);
                 cmd.Parameters.AddWithValue("@rua", cliente.Rua);
                 cmd.Parameters.AddWithValue("@numero", cliente.Numero);
-                cmd.Parameters.AddWithValue("@complemento", cliente.Complemento);
+                if (cliente.Complemento == null)
+                    cmd.Parameters.AddWithValue("@complemento", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("@complemento", cliente.Complemento);
                 cmd.Parameters.AddWithValue("@bairro", cliente.Bairro);
                 cmd.Parameters.AddWithValue("@idCidade", cliente.IdCidade);
                 cmd.ExecuteNonQuery();
@@ -136,16 +142,21 @@ namespace DAL
             }
         }
 
-        public IEnumerable<ClienteListagemDTO> ListarClientes(int[] idsStatus)
+        public IEnumerable<ClienteListagemDTO> ListarClientes(int[] idsStatus, int idUsuario)
         {
             try
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con.Conectar();         
 
-                cmd.CommandText = @"SELECT * FROM Cliente WHERE id_status IN (@idsStatus)";
+                cmd.CommandText = @"SELECT * FROM Cliente c 
+                                    WHERE id_status IN (@idsStatus) AND 
+                                          NOT EXISTS(SELECT * FROM Analise a 
+                                                     WHERE c.id_cliente = a.id_cliente AND
+                                                           (id_usuario = @idUsuario AND (c.id_status <> 7 AND c.id_status <> 1)))";
 
                 cmd.AddArrayParameters("@idsStatus", idsStatus);
+                cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
 
                 SqlDataReader dr = cmd.ExecuteReader();
           

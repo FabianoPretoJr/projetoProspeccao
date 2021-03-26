@@ -24,7 +24,7 @@ BEGIN
 			IF(NOT EXISTS(SELECT * FROM Acesso a
 							INNER JOIN Usuario u ON (u.id_usuario = a.id_usuario)
 							INNER JOIN Perfil  p ON (p.id_perfil = a.id_perfil)
-						  WHERE a.id_usuario = @IdUsuario AND p.nome_perfil = 'GERÊNCIA')
+						  WHERE a.id_usuario = @IdUsuario AND (p.nome_perfil = 'GERÊNCIA' OR p.nome_perfil = 'ADMINISTRAÇÃO'))
 			)
 				THROW 50000, 'Usuário não possui permissão para essa modificação', 1;
 

@@ -10,7 +10,7 @@ namespace BLL.Interfaces.Services.Cliente
         ClienteCorrecaoDTO ObterDadosCliente(int idCliente);
         ClienteCorrecaoResultadoDTO CorrigirCliente(ClienteCorrecaoDTO cliente);
         IEnumerable<ClienteListagemDTO> ListarClientesEncerrados();
-        IEnumerable<ClienteListagemDTO> ListarClientes(IEnumerable<Claim> perfils);
+        IEnumerable<ClienteListagemDTO> ListarClientes(IEnumerable<Claim> perfils, int idUsuario);
         void ExcluirCliente(ClienteExcluirDTO cliente);
     }
 }
