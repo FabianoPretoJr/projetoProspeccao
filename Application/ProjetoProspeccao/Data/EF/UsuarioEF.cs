@@ -5,6 +5,7 @@ using Data.Conexao;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data.EF
 {
@@ -48,7 +49,26 @@ namespace Data.EF
 
         public List<PerfilDeUsuarioDTO> ListarPerfilsDeUsuario(UsuarioAutenticarDTO usuarioDTO)
         {
-            throw new NotImplementedException();
+            List<PerfilDeUsuarioDTO> list = new List<PerfilDeUsuarioDTO>();
+            try
+            {
+                var usuarioModel = new UsuarioModel(usuarioDTO.IdUsuario, usuarioDTO.Login, usuarioDTO.Senha);
+
+                var perfils = _database.Acesso.Where(a => a.Id_Usuario == usuarioModel.Id_Usuario).Include(a => a.Perfil).ToList();          
+
+                foreach(var perfil in perfils)
+                {
+                    PerfilDeUsuarioDTO perfilDeUsuarioDTO = new PerfilDeUsuarioDTO();
+                    perfilDeUsuarioDTO.IdPerfil = perfil.Perfil.Id_Perfil;
+                    perfilDeUsuarioDTO.NomePerfil = perfil.Perfil.Nome_Perfil;
+                    list.Add(perfilDeUsuarioDTO);
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return list;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace BLL.Models
+﻿using System.Collections.Generic;
+
+namespace BLL.Models
 {
     public class PerfilModel
     {
@@ -32,6 +34,13 @@
         {
             get { return _ativo; }
             private set { _ativo = value; }
+        }
+
+        private IEnumerable<AcessoModel> _acesso;
+        public IEnumerable<AcessoModel> Acesso
+        {
+            get { return _acesso; }
+            private set { _acesso = value; }
         }
     }
 }
