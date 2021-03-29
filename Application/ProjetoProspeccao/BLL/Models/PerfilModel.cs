@@ -1,22 +1,37 @@
 ﻿namespace BLL.Models
 {
-    public class PerfilModel : BaseModel
+    public class PerfilModel
     {
-        public PerfilModel(string nomePerfil)
+        public PerfilModel(string nome_Perfil)
         {
-            this.NomePerfil = nomePerfil;
+            this.Nome_Perfil = nome_Perfil;
         }
 
-        public PerfilModel(int id, string nomePerfil) : base(id)
+        public PerfilModel(int id_Perfil, string nome_Perfil)
         {
-            this.NomePerfil = nomePerfil;
+            this.Id_Perfil = id_Perfil;
+            this.Nome_Perfil = nome_Perfil;
         }
 
-        private string _nomePerfil;
-        public string NomePerfil
+        private int _id_Perfil;
+        public int Id_Perfil
         {
-            get { return _nomePerfil; }
-            private set { _nomePerfil = value; }
+            get { return _id_Perfil; }
+            private set { _id_Perfil = value; }
+        }
+
+        private string _nome_Perfil;
+        public string Nome_Perfil
+        {
+            get { return _nome_Perfil; }
+            private set { _nome_Perfil = value; }
+        }
+
+        private bool _ativo;
+        public bool Ativo
+        {
+            get { return _ativo; }
+            private set { _ativo = value; }
         }
     }
 }

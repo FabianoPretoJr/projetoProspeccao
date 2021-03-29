@@ -2,32 +2,32 @@
 {
     public class AcessoModel
     {
-        private int _idPerfil;
-        public int IdPerfil
+        private int _id_Perfil;
+        public int Id_Perfil
         {
-            get { return _idPerfil; }
-            set { _idPerfil = value; }
+            get { return _id_Perfil; }
+            private set { _id_Perfil = value; }
         }
 
         private PerfilModel _perfil;
         public PerfilModel Perfil
         {
             get { return _perfil; }
-            set { _perfil = value; }
+            private set { _perfil = value; }
         }
 
-        private int _idUsuario;
-        public int IdUsuario
+        private int _id_Usuario;
+        public int Id_Usuario
         {
-            get { return _idUsuario; }
-            set { _idUsuario = value; }
+            get { return _id_Usuario; }
+            private set { _id_Usuario = value; }
         }
 
         private UsuarioModel _usuario;
         public UsuarioModel Usuario
         {
             get { return _usuario; }
-            set { _usuario = value; }
+            private set { _usuario = value; }
         }
     }
 }

@@ -8,23 +8,43 @@
             string numero, 
             string complemento, 
             string bairro, 
-            int idCidade, 
-            int idCliente)
+            int id_Cidade, 
+            int id_Cliente)
         {
             this.Cep = cep;
             this.Rua = rua;
             this.Numero = numero;
             this.Complemento = complemento;
             this.Bairro = bairro;
-            this.IdCidade = idCidade;
-            this.IdCliente = idCliente;
+            this.Id_Cidade = id_Cidade;
+            this.Id_Cliente = id_Cliente;
         }
 
-        private int _id;
-        public int Id
+        public EnderecoModel(
+            int id_Endereco,
+            string cep,
+            string rua,
+            string numero,
+            string complemento,
+            string bairro,
+            int id_Cidade,
+            int id_Cliente)
         {
-            get { return _id; }
-            private set { _id = value; }
+            this.Id_Endereco = id_Endereco;
+            this.Cep = cep;
+            this.Rua = rua;
+            this.Numero = numero;
+            this.Complemento = complemento;
+            this.Bairro = bairro;
+            this.Id_Cidade = id_Cidade;
+            this.Id_Cliente = id_Cliente;
+        }
+
+        private int _id_Endereco;
+        public int Id_Endereco
+        {
+            get { return _id_Endereco; }
+            private set { _id_Endereco = value; }
         }
 
         private string _cep;
@@ -62,11 +82,11 @@
             private set { _bairro = value; }
         }
 
-        private int _idCidade;
-        public int IdCidade
+        private int _id_Cidade;
+        public int Id_Cidade
         {
-            get { return _idCidade; }
-            private set { _idCidade = value; }
+            get { return _id_Cidade; }
+            private set { _id_Cidade = value; }
         }
 
         private CidadeModel _cidade;
@@ -76,11 +96,11 @@
             private set { _cidade = value; }
         }
 
-        private int _idCliente;
-        public int IdCliente
+        private int _id_Cliente;
+        public int Id_Cliente
         {
-            get { return _idCliente; }
-            private set { _idCliente = value; }
+            get { return _id_Cliente; }
+            private set { _id_Cliente = value; }
         }
 
         private ClienteModel _cliente;

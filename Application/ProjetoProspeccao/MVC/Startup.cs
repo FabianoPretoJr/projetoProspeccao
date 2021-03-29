@@ -21,6 +21,8 @@ using Microsoft.AspNetCore.Http;
 using BLL.Interfaces.Services.Fluxo;
 using BLL.Service.Fluxo;
 using Data.EF;
+using Data.Conexao;
+using Microsoft.EntityFrameworkCore;
 
 namespace MVC
 {
@@ -47,14 +49,21 @@ namespace MVC
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => options.LoginPath = "/Home/Index");
 
+            services.AddDbContext<DataContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+            );
+
             services.AddTransient<IClienteService, ClienteService>();
-            services.AddTransient<IClienteDAL, ClienteEF>();
+            services.AddTransient<IClienteDAL, ClienteDAL>();
+            // services.AddTransient<IClienteDAL, ClienteEF>();
             services.AddTransient<IPaisEstadoCidadeService, PaisEstadoCidadeService>();
-            services.AddTransient<IPaisEstadoCidadeDAL, PaisEstadoCidadeEF>();
+            services.AddTransient<IPaisEstadoCidadeDAL, PaisEstadoCidadeDAL>();
+            // services.AddTransient<IPaisEstadoCidadeDAL, PaisEstadoCidadeEF>();
             services.AddTransient<IUsuarioService, UsuarioService>();
             services.AddTransient<IUsuarioDAL, UsuarioEF>();
             services.AddTransient<IFluxoService, FluxoService>();
-            services.AddTransient<IFluxoDAL, FluxoEF>();
+            services.AddTransient<IFluxoDAL, FluxoDAL>();
+            // services.AddTransient<IFluxoDAL, FluxoEF>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

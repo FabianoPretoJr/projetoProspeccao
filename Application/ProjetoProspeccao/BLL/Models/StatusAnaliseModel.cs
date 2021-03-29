@@ -1,22 +1,53 @@
-﻿namespace BLL.Models
+﻿using System.Collections.Generic;
+
+namespace BLL.Models
 {
-    public class StatusAnaliseModel : BaseModel
+    public class StatusAnaliseModel
     {
-        public StatusAnaliseModel(string nomeStatus)
+        public StatusAnaliseModel(string nome_Status)
         {
-            this.NomeStatus = nomeStatus;
+            this.Nome_Status = nome_Status;
         }
 
-        public StatusAnaliseModel(int id, string nomeStatus) : base(id)
+        public StatusAnaliseModel(int id_Status, string nome_Status)
         {
-            this.NomeStatus = nomeStatus;
+            this.Id_Status = id_Status;
+            this.Nome_Status = nome_Status;
         }
 
-        private string _nomeStatus;
-        public string NomeStatus
+        private int _id_Status;
+        public int Id_Status
         {
-            get { return _nomeStatus; }
-            private set { _nomeStatus = value; }
+            get { return _id_Status; }
+            private set { _id_Status = value; }
+        }
+
+        private string _nome_Status;
+        public string Nome_Status
+        {
+            get { return _nome_Status; }
+            private set { _nome_Status = value; }
+        }
+
+        private bool _ativo;
+        public bool Ativo
+        {
+            get { return _ativo; }
+            private set { _ativo = value; }
+        }
+
+        private IEnumerable<ClienteModel> _clientes;
+        public IEnumerable<ClienteModel> Clientes
+        {
+            get { return _clientes; }
+            private set { _clientes = value; }
+        }
+
+        private IEnumerable<AnaliseModel> _analises;
+        public IEnumerable<AnaliseModel> Analises
+        {
+            get { return _analises; }
+            private set { _analises = value; }
         }
     }
 }

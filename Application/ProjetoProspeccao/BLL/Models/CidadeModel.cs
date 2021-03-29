@@ -1,38 +1,63 @@
-﻿namespace BLL.Models
+﻿using System.Collections.Generic;
+
+namespace BLL.Models
 {
-    public class CidadeModel : BaseModel
+    public class CidadeModel
     {
-        public CidadeModel(string nomeCidade, int idEstado)
+        public CidadeModel(string nome_Cidade, int id_Estado)
         {
-            this.NomeCidade = nomeCidade;
-            this.IdEstado = idEstado;
+            this.Nome_Cidade = nome_Cidade;
+            this.Id_Estado = id_Estado;
         }
 
-        public CidadeModel(int id, string nomeCidade, int idEstado) : base(id)
+        public CidadeModel(int id_Cidade, string nome_Cidade, int id_Estado)
         {
-            this.NomeCidade = nomeCidade;
-            this.IdEstado = idEstado;
+            this.Id_Cidade = id_Cidade;
+            this.Nome_Cidade = nome_Cidade;
+            this.Id_Estado = id_Estado;
         }
 
-        private string _nomeCidade;
-        public string NomeCidade
+        private int _id_Cidade;
+        public int Id_Cidade
         {
-            get { return _nomeCidade; }
-            private set { _nomeCidade = value; }
+            get { return _id_Cidade; }
+            private set { _id_Cidade = value; }
         }
 
-        private int _idEstado;
-        public int IdEstado
+
+        private string _nome_Cidade;
+        public string Nome_Cidade
         {
-            get { return _idEstado; }
-            private set { _idEstado = value; }
+            get { return _nome_Cidade; }
+            private set { _nome_Cidade = value; }
+        }
+
+        private int _id_Estado;
+        public int Id_Estado
+        {
+            get { return _id_Estado; }
+            private set { _id_Estado = value; }
         }
 
         private EstadoModel _estado;
         public EstadoModel Estado
         {
             get { return _estado; }
-            set { _estado = value; }
+            private set { _estado = value; }
+        }
+
+        private bool _ativo;
+        public bool Ativo
+        {
+            get { return _ativo; }
+            private set { _ativo = value; }
+        }
+
+        private IEnumerable<EnderecoModel> _enderecos;
+        public IEnumerable<EnderecoModel> Enderecos
+        {
+            get { return _enderecos; }
+            private set { _enderecos = value; }
         }
     }
 }

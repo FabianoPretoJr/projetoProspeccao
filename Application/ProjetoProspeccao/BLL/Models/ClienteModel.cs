@@ -1,33 +1,34 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BLL.Models
 {
     public class ClienteModel
     {
-        public ClienteModel(string nome, string cpf, string rg, DateTime dataNascimento, string email)
+        public ClienteModel(string nome, string cpf, string rg, DateTime data_Nascimento, string email)
         {
             this.Nome = nome;
             this.Cpf = cpf;
             this.Rg = rg;
-            this.DataNascimento = dataNascimento;
+            this.Data_Nascimento = data_Nascimento;
             this.Email = email;
         }
 
-        public ClienteModel(int id, string nome, string cpf, string rg, DateTime dataNascimento, string email)
+        public ClienteModel(int id_Cliente, string nome, string cpf, string rg, DateTime data_Nascimento, string email)
         {
-            this.Id = id;
+            this.Id_Cliente = id_Cliente;
             this.Nome = nome;
             this.Cpf = cpf;
             this.Rg = rg;
-            this.DataNascimento = dataNascimento;
+            this.Data_Nascimento = data_Nascimento;
             this.Email = email;
         }
 
-        private int _id;
-        public int Id
+        private int _id_Cliente;
+        public int Id_Cliente
         {
-            get { return _id; }
-            private set { _id = value; }
+            get { return _id_Cliente; }
+            private set { _id_Cliente = value; }
         }
 
         private string _nome;
@@ -51,11 +52,11 @@ namespace BLL.Models
             private set { _rg = value; }
         }
 
-        private DateTime _dataNascimento;
-        public DateTime DataNascimento
+        private DateTime _data_Nascimento;
+        public DateTime Data_Nascimento
         {
-            get { return _dataNascimento; }
-            private set { _dataNascimento = value; }
+            get { return _data_Nascimento; }
+            private set { _data_Nascimento = value; }
         }
 
         private string _email;
@@ -65,11 +66,11 @@ namespace BLL.Models
             private set { _email = value; }
         }
 
-        private int _idStatus;
-        public int IdStatus
+        private int _id_Status;
+        public int Id_Status
         {
-            get { return _idStatus; }
-            private set { _idStatus = value; }
+            get { return _id_Status; }
+            private set { _id_Status = value; }
         }
 
         private StatusAnaliseModel _statusAnalise;
@@ -77,6 +78,27 @@ namespace BLL.Models
         {
             get { return _statusAnalise; }
             private set { _statusAnalise = value; }
+        }
+
+        private IEnumerable<EnderecoModel> _enderecos;
+        public IEnumerable<EnderecoModel> Enderecos
+        {
+            get { return _enderecos; }
+            private set { _enderecos = value; }
+        }
+
+        private IEnumerable<TelefoneModel> _telefones;
+        public IEnumerable<TelefoneModel> Telefones
+        {
+            get { return _telefones; }
+            private set { _telefones = value; }
+        }
+
+        private IEnumerable<AnaliseModel> _analises;
+        public IEnumerable<AnaliseModel> Analises
+        {
+            get { return _analises; }
+            private set { _analises = value; }
         }
     }
 }

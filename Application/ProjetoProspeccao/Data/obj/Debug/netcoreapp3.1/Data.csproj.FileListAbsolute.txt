@@ -1,0 +1,15 @@
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\Data\bin\Debug\netcoreapp3.1\Data.deps.json
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\Data\bin\Debug\netcoreapp3.1\Data.runtimeconfig.json
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\Data\bin\Debug\netcoreapp3.1\Data.runtimeconfig.dev.json
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\Data\bin\Debug\netcoreapp3.1\Data.dll
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\Data\bin\Debug\netcoreapp3.1\Data.pdb
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\Data\bin\Debug\netcoreapp3.1\BLL.dll
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\Data\bin\Debug\netcoreapp3.1\BLL.pdb
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\Data\obj\Debug\netcoreapp3.1\Data.csprojAssemblyReference.cache
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\Data\obj\Debug\netcoreapp3.1\Data.AssemblyInfoInputs.cache
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\Data\obj\Debug\netcoreapp3.1\Data.AssemblyInfo.cs
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\Data\obj\Debug\netcoreapp3.1\Data.csproj.CoreCompileInputs.cache
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\Data\obj\Debug\netcoreapp3.1\Data.csproj.CopyComplete
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\Data\obj\Debug\netcoreapp3.1\Data.dll
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\Data\obj\Debug\netcoreapp3.1\Data.pdb
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\Data\obj\Debug\netcoreapp3.1\Data.genruntimeconfig.cache

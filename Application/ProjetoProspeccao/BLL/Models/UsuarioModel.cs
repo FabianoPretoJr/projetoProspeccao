@@ -1,24 +1,34 @@
-﻿namespace BLL.Models
+﻿using System.Collections.Generic;
+
+namespace BLL.Models
 {
-    public class UsuarioModel : BaseModel
+    public class UsuarioModel
     {
-        public UsuarioModel(string login, string senha)
+        public UsuarioModel(string login_Usuario, string senha)
         {
-            this.Login = login;
+            this.Login_Usuario = login_Usuario;
             this.Senha = senha;
         }
 
-        public UsuarioModel(int id, string login, string senha) : base(id)
+        public UsuarioModel(int id_Usuario, string login_Usuario, string senha)
         {
-            this.Login = login;
+            this.Id_Usuario = id_Usuario;
+            this.Login_Usuario = login_Usuario;
             this.Senha = senha;
         }
 
-        private string _login;
-        public string Login
+        private int _id_Usuario;
+        public int Id_Usuario
         {
-            get { return _login; }
-            private set { _login = value; }
+            get { return _id_Usuario; }
+            private set { _id_Usuario = value; }
+        }
+
+        private string _login_Usuario;
+        public string Login_Usuario
+        {
+            get { return _login_Usuario; }
+            private set { _login_Usuario = value; }
         }
 
         private string _senha;
@@ -26,6 +36,20 @@
         {
             get { return _senha; }
             private set { _senha = value; }
+        }
+
+        private bool _ativo;
+        public bool Ativo
+        {
+            get { return _ativo; }
+            private set { _ativo = value; }
+        }
+
+        private IEnumerable<AnaliseModel> _analises;
+        public IEnumerable<AnaliseModel> Analises
+        {
+            get { return _analises; }
+            private set { _analises = value; }
         }
     }
 }

@@ -2,20 +2,20 @@
 
 namespace BLL.Models
 {
-    class AnaliseModel
+    public class AnaliseModel
     {
-        private int _id;
-        public int Id
+        private int _id_Analise;
+        public int Id_Analise
         {
-            get { return _id; }
-            private set { _id = value; }
+            get { return _id_Analise; }
+            private set { _id_Analise = value; }
         }
 
-        private int _idStatus;
-        public int IdStatus
+        private int _id_Status;
+        public int Id_Status
         {
-            get { return _idStatus; }
-            private set { _idStatus = value; }
+            get { return _id_Status; }
+            private set { _id_Status = value; }
         }
 
         private StatusAnaliseModel _statusAnalise;
@@ -25,11 +25,11 @@ namespace BLL.Models
             private set { _statusAnalise = value; }
         }
 
-        private int _idCliente;
-        public int IdCliente
+        private int _id_Cliente;
+        public int Id_Cliente
         {
-            get { return _idCliente; }
-            private set { _idCliente = value; }
+            get { return _id_Cliente; }
+            private set { _id_Cliente = value; }
         }
 
         private ClienteModel _cliente;
@@ -39,11 +39,11 @@ namespace BLL.Models
             private set { _cliente = value; }
         }
 
-        private int _idUsuario;
-        public int IdUsuario
+        private int _id_Usuario;
+        public int Id_Usuario
         {
-            get { return _idUsuario; }
-            private set { _idUsuario = value; }
+            get { return _id_Usuario; }
+            private set { _id_Usuario = value; }
         }
 
         private UsuarioModel _usuario;
