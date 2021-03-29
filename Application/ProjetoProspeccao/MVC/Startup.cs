@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using BLL.Interfaces.Services.Fluxo;
 using BLL.Service.Fluxo;
+using Data.EF;
 
 namespace MVC
 {
@@ -47,13 +48,13 @@ namespace MVC
                 .AddCookie(options => options.LoginPath = "/Home/Index");
 
             services.AddTransient<IClienteService, ClienteService>();
-            services.AddTransient<IClienteDAL, ClienteDAL>();
+            services.AddTransient<IClienteDAL, ClienteEF>();
             services.AddTransient<IPaisEstadoCidadeService, PaisEstadoCidadeService>();
-            services.AddTransient<IPaisEstadoCidadeDAL, PaisEstadoCidadeDAL>();
+            services.AddTransient<IPaisEstadoCidadeDAL, PaisEstadoCidadeEF>();
             services.AddTransient<IUsuarioService, UsuarioService>();
-            services.AddTransient<IUsuarioDAL, UsuarioDAL>();
+            services.AddTransient<IUsuarioDAL, UsuarioEF>();
             services.AddTransient<IFluxoService, FluxoService>();
-            services.AddTransient<IFluxoDAL, FluxoDAL>();
+            services.AddTransient<IFluxoDAL, FluxoEF>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
