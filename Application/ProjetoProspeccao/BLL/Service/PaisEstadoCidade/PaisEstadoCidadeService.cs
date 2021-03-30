@@ -15,12 +15,6 @@ namespace BLL.Service.PaisEstadoCidade
             _paisEstadoCidadeDAL = paisEstadoCidadeDAL;
         }
 
-        public List<ListarPaisEstadoCidadeDTO> ListagemPaisEstadoCidade()
-        {
-            var listaPaisEstadoCidade = _paisEstadoCidadeDAL.ListagemPaisEstadoCidade();
-            return listaPaisEstadoCidade;
-        }
-
         public List<PaisModel> ListarPais()
         {
             return _paisEstadoCidadeDAL.ListarPais();

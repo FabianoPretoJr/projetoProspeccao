@@ -16,7 +16,7 @@ namespace Data.Mapping
             builder.Property(c => c.Rg);
             builder.Property(c => c.Data_Nascimento);
             builder.HasIndex(c => c.Email).IsUnique();
-            builder.HasOne(c => c.StatusAnalise).WithMany(s => s.Clientes);
+            builder.HasOne(c => c.StatusAnalise).WithMany(s => s.Clientes).HasForeignKey(c => c.Id_Status);
         }
     }
 }

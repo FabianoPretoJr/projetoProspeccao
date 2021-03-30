@@ -15,8 +15,8 @@ namespace Data.Mapping
             builder.Property(e => e.Numero);
             builder.Property(e => e.Complemento);
             builder.Property(e => e.Bairro);
-            builder.HasOne(e => e.Cliente).WithMany(c => c.Enderecos);
-            builder.HasOne(e => e.Cidade).WithMany(c => c.Enderecos);
+            builder.HasOne(e => e.Cliente).WithMany(c => c.Enderecos).HasForeignKey(e => e.Id_Cliente);
+            builder.HasOne(e => e.Cidade).WithMany(c => c.Enderecos).HasForeignKey(e => e.Id_Cidade);
         }
     }
 }

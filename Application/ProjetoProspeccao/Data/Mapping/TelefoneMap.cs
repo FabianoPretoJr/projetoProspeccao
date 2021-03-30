@@ -11,7 +11,7 @@ namespace Data.Mapping
             builder.ToTable("Telefone");
             builder.HasKey(t => t.Id_Telefone);
             builder.Property(t => t.Numero_Telefone);
-            builder.HasOne(t => t.Cliente).WithMany(c => c.Telefones);
+            builder.HasOne(t => t.Cliente).WithMany(c => c.Telefones).HasForeignKey(t => t.Id_Cliente);
         }
     }
 }

@@ -10,9 +10,9 @@ namespace Data.Mapping
         {
             builder.ToTable("Analise");
             builder.HasKey(a => a.Id_Analise);
-            builder.HasOne(a => a.StatusAnalise).WithMany(s => s.Analises);
-            builder.HasOne(a => a.Cliente).WithMany(c => c.Analises);
-            builder.HasOne(a => a.Usuario).WithMany(u => u.Analises);
+            builder.HasOne(a => a.StatusAnalise).WithMany(s => s.Analises).HasForeignKey(a => a.Id_Status);
+            builder.HasOne(a => a.Cliente).WithMany(c => c.Analises).HasForeignKey(a => a.Id_Cliente);
+            builder.HasOne(a => a.Usuario).WithMany(u => u.Analises).HasForeignKey(a => a.Id_Usuario);
             builder.Property(a => a.DataHora);
         }
     }

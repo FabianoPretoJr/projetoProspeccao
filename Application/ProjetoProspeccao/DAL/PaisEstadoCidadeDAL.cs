@@ -11,39 +11,6 @@ namespace DAL
     {
         Conexao con = new Conexao();
 
-        public List<ListarPaisEstadoCidadeDTO> ListagemPaisEstadoCidade()
-        {
-            try
-            {
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = con.Conectar();
-
-                cmd.CommandText = @"SELECT * FROM PaisEstadoCidade";
-
-                SqlDataReader dr = cmd.ExecuteReader();
-
-                List<ListarPaisEstadoCidadeDTO> lista = new List<ListarPaisEstadoCidadeDTO>();
-
-                while (dr.Read())
-                {
-                    ListarPaisEstadoCidadeDTO paisEstadoCidade = new ListarPaisEstadoCidadeDTO();
-
-                    paisEstadoCidade.Pais = dr["Pais"].ToString();
-                    paisEstadoCidade.Estado = dr["Estado"].ToString();
-                    paisEstadoCidade.Cidade = dr["Cidade"].ToString();
-                    paisEstadoCidade.IdCidade = Convert.ToInt32(dr["IdCidade"]);
-                    lista.Add(paisEstadoCidade);
-                }
-
-                con.Desconectar();
-                return lista;
-            }
-            catch(Exception e)
-            {
-                throw e;
-            }
-        }
-
         public List<PaisModel> ListarPais()
         {
             try

@@ -64,7 +64,7 @@
         <option value="">Selecione</option>
         @foreach (var pais in @ViewBag.listaPais)
         {
-            <option value="@pais.Id">@pais.NomePais</option>
+            <option value="@pais.Id_Pais">@pais.Nome_Pais</option>
         }
     </select><br />
 
@@ -74,7 +74,7 @@
             <option value="">Selecione</option>
             @foreach (var estado in @ViewBag.listaEstado)
             {
-                <option value="@estado.Id">@estado.NomeEstado</option>
+                <option value="@estado.Id_Estado">@estado.Nome_Estado</option>
             }
         </select><br />
     </div>
@@ -85,7 +85,7 @@
             <option value="">Selecione</option>
             @foreach (var cidade in @ViewBag.listaCidade)
             {
-                <option value="@cidade.Id">@cidade.NomeCidade</option>
+                <option value="@cidade.Id_Cidade">@cidade.Nome_Cidade</option>
             }
         </select><br />
     </div>

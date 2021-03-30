@@ -11,7 +11,7 @@ namespace Data.Mapping
             builder.ToTable("Estado");
             builder.HasKey(e => e.Id_Estado);
             builder.HasIndex(e => e.Nome_Estado).IsUnique();
-            builder.HasOne(e => e.Pais).WithMany(p => p.Estados);
+            builder.HasOne(e => e.Pais).WithMany(p => p.Estados).HasForeignKey(e => e.Id_Pais);
             builder.Property(e => e.Ativo);
         }
     }

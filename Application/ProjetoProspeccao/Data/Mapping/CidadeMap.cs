@@ -12,7 +12,7 @@ namespace Data.Mapping
             builder.HasKey(c => c.Id_Cidade);
             builder.Property(c => c.Nome_Cidade);
             builder.Property(c => c.Ativo);
-            builder.HasOne(c => c.Estado).WithMany(e => e.Cidades);
+            builder.HasOne(c => c.Estado).WithMany(e => e.Cidades).HasForeignKey(c => c.Id_Estado);
         }
     }
 }
