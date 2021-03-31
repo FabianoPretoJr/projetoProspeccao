@@ -3,10 +3,8 @@ using BLL.Interfaces.DAL;
 using BLL.Models;
 using Data.Conexao;
 using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Text;
 using BLL.Enums;
 
 namespace Data.EF
@@ -64,22 +62,114 @@ namespace Data.EF
 
         public void CorrecaoDeCadastro(FluxoDTO fluxoDTO)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var cliente = ClienteValido(fluxoDTO.IdCliente);
+                var usuario = UsuarioValido(fluxoDTO.IdUsuario);
+
+                if (cliente.Id_Status == (int)EStatus.analise_gerencia || cliente.Id_Status == (int)EStatus.analise_controle_risco)
+                {
+                    int idStatus = (int)EStatus.correcao_cadastro;
+
+                    var correcao = new AnaliseModel(idStatus, fluxoDTO.IdCliente, fluxoDTO.IdUsuario);
+                    _database.Analise.Add(correcao);
+
+                    cliente.Id_Status = idStatus;
+                    _database.Cliente.Update(cliente);
+
+                    _database.SaveChanges();
+                }
+                else
+                    throw new ArgumentException(message: "Este cliente não está em fase de análise");
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public void DevolverCadastro(FluxoDTO fluxoDTO)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var cliente = ClienteValido(fluxoDTO.IdCliente);
+                var usuario = UsuarioValido(fluxoDTO.IdUsuario);
+
+                if (cliente.Id_Status == (int)EStatus.correcao_cadastro)
+                {
+                    int idStatus = (int)EStatus.analise_gerencia;
+
+                    var devolver = new AnaliseModel(idStatus, fluxoDTO.IdCliente, fluxoDTO.IdUsuario);
+                    _database.Analise.Add(devolver);
+
+                    cliente.Id_Status = idStatus;
+                    _database.Cliente.Update(cliente);
+
+                    _database.SaveChanges();
+                }
+                else
+                    throw new ArgumentException(message: "Este cliente não está em correção de cadastro");
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public void EnviarAnaliseGerencia(FluxoDTO fluxoDTO)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var cliente = ClienteValido(fluxoDTO.IdCliente);
+                var usuario = UsuarioValido(fluxoDTO.IdUsuario);
+
+                if (cliente.Id_Status == (int)EStatus.Cadastrado)
+                {
+                    int idStatus = (int)EStatus.analise_gerencia;
+
+                    var devolver = new AnaliseModel(idStatus, fluxoDTO.IdCliente, fluxoDTO.IdUsuario);
+                    _database.Analise.Add(devolver);
+
+                    cliente.Id_Status = idStatus;
+                    _database.Cliente.Update(cliente);
+
+                    _database.SaveChanges();
+                }
+                else
+                    throw new ArgumentException(message: "Este cliente não está em fase de cadastro");
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public void ReprovarFluxo(FluxoDTO fluxoDTO)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var cliente = ClienteValido(fluxoDTO.IdCliente);
+                var usuario = UsuarioValido(fluxoDTO.IdUsuario);
+
+                if (cliente.Id_Status == (int)EStatus.analise_gerencia || cliente.Id_Status == (int)EStatus.analise_controle_risco)
+                {
+                    int idStatus = (int)EStatus.reprovado;
+
+                    var devolver = new AnaliseModel(idStatus, fluxoDTO.IdCliente, fluxoDTO.IdUsuario);
+                    _database.Analise.Add(devolver);
+
+                    cliente.Id_Status = idStatus;
+                    _database.Cliente.Update(cliente);
+
+                    _database.SaveChanges();
+                }
+                else
+                    throw new ArgumentException(message: "Este cliente não está em fase de análise");
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         private ClienteModel ClienteValido(int idCliente)
