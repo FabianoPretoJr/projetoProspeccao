@@ -13,7 +13,7 @@ namespace Data.Mapping
             builder.HasOne(a => a.StatusAnalise).WithMany(s => s.Analises).HasForeignKey(a => a.Id_Status);
             builder.HasOne(a => a.Cliente).WithMany(c => c.Analises).HasForeignKey(a => a.Id_Cliente);
             builder.HasOne(a => a.Usuario).WithMany(u => u.Analises).HasForeignKey(a => a.Id_Usuario);
-            builder.Property(a => a.DataHora);
+            builder.Property(a => a.Data_Hora);
         }
     }
 }

@@ -7,7 +7,7 @@ SELECT * FROM StatusAnalise;
 SELECT * FROM Endereco;
 select * from Analise;
 
-EXEC EnviarAnaliseGerencia @IdCliente = 22, @IdUsuario = 2;
+EXEC EnviarAnaliseGerencia @IdCliente = 50, @IdUsuario = 1002;
 
 EXEC EnviarAnaliseControleDeRisco @IdCliente = 22, @IdUsuario = 1;
 
@@ -15,9 +15,9 @@ EXEC AprovarFluxo @IdCliente = 22, @IdUsuario = 3;
 
 EXEC ReprovarFluxo @IdCliente = 15, @IdUsuario = 4;
 
-EXEC CorrecaoDeCadastro @IdCliente = 16, @IdUsuario = 1;
+EXEC CorrecaoDeCadastro @IdCliente = 50, @IdUsuario = 1;
 
-EXEC DevolverCadastro @IdCliente = 12, @IdUsuario = 2;
+EXEC DevolverCadastro @IdCliente = 50, @IdUsuario = 2;
 
 /*
 1 - gerência

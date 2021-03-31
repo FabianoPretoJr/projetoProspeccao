@@ -4,6 +4,14 @@ namespace BLL.Models
 {
     public class AnaliseModel
     {
+        public AnaliseModel(int id_Status, int id_Cliente, int id_Usuario)
+        {
+            this.Id_Status = id_Status;
+            this.Id_Cliente = id_Cliente;
+            this.Id_Usuario = id_Usuario;
+            this.Data_Hora = DateTime.UtcNow;
+        }
+
         private int _id_Analise;
         public int Id_Analise
         {
@@ -53,11 +61,11 @@ namespace BLL.Models
             private set { _usuario = value; }
         }
 
-        private DateTime _dataHora;
-        public DateTime DataHora
+        private DateTime _data_Hora;
+        public DateTime Data_Hora
         {
-            get { return _dataHora; }
-            private set { _dataHora = value; }
+            get { return _data_Hora; }
+            private set { _data_Hora = value; }
         }
     }
 }

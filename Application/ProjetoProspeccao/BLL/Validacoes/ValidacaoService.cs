@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BLL.Validacoes
 {
-    public class ValidacaoService
+    public static class ValidacaoService
     {
         public static IEnumerable<ValidationResult> ValidarErros(object obj)
         {

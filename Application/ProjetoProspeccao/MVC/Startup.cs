@@ -61,8 +61,7 @@ namespace MVC
             services.AddTransient<IUsuarioService, UsuarioService>();
             services.AddTransient<IUsuarioDAL, UsuarioEF>();
             services.AddTransient<IFluxoService, FluxoService>();
-            services.AddTransient<IFluxoDAL, FluxoDAL>();
-            // services.AddTransient<IFluxoDAL, FluxoEF>();
+            services.AddTransient<IFluxoDAL, FluxoEF>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

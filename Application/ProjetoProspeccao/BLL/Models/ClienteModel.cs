@@ -70,7 +70,7 @@ namespace BLL.Models
         public int Id_Status
         {
             get { return _id_Status; }
-            private set { _id_Status = value; }
+            set { _id_Status = value; }
         }
 
         private StatusAnaliseModel _statusAnalise;

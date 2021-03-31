@@ -65,11 +65,10 @@ CRUD Acesso
 -implementar a interface = OK
 -implementar inversão de controle = OK
 
--refatorar aprovação de cliente internacional para já enviar ao controle de risco = 
+-refatorar aprovação de cliente internacional para já enviar ao controle de risco = OK
 
 ==PESQUISAR
 -Arquitetura em camadas
 -design patterns
 -repository
 -Estudar CQRS
-

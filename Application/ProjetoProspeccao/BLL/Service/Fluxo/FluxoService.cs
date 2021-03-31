@@ -2,6 +2,7 @@
 using BLL.Interfaces.DAL;
 using BLL.Interfaces.Services.Fluxo;
 using BLL.Validacoes;
+using System;
 using System.Linq;
 
 namespace BLL.Service.Fluxo
@@ -16,11 +17,11 @@ namespace BLL.Service.Fluxo
         }
 
         public FluxoResultadoDTO AprovarFluxo(FluxoDTO fluxoDTO)
-        {
-            FluxoResultadoDTO fluxoResultado = new FluxoResultadoDTO();
+        {          
             var erros = ValidacaoService.ValidarErros(fluxoDTO);
             if (erros.Count() > 0)
             {
+                FluxoResultadoDTO fluxoResultado = new FluxoResultadoDTO();
                 fluxoResultado.Erros.AddRange(erros);
                 return fluxoResultado;
             }
@@ -33,10 +34,10 @@ namespace BLL.Service.Fluxo
 
         public FluxoResultadoDTO CorrecaoDeCadastro(FluxoDTO fluxoDTO)
         {
-            FluxoResultadoDTO fluxoResultado = new FluxoResultadoDTO();
             var erros = ValidacaoService.ValidarErros(fluxoDTO);
             if (erros.Count() > 0)
             {
+                FluxoResultadoDTO fluxoResultado = new FluxoResultadoDTO();
                 fluxoResultado.Erros.AddRange(erros);
                 return fluxoResultado;
             }
@@ -49,10 +50,10 @@ namespace BLL.Service.Fluxo
 
         public FluxoResultadoDTO DevolverCadastro(FluxoDTO fluxoDTO)
         {
-            FluxoResultadoDTO fluxoResultado = new FluxoResultadoDTO();
             var erros = ValidacaoService.ValidarErros(fluxoDTO);
             if (erros.Count() > 0)
             {
+                FluxoResultadoDTO fluxoResultado = new FluxoResultadoDTO();
                 fluxoResultado.Erros.AddRange(erros);
                 return fluxoResultado;
             }
@@ -65,10 +66,10 @@ namespace BLL.Service.Fluxo
 
         public FluxoResultadoDTO EnviarAnaliseGerencia(FluxoDTO fluxoDTO)
         {
-            FluxoResultadoDTO fluxoResultado = new FluxoResultadoDTO();
             var erros = ValidacaoService.ValidarErros(fluxoDTO);
             if (erros.Count() > 0)
             {
+                FluxoResultadoDTO fluxoResultado = new FluxoResultadoDTO();
                 fluxoResultado.Erros.AddRange(erros);
                 return fluxoResultado;
             }
@@ -81,10 +82,10 @@ namespace BLL.Service.Fluxo
 
         public FluxoResultadoDTO ReprovarFluxo(FluxoDTO fluxoDTO)
         {
-            FluxoResultadoDTO fluxoResultado = new FluxoResultadoDTO();
             var erros = ValidacaoService.ValidarErros(fluxoDTO);
             if (erros.Count() > 0)
             {
+                FluxoResultadoDTO fluxoResultado = new FluxoResultadoDTO();
                 fluxoResultado.Erros.AddRange(erros);
                 return fluxoResultado;
             }
