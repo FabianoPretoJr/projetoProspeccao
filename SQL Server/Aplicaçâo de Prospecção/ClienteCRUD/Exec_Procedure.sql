@@ -1,9 +1,9 @@
 EXEC CadastroCliente 
-	'Lucas', 
-	'41145141124', --cpf
+	'Teste EF', 
+	'41145141162', --cpf
 	'633299126', 
 	'12/09/2001', 
-	'lucas@email.com', 
+	'testeEF@email.com', 
 	'985592015', 
 	'25946135', 
 	'Rua Jácare', 
@@ -11,7 +11,7 @@ EXEC CadastroCliente
 	NULL, 
 	'Flórida', 
 	1,
-	1002;
+	2;
 
 EXEC AtualizarCliente
 	1,

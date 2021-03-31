@@ -54,8 +54,8 @@ namespace MVC
             );
 
             services.AddTransient<IClienteService, ClienteService>();
-            services.AddTransient<IClienteDAL, ClienteDAL>();
-            // services.AddTransient<IClienteDAL, ClienteEF>();
+            // services.AddTransient<IClienteDAL, ClienteDAL>();
+            services.AddTransient<IClienteDAL, ClienteEF>();
             services.AddTransient<IPaisEstadoCidadeService, PaisEstadoCidadeService>();
             services.AddTransient<IPaisEstadoCidadeDAL, PaisEstadoCidadeEF>();
             services.AddTransient<IUsuarioService, UsuarioService>();

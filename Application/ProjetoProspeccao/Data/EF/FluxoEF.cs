@@ -3,9 +3,9 @@ using BLL.Interfaces.DAL;
 using BLL.Models;
 using Data.Conexao;
 using System;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using BLL.Enums;
+using Data.Validacoes;
 
 namespace Data.EF
 {
@@ -22,8 +22,8 @@ namespace Data.EF
         {
             try
             {
-                var cliente = ClienteValido(fluxoDTO.IdCliente);
-                var usuario = UsuarioValido(fluxoDTO.IdUsuario);
+                var cliente = Valida.Cliente(_database, fluxoDTO.IdCliente);
+                var usuario = Valida.Usuario(_database, fluxoDTO.IdUsuario);
 
                 if(cliente.Id_Status == (int)EStatus.analise_gerencia || cliente.Id_Status == (int)EStatus.analise_controle_risco)
                 {
@@ -64,8 +64,8 @@ namespace Data.EF
         {
             try
             {
-                var cliente = ClienteValido(fluxoDTO.IdCliente);
-                var usuario = UsuarioValido(fluxoDTO.IdUsuario);
+                var cliente = Valida.Cliente(_database, fluxoDTO.IdCliente);
+                var usuario = Valida.Usuario(_database, fluxoDTO.IdUsuario);
 
                 if (cliente.Id_Status == (int)EStatus.analise_gerencia || cliente.Id_Status == (int)EStatus.analise_controle_risco)
                 {
@@ -92,23 +92,13 @@ namespace Data.EF
         {
             try
             {
-                var cliente = ClienteValido(fluxoDTO.IdCliente);
-                var usuario = UsuarioValido(fluxoDTO.IdUsuario);
+                var cliente = Valida.Cliente(_database, fluxoDTO.IdCliente);
+                var usuario = Valida.Usuario(_database, fluxoDTO.IdUsuario);
 
-                if (cliente.Id_Status == (int)EStatus.correcao_cadastro)
-                {
-                    int idStatus = (int)EStatus.analise_gerencia;
-
-                    var devolver = new AnaliseModel(idStatus, fluxoDTO.IdCliente, fluxoDTO.IdUsuario);
-                    _database.Analise.Add(devolver);
-
-                    cliente.Id_Status = idStatus;
-                    _database.Cliente.Update(cliente);
-
-                    _database.SaveChanges();
-                }
-                else
+                if (cliente.Id_Status != (int)EStatus.correcao_cadastro)
                     throw new ArgumentException(message: "Este cliente não está em correção de cadastro");
+
+                NewMethod(fluxoDTO, cliente, (int)EStatus.analise_gerencia);
             }
             catch (Exception e)
             {
@@ -116,12 +106,23 @@ namespace Data.EF
             }
         }
 
+        private void NewMethod(FluxoDTO fluxoDTO, ClienteModel cliente, int idStatus) // passar só int
+        {
+            var devolver = new AnaliseModel(idStatus, fluxoDTO.IdCliente, fluxoDTO.IdUsuario);
+            _database.Analise.Add(devolver);
+
+            cliente.Id_Status = idStatus;
+            _database.Cliente.Update(cliente);
+
+            _database.SaveChanges();
+        }
+
         public void EnviarAnaliseGerencia(FluxoDTO fluxoDTO)
         {
             try
             {
-                var cliente = ClienteValido(fluxoDTO.IdCliente);
-                var usuario = UsuarioValido(fluxoDTO.IdUsuario);
+                var cliente = Valida.Cliente(_database, fluxoDTO.IdCliente);
+                var usuario = Valida.Usuario(_database, fluxoDTO.IdUsuario);
 
                 if (cliente.Id_Status == (int)EStatus.Cadastrado)
                 {
@@ -148,8 +149,8 @@ namespace Data.EF
         {
             try
             {
-                var cliente = ClienteValido(fluxoDTO.IdCliente);
-                var usuario = UsuarioValido(fluxoDTO.IdUsuario);
+                var cliente = Valida.Cliente(_database, fluxoDTO.IdCliente);
+                var usuario = Valida.Usuario(_database, fluxoDTO.IdUsuario);
 
                 if (cliente.Id_Status == (int)EStatus.analise_gerencia || cliente.Id_Status == (int)EStatus.analise_controle_risco)
                 {
@@ -170,35 +171,6 @@ namespace Data.EF
             {
                 throw e;
             }
-        }
-
-        private ClienteModel ClienteValido(int idCliente)
-        {
-            var cliente = _database.Cliente.Where(c => c.Id_Cliente == idCliente)
-                                           .Include(c => c.Telefones)
-                                           .Include(c => c.Enderecos)
-                                           .ThenInclude(e => e.Cidade)
-                                           .ThenInclude(c => c.Estado)
-                                           .ThenInclude(e => e.Pais)
-                                           .First();
-
-            if (cliente != null)
-                return cliente;
-            else
-                throw new ArgumentException(message: "Cliente não encontrado na base de dados");
-        }
-
-        private UsuarioModel UsuarioValido(int idUsuario)
-        {
-            var usuario = _database.Usuario.Where(u => u.Id_Usuario == idUsuario)
-                                           .Include(u => u.Acesso)
-                                           .ThenInclude(a => a.Perfil)
-                                           .First();
-
-            if (usuario != null)
-                return usuario;
-            else
-                throw new ArgumentException(message: "Usuário não encontrado na base de dados");
         }
     }
 }

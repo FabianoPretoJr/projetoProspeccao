@@ -6,6 +6,7 @@ BEGIN
 	BEGIN TRY
 		BEGIN TRAN
 			EXEC ClienteValido @IdCliente;
+			EXEC UsuarioValido @IdUsuario;
 
 			IF(NOT EXISTS(SELECT * FROM Cliente WHERE id_cliente = @IdCliente AND id_status = 1))
 				THROW 50000, 'Este cliente não está em fase de cadastro', 1;
