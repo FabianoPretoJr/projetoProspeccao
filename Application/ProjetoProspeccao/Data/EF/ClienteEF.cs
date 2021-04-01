@@ -66,10 +66,15 @@ namespace Data.EF
         {
             try
             {
-                var clientes = _database.Cliente.Select(c => c.Analises.OrderByDescending(a => a.Id_Analise).First()) // se der erro muda pra id_analise
-                                                .Where(a => idsStatus.Contains(a.Id_Status) && (a.Id_Usuario != idUsuario || a.Id_Status == (int)EStatus.Cadastrado))
-                                                .Select(a => a.Cliente)
-                                                .ToList();
+                // Query pra trazer somente clientes que e posso mexer como usuário
+                // var clientes = _database.Cliente.Select(c => c.Analises.OrderByDescending(a => a.Id_Analise).First()) // se der erro muda pra id_analise
+                //                                 .Where(a => idsStatus.Contains(a.Id_Status) && (a.Id_Usuario != idUsuario || a.Id_Status == (int)EStatus.Cadastrado))
+                //                                 .Select(a => a.Cliente)
+                //                                 .ToList();
+
+                // Query que eu trago todos usuários, mas não vou permirir mexer em alguns caso eu seja o ultimo que mexeu nele
+                var clientes = _database.Cliente.Where(c => idsStatus.Contains(c.Id_Status))
+                                                .IncludeFilter(c => c.Analises.OrderByDescending(a => a.Id_Analise).First());
 
                 List<ClienteListagemDTO> listaCliente = new List<ClienteListagemDTO>();
 
@@ -84,6 +89,8 @@ namespace Data.EF
                     cliente.DataNascimento = cli.Data_Nascimento;
                     cliente.Email = cli.Email;
                     cliente.IdStatus = cli.Id_Status;
+                    cliente.UsuarioPermitido = cli.Analises.First().Id_Usuario != idUsuario || 
+                                               cli.Analises.First().Id_Status == (int)EStatus.Cadastrado ? true : false;
 
                     listaCliente.Add(cliente);
                 }

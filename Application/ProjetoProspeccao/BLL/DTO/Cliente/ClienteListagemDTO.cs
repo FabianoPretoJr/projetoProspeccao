@@ -11,5 +11,6 @@ namespace BLL.DTO.Cliente
         public DateTime DataNascimento { get; set; }
         public string Email { get; set; }
         public int IdStatus { get; set; }
+        public bool UsuarioPermitido { get; set; }
     }
 }

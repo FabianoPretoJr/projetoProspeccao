@@ -23,6 +23,7 @@ using BLL.Service.Fluxo;
 using Data.EF;
 using Data.Conexao;
 using Microsoft.EntityFrameworkCore;
+using BLL.Enums;
 
 namespace MVC
 {
@@ -63,7 +64,7 @@ namespace MVC
             services.AddTransient<IFluxoDAL, FluxoEF>();
 
             services.AddAuthorization(options =>
-                options.AddPolicy("CadastroCorrecaoCliente", policy => policy.RequireClaim("IdPerfil", "1", "2"))
+                options.AddPolicy("CadastroCorrecaoCliente", policy => policy.RequireClaim("IdPerfil", $"{(int)EPerfil.Administracao}", $"{(int)EPerfil.Operacao}"))
             );
         }
 

@@ -25,7 +25,7 @@ namespace Data.EF
             {
                 var usuarioModel = new UsuarioModel(usuarioDTO.Login, usuarioDTO.Senha);
 
-                var usuario = _database.Usuario.First(u => u.Login_Usuario == usuarioModel.Login_Usuario && u.Senha == usuarioModel.Senha && u.Ativo == false);
+                var usuario = _database.Usuario.FirstOrDefault(u => u.Login_Usuario == usuarioModel.Login_Usuario && u.Senha == usuarioModel.Senha && u.Ativo == false);
                 
                 if (usuario != null)
                 {
