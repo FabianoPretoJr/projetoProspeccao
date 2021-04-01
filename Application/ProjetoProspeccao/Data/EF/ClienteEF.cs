@@ -74,6 +74,10 @@ namespace Data.EF
 
                 // Query que eu trago todos usuários, mas não vou permirir mexer em alguns caso eu seja o ultimo que mexeu nele
                 var clientes = _database.Cliente.Where(c => idsStatus.Contains(c.Id_Status))
+                                                .Include(c => c.Enderecos)
+                                                .ThenInclude(e => e.Cidade)
+                                                .ThenInclude(c => c.Estado)
+                                                .ThenInclude(e => e.Pais)
                                                 .IncludeFilter(c => c.Analises.OrderByDescending(a => a.Id_Analise).First());
 
                 List<ClienteListagemDTO> listaCliente = new List<ClienteListagemDTO>();
@@ -91,6 +95,7 @@ namespace Data.EF
                     cliente.IdStatus = cli.Id_Status;
                     cliente.UsuarioPermitido = cli.Analises.First().Id_Usuario != idUsuario || 
                                                cli.Analises.First().Id_Status == (int)EStatus.Cadastrado ? true : false;
+                    cliente.NomePais = cli.Enderecos.First().Cidade.Estado.Pais.Nome_Pais;
 
                     listaCliente.Add(cliente);
                 }
@@ -151,7 +156,12 @@ namespace Data.EF
             {
                 var clientesEncerrados = _database.Cliente.Where(c => c.Id_Status == (int)EStatus.aprovado_gerencia ||
                                                                  c.Id_Status == (int)EStatus.aprovado_controle_risco ||
-                                                                 c.Id_Status == (int)EStatus.reprovado).ToList();
+                                                                 c.Id_Status == (int)EStatus.reprovado)
+                                                          .Include(c => c.Enderecos)
+                                                          .ThenInclude(e => e.Cidade)
+                                                          .ThenInclude(c => c.Estado)
+                                                          .ThenInclude(e => e.Pais)
+                                                          .ToList();
 
                 List<ClienteListagemDTO> listaCliente = new List<ClienteListagemDTO>();
 
@@ -166,6 +176,7 @@ namespace Data.EF
                     cliente.DataNascimento = clienteEncerrado.Data_Nascimento;
                     cliente.Email = clienteEncerrado.Email;
                     cliente.IdStatus = clienteEncerrado.Id_Status;
+                    cliente.NomePais = clienteEncerrado.Enderecos.First().Cidade.Estado.Pais.Nome_Pais;
 
                     listaCliente.Add(cliente);
                 }

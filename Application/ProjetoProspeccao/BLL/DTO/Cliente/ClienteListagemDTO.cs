@@ -12,5 +12,6 @@ namespace BLL.DTO.Cliente
         public string Email { get; set; }
         public int IdStatus { get; set; }
         public bool UsuarioPermitido { get; set; }
+        public string NomePais { get; set; }
     }
 }

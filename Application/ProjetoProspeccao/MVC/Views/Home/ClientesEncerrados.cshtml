@@ -38,6 +38,7 @@
             <th>RG</th>
             <th>Data Nascimento</th>
             <th>E-mail</th>
+            <th>País</th>
             <th>Status</th>
         </tr>
     </thead>
@@ -50,6 +51,7 @@
                 <td>@cliente.RG</td>
                 <td>@cliente.DataNascimento.ToString("dd/MM/yyyy")</td>
                 <td>@cliente.Email</td>
+                <td>@cliente.NomePais</td>
                 <td>
                     @switch (cliente.IdStatus)
                     {
