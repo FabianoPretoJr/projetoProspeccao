@@ -36,7 +36,7 @@ namespace Data.EF
         {
             try
             {
-                var clientes = _database.Cliente.Select(c => c.Analises.OrderByDescending(a => a.Data_Hora).First())
+                var clientes = _database.Cliente.Select(c => c.Analises.OrderByDescending(a => a.Id_Analise).First()) // se der erro muda pra id_analise
                                                 .Where(a => idsStatus.Contains(a.Id_Status) && (a.Id_Usuario != idUsuario || a.Id_Status == (int)EStatus.Cadastrado))
                                                 .Select(a => a.Cliente)
                                                 .ToList();

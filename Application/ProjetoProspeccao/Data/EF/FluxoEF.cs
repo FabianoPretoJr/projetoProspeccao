@@ -25,34 +25,19 @@ namespace Data.EF
                 var cliente = Valida.Cliente(_database, fluxoDTO.IdCliente);
                 var usuario = Valida.Usuario(_database, fluxoDTO.IdUsuario);
 
-                if(cliente.Id_Status == (int)EStatus.analise_gerencia || cliente.Id_Status == (int)EStatus.analise_controle_risco)
-                {
-                    int idStatus;
-                    if (cliente.Enderecos.Any(e => e.Cidade.Estado.Pais.Nome_Pais == "Brasil") || cliente.Id_Status == (int)EStatus.analise_gerencia)
-                        idStatus = (int)EStatus.aprovado_gerencia;
-                    else
-                        idStatus = (int)EStatus.aprovado_controle_risco;
-
-                    var aprovado = new AnaliseModel(idStatus, fluxoDTO.IdCliente, fluxoDTO.IdUsuario);
-                    _database.Analise.Add(aprovado);
-
-                    cliente.Id_Status = idStatus;
-                    _database.Cliente.Update(cliente);
-
-                    if (cliente.Enderecos.Any(e => e.Cidade.Estado.Pais.Nome_Pais != "Brasil") && idStatus == (int)EStatus.aprovado_gerencia)
-                    {
-                        idStatus = (int)EStatus.analise_controle_risco;
-
-                        var analise = new AnaliseModel(idStatus, fluxoDTO.IdCliente, fluxoDTO.IdUsuario);
-                        _database.Analise.Add(analise);
-
-                        cliente.Id_Status = idStatus;
-                        _database.Cliente.Update(cliente);             
-                    }
-                    _database.SaveChanges();
-                }
-                else
+                if(cliente.Id_Status != (int)EStatus.analise_gerencia && cliente.Id_Status != (int)EStatus.analise_controle_risco)
                     throw new ArgumentException(message: "Este cliente não está em fase de análise");
+
+                int idStatus;
+                if (cliente.Enderecos.Any(e => e.Cidade.Estado.Pais.Nome_Pais == "Brasil") || cliente.Id_Status == (int)EStatus.analise_gerencia)
+                    idStatus = (int)EStatus.aprovado_gerencia;
+                else
+                    idStatus = (int)EStatus.aprovado_controle_risco;
+
+                InserirAtualizarRegistros(fluxoDTO, cliente, idStatus);
+
+                if (cliente.Enderecos.Any(e => e.Cidade.Estado.Pais.Nome_Pais != "Brasil") && idStatus == (int)EStatus.aprovado_gerencia)
+                    InserirAtualizarRegistros(fluxoDTO, cliente, (int)EStatus.analise_controle_risco);
             }
             catch (Exception e)
             {
@@ -67,20 +52,10 @@ namespace Data.EF
                 var cliente = Valida.Cliente(_database, fluxoDTO.IdCliente);
                 var usuario = Valida.Usuario(_database, fluxoDTO.IdUsuario);
 
-                if (cliente.Id_Status == (int)EStatus.analise_gerencia || cliente.Id_Status == (int)EStatus.analise_controle_risco)
-                {
-                    int idStatus = (int)EStatus.correcao_cadastro;
-
-                    var correcao = new AnaliseModel(idStatus, fluxoDTO.IdCliente, fluxoDTO.IdUsuario);
-                    _database.Analise.Add(correcao);
-
-                    cliente.Id_Status = idStatus;
-                    _database.Cliente.Update(cliente);
-
-                    _database.SaveChanges();
-                }
-                else
+                if (cliente.Id_Status != (int)EStatus.analise_gerencia && cliente.Id_Status != (int)EStatus.analise_controle_risco)
                     throw new ArgumentException(message: "Este cliente não está em fase de análise");
+
+                InserirAtualizarRegistros(fluxoDTO, cliente, (int)EStatus.correcao_cadastro);
             }
             catch (Exception e)
             {
@@ -98,23 +73,12 @@ namespace Data.EF
                 if (cliente.Id_Status != (int)EStatus.correcao_cadastro)
                     throw new ArgumentException(message: "Este cliente não está em correção de cadastro");
 
-                NewMethod(fluxoDTO, cliente, (int)EStatus.analise_gerencia);
+                InserirAtualizarRegistros(fluxoDTO, cliente, (int)EStatus.analise_gerencia);
             }
             catch (Exception e)
             {
                 throw e;
             }
-        }
-
-        private void NewMethod(FluxoDTO fluxoDTO, ClienteModel cliente, int idStatus) // passar só int
-        {
-            var devolver = new AnaliseModel(idStatus, fluxoDTO.IdCliente, fluxoDTO.IdUsuario);
-            _database.Analise.Add(devolver);
-
-            cliente.Id_Status = idStatus;
-            _database.Cliente.Update(cliente);
-
-            _database.SaveChanges();
         }
 
         public void EnviarAnaliseGerencia(FluxoDTO fluxoDTO)
@@ -124,20 +88,10 @@ namespace Data.EF
                 var cliente = Valida.Cliente(_database, fluxoDTO.IdCliente);
                 var usuario = Valida.Usuario(_database, fluxoDTO.IdUsuario);
 
-                if (cliente.Id_Status == (int)EStatus.Cadastrado)
-                {
-                    int idStatus = (int)EStatus.analise_gerencia;
-
-                    var devolver = new AnaliseModel(idStatus, fluxoDTO.IdCliente, fluxoDTO.IdUsuario);
-                    _database.Analise.Add(devolver);
-
-                    cliente.Id_Status = idStatus;
-                    _database.Cliente.Update(cliente);
-
-                    _database.SaveChanges();
-                }
-                else
+                if (cliente.Id_Status != (int)EStatus.Cadastrado)
                     throw new ArgumentException(message: "Este cliente não está em fase de cadastro");
+
+                InserirAtualizarRegistros(fluxoDTO, cliente, (int)EStatus.analise_gerencia);
             }
             catch (Exception e)
             {
@@ -152,25 +106,26 @@ namespace Data.EF
                 var cliente = Valida.Cliente(_database, fluxoDTO.IdCliente);
                 var usuario = Valida.Usuario(_database, fluxoDTO.IdUsuario);
 
-                if (cliente.Id_Status == (int)EStatus.analise_gerencia || cliente.Id_Status == (int)EStatus.analise_controle_risco)
-                {
-                    int idStatus = (int)EStatus.reprovado;
-
-                    var devolver = new AnaliseModel(idStatus, fluxoDTO.IdCliente, fluxoDTO.IdUsuario);
-                    _database.Analise.Add(devolver);
-
-                    cliente.Id_Status = idStatus;
-                    _database.Cliente.Update(cliente);
-
-                    _database.SaveChanges();
-                }
-                else
+                if (cliente.Id_Status != (int)EStatus.analise_gerencia && cliente.Id_Status != (int)EStatus.analise_controle_risco)
                     throw new ArgumentException(message: "Este cliente não está em fase de análise");
+
+                InserirAtualizarRegistros(fluxoDTO, cliente, (int)EStatus.reprovado);
             }
             catch (Exception e)
             {
                 throw e;
             }
+        }
+
+        private void InserirAtualizarRegistros(FluxoDTO fluxoDTO, ClienteModel cliente, int idStatus)
+        {
+            var analise = new AnaliseModel(idStatus, fluxoDTO.IdCliente, fluxoDTO.IdUsuario);
+            _database.Analise.Add(analise);
+
+            cliente.Id_Status = idStatus;
+            _database.Cliente.Update(cliente);
+
+            _database.SaveChanges();
         }
     }
 }
