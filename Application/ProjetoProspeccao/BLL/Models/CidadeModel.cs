@@ -40,7 +40,7 @@ namespace BLL.Models
         }
 
         private EstadoModel _estado;
-        public EstadoModel Estado
+        public virtual EstadoModel Estado
         {
             get { return _estado; }
             private set { _estado = value; }
@@ -53,8 +53,8 @@ namespace BLL.Models
             private set { _ativo = value; }
         }
 
-        private IEnumerable<EnderecoModel> _enderecos;
-        public IEnumerable<EnderecoModel> Enderecos
+        private ICollection<EnderecoModel> _enderecos;
+        public virtual ICollection<EnderecoModel> Enderecos
         {
             get { return _enderecos; }
             private set { _enderecos = value; }

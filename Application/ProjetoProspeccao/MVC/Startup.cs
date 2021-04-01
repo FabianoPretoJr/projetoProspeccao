@@ -54,7 +54,6 @@ namespace MVC
             );
 
             services.AddTransient<IClienteService, ClienteService>();
-            // services.AddTransient<IClienteDAL, ClienteDAL>();
             services.AddTransient<IClienteDAL, ClienteEF>();
             services.AddTransient<IPaisEstadoCidadeService, PaisEstadoCidadeService>();
             services.AddTransient<IPaisEstadoCidadeDAL, PaisEstadoCidadeEF>();
@@ -62,6 +61,10 @@ namespace MVC
             services.AddTransient<IUsuarioDAL, UsuarioEF>();
             services.AddTransient<IFluxoService, FluxoService>();
             services.AddTransient<IFluxoDAL, FluxoEF>();
+
+            services.AddAuthorization(options =>
+                options.AddPolicy("CadastroCorrecaoCliente", policy => policy.RequireClaim("IdPerfil", "1", "2"))
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

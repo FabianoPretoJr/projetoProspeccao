@@ -36,15 +36,15 @@ namespace BLL.Models
             private set { _ativo = value; }
         }
 
-        private IEnumerable<ClienteModel> _clientes;
-        public IEnumerable<ClienteModel> Clientes
+        private ICollection<ClienteModel> _clientes;
+        public virtual ICollection<ClienteModel> Clientes
         {
             get { return _clientes; }
             private set { _clientes = value; }
         }
 
-        private IEnumerable<AnaliseModel> _analises;
-        public IEnumerable<AnaliseModel> Analises
+        private ICollection<AnaliseModel> _analises;
+        public virtual ICollection<AnaliseModel> Analises
         {
             get { return _analises; }
             private set { _analises = value; }

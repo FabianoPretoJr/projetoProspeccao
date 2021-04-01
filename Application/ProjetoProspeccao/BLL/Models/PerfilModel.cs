@@ -36,8 +36,8 @@ namespace BLL.Models
             private set { _ativo = value; }
         }
 
-        private IEnumerable<AcessoModel> _acesso;
-        public IEnumerable<AcessoModel> Acesso
+        private ICollection<AcessoModel> _acesso;
+        public virtual ICollection<AcessoModel> Acesso
         {
             get { return _acesso; }
             private set { _acesso = value; }

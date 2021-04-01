@@ -14,7 +14,16 @@ namespace BLL.Models
             this.Email = email;
         }
 
-        public ClienteModel(int id_Cliente, string nome, string cpf, string rg, DateTime data_Nascimento, string email)
+        public ClienteModel(
+            int id_Cliente, 
+            string nome, 
+            string cpf, 
+            string rg, 
+            DateTime data_Nascimento, 
+            string email, 
+            int id_Status,
+            TelefoneModel telefone,
+            EnderecoModel endereco)
         {
             this.Id_Cliente = id_Cliente;
             this.Nome = nome;
@@ -22,6 +31,36 @@ namespace BLL.Models
             this.Rg = rg;
             this.Data_Nascimento = data_Nascimento;
             this.Email = email;
+            this.Id_Status = id_Status;
+            this.Telefones = new List<TelefoneModel>();
+            this.Telefones.Add(telefone);
+            this.Enderecos = new List<EnderecoModel>();
+            this.Enderecos.Add(endereco);
+        }
+
+        public ClienteModel(
+            string nome, 
+            string cpf, 
+            string rg, 
+            DateTime data_Nascimento, 
+            string email,
+            int id_Status,
+            TelefoneModel telefone,
+            EnderecoModel endereco,
+            AnaliseModel analise)
+        {
+            this.Nome = nome;
+            this.Cpf = cpf;
+            this.Rg = rg;
+            this.Data_Nascimento = data_Nascimento;
+            this.Email = email;
+            this.Id_Status = id_Status;
+            this.Telefones = new List<TelefoneModel>();
+            this.Telefones.Add(telefone);
+            this.Enderecos = new List<EnderecoModel>();
+            this.Enderecos.Add(endereco);
+            this.Analises = new List<AnaliseModel>();
+            this.Analises.Add(analise);
         }
 
         private int _id_Cliente;
@@ -74,28 +113,28 @@ namespace BLL.Models
         }
 
         private StatusAnaliseModel _statusAnalise;
-        public StatusAnaliseModel StatusAnalise
+        public virtual StatusAnaliseModel StatusAnalise
         {
             get { return _statusAnalise; }
             private set { _statusAnalise = value; }
         }
 
-        private IEnumerable<EnderecoModel> _enderecos;
-        public IEnumerable<EnderecoModel> Enderecos
+        private ICollection<EnderecoModel> _enderecos;
+        public virtual ICollection<EnderecoModel> Enderecos
         {
             get { return _enderecos; }
             private set { _enderecos = value; }
         }
 
-        private IEnumerable<TelefoneModel> _telefones;
-        public IEnumerable<TelefoneModel> Telefones
+        private ICollection<TelefoneModel> _telefones;
+        public virtual ICollection<TelefoneModel> Telefones
         {
             get { return _telefones; }
             private set { _telefones = value; }
         }
 
-        private IEnumerable<AnaliseModel> _analises;
-        public IEnumerable<AnaliseModel> Analises
+        private ICollection<AnaliseModel> _analises;
+        public virtual ICollection<AnaliseModel> Analises
         {
             get { return _analises; }
             private set { _analises = value; }

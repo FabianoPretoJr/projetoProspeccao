@@ -65,7 +65,7 @@
                     <span>Clientes</span>
                 </a>
             </li>
-            @if (@User.Claims.Any(p => p.Value == "2" || p.Value == "1"))
+            @if (@User.Claims.Where(p => p.Type == "IdPerfil").Any(p => p.Value == "2" || p.Value == "1"))
             {
                 <li class="nav-item">
                     <a class="nav-link" asp-action="CadastroCliente" asp-controller="Home">

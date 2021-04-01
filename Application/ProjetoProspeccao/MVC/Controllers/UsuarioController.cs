@@ -90,7 +90,7 @@ namespace MVC.Controllers
             };
             foreach (var perfil in respostaPerfilUsuario.PerfilsDeUsuario)
             {
-                var claim = new Claim(ClaimTypes.Role, perfil.IdPerfil.ToString());
+                var claim = new Claim("IdPerfil", perfil.IdPerfil.ToString());
                 claims.Add(claim);
             }
 

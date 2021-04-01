@@ -40,7 +40,7 @@ namespace BLL.Models
         }
 
         private PaisModel _pais;
-        public PaisModel Pais
+        public virtual PaisModel Pais
         {
             get { return _pais; }
             private set { _pais = value; }
@@ -53,8 +53,8 @@ namespace BLL.Models
             private set { _ativo = value; }
         }
 
-        private IEnumerable<CidadeModel> _cidades;
-        public IEnumerable<CidadeModel> Cidades
+        private ICollection<CidadeModel> _cidades;
+        public virtual ICollection<CidadeModel> Cidades
         {
             get { return _cidades; }
             private set { _cidades = value; }

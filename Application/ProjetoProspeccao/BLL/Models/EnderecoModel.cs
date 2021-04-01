@@ -3,6 +3,22 @@
     public class EnderecoModel
     {
         public EnderecoModel(
+        string cep,
+        string rua,
+        string numero,
+        string complemento,
+        string bairro,
+        int id_Cidade)
+        {
+            this.Cep = cep;
+            this.Rua = rua;
+            this.Numero = numero;
+            this.Complemento = complemento;
+            this.Bairro = bairro;
+            this.Id_Cidade = id_Cidade;
+        }
+
+        public EnderecoModel(
             string cep, 
             string rua, 
             string numero, 
@@ -90,7 +106,7 @@
         }
 
         private CidadeModel _cidade;
-        public CidadeModel Cidade
+        public virtual CidadeModel Cidade
         {
             get { return _cidade; }
             private set { _cidade = value; }
@@ -104,7 +120,7 @@
         }
 
         private ClienteModel _cliente;
-        public ClienteModel Cliente
+        public virtual ClienteModel Cliente
         {
             get { return _cliente; }
             private set { _cliente = value; }

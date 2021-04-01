@@ -36,8 +36,8 @@ namespace BLL.Models
             private set { _ativo = value; }
         }
 
-        private IEnumerable<EstadoModel> _estados;
-        public IEnumerable<EstadoModel> Estados
+        private ICollection<EstadoModel> _estados;
+        public virtual ICollection<EstadoModel> Estados
         {
             get { return _estados; }
             private set { _estados = value; }

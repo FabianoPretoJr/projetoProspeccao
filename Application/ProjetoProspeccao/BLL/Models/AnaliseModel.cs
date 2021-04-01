@@ -12,6 +12,13 @@ namespace BLL.Models
             this.Data_Hora = DateTime.UtcNow;
         }
 
+        public AnaliseModel(int id_Status, int id_Usuario)
+        {
+            this.Id_Status = id_Status;
+            this.Id_Usuario = id_Usuario;
+            this.Data_Hora = DateTime.UtcNow;
+        }
+
         private int _id_Analise;
         public int Id_Analise
         {
@@ -27,7 +34,7 @@ namespace BLL.Models
         }
 
         private StatusAnaliseModel _statusAnalise;
-        public StatusAnaliseModel StatusAnalise
+        public virtual StatusAnaliseModel StatusAnalise
         {
             get { return _statusAnalise; }
             private set { _statusAnalise = value; }
@@ -41,7 +48,7 @@ namespace BLL.Models
         }
 
         private ClienteModel _cliente;
-        public ClienteModel Cliente
+        public virtual ClienteModel Cliente
         {
             get { return _cliente; }
             private set { _cliente = value; }
@@ -55,7 +62,7 @@ namespace BLL.Models
         }
 
         private UsuarioModel _usuario;
-        public UsuarioModel Usuario
+        public virtual UsuarioModel Usuario
         {
             get { return _usuario; }
             private set { _usuario = value; }

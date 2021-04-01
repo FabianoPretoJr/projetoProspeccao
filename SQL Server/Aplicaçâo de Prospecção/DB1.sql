@@ -34,7 +34,7 @@ CREATE TABLE Cliente(
 	id_cliente		INT PRIMARY KEY	IDENTITY	NOT NULL,
 	nome			VARCHAR(45)					NOT NULL,
 	cpf				CHAR(11)	UNIQUE			NOT NULL,
-	rg				CHAR(8)						NOT NULL,
+	rg				CHAR(9)						NOT NULL,
 	data_nascimento	DATE						NOT NULL,
 	email			VARCHAR(30)	UNIQUE			NOT NULL,
 	id_status		INT							NOT NULL

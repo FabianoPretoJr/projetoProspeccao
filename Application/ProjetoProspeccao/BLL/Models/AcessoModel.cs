@@ -10,7 +10,7 @@
         }
 
         private PerfilModel _perfil;
-        public PerfilModel Perfil
+        public virtual PerfilModel Perfil
         {
             get { return _perfil; }
             private set { _perfil = value; }
@@ -24,7 +24,7 @@
         }
 
         private UsuarioModel _usuario;
-        public UsuarioModel Usuario
+        public virtual UsuarioModel Usuario
         {
             get { return _usuario; }
             private set { _usuario = value; }

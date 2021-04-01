@@ -7,7 +7,6 @@ using MVC.Models;
 using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Security.Claims;
 
 namespace MVC.Controllers
 {
@@ -40,7 +39,7 @@ namespace MVC.Controllers
         {
             try
             {
-                var perfils = User.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+                var perfils = User.Claims.Where(c => c.Type == "IdPerfil").ToList();
                 var idUsuario = Convert.ToInt32(User.Claims.First(c => c.Type == "IdUsuario").Value);
                 var listaCliente = _serviceCliente.ListarClientes(perfils, idUsuario);
                 return View(listaCliente);
@@ -69,7 +68,7 @@ namespace MVC.Controllers
             }
         }
 
-        [Authorize(Roles = "1, 2")]
+        [Authorize(Policy = "CadastroCorrecaoCliente")]
         public IActionResult CadastroCliente()
         {
             try
@@ -85,7 +84,7 @@ namespace MVC.Controllers
             }
         }
 
-        [Authorize(Roles = "1, 2")]
+        [Authorize(Policy = "CadastroCorrecaoCliente")]
         public IActionResult CorrigirCadastro(int id)
         {
             try
