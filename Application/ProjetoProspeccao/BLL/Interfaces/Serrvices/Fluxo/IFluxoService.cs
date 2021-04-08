@@ -1,4 +1,6 @@
 ﻿using BLL.DTO.Fluxo;
+using BLL.Models;
+using System.Collections.Generic;
 
 namespace BLL.Interfaces.Services.Fluxo
 {
@@ -9,5 +11,7 @@ namespace BLL.Interfaces.Services.Fluxo
         FluxoResultadoDTO ReprovarFluxo(FluxoDTO fluxoDTO);
         FluxoResultadoDTO CorrecaoDeCadastro(FluxoDTO fluxoDTO);
         FluxoResultadoDTO DevolverCadastro(FluxoDTO fluxoDTO);
+        ListaFluxoDTO ListagemFluxo();
+        ListaFluxoDTO ListagemFluxo(ListaFluxoDTO filtrosFluxo);
     }
 }

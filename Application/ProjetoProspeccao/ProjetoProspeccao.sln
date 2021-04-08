@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVC", "MVC\MVC.csproj", "{07F1CD8E-01B9-4EF8-B99F-3AA6B815CCB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{636B82F6-9DEC-4AEC-878B-5BCCC9AA7A3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{636B82F6-9DEC-4AEC-878B-5BCCC9AA7A3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj", "{622F22AF-5669-45F2-AC8B-C2214A3AF531}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{636B82F6-9DEC-4AEC-878B-5BCCC9AA7A3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{636B82F6-9DEC-4AEC-878B-5BCCC9AA7A3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{636B82F6-9DEC-4AEC-878B-5BCCC9AA7A3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{622F22AF-5669-45F2-AC8B-C2214A3AF531}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{622F22AF-5669-45F2-AC8B-C2214A3AF531}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{622F22AF-5669-45F2-AC8B-C2214A3AF531}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{622F22AF-5669-45F2-AC8B-C2214A3AF531}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

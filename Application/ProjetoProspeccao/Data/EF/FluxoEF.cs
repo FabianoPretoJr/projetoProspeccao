@@ -6,6 +6,8 @@ using System;
 using System.Linq;
 using BLL.Enums;
 using Data.Validacoes;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Data.EF
 {
@@ -110,6 +112,23 @@ namespace Data.EF
                     throw new ArgumentException(message: "Este cliente não está em fase de análise");
 
                 InserirAtualizarRegistros(fluxoDTO, cliente, (int)EStatus.reprovado);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public ListaFluxoDTO ListagemFluxo()
+        {
+            try
+            {
+                var retorno = _database.Analise.Include(a => a.Usuario).Include(a => a.Cliente).Include(a => a.StatusAnalise);
+
+                var listaFluxo = new ListaFluxoDTO();
+                listaFluxo.ListaAnaliseModel.AddRange(retorno);
+
+                return listaFluxo;
             }
             catch (Exception e)
             {

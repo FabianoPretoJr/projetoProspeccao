@@ -1,0 +1,132 @@
+﻿@model BLL.DTO.Fluxo.ListaFluxoDTO
+@{
+    Layout = "_LayoutAdmin";
+}
+@{
+    ViewData["Title"] = "Fluxo";
+}
+
+<h2>Fluxo</h2>
+<hr />
+
+<script>
+    $(document).ready(function () {
+        $('#fluxo').DataTable({
+            //"info" : false,
+            "language": {
+                "lengthMenu": "Mostrando _MENU_ registros por página",
+                "zeroRecords": "Desculpe, nada encontrado",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "infoEmpty": "Nenhum registro disponível",
+                "search": "Buscar:",
+                "paginate": {
+                    "first": "Primeiro",
+                    "last": "Último",
+                    "next": "próximo",
+                    "previous": "Anterior"
+                }
+            },
+            "order": [[4, "desc"]]
+        });
+    });
+</script>
+
+<form id="formFiltro" method="POST">
+    <div class="form-inline">
+        <div class="form-group">
+            <div class="col">
+                <label>Nome</label>
+                <input type="text" class="form-control" id="clienteNome" asp-for="Filtros.ClienteNome" placeholder="Nome do cliente" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col">
+                <label>CPF</label>
+                <input type="text" class="form-control" id="clienteCPF" asp-for="Filtros.ClienteCPF" placeholder="CPF do cliente" maxlength="11" minlength="11" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col">
+                <label>Data inicio</label>
+                <input type="date" class="form-control" id="dataInicio" asp-for="Filtros.DataInicio" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col">
+                <label>Data fim</label>
+                <input type="date" class="form-control" id="dataFim" asp-for="Filtros.DataFim" />
+            </div>
+        </div>
+        <div class="form-group" style="margin-top: 25px;">
+            <div class="col">
+                <button form="formFiltro" asp-action="FiltrarFluxo" asp-controller="Home" type="submit" class="btn btn-primary">Filtrar</button>
+            </div>
+        </div>
+        <div class="form-group" style="margin-top: 25px;">
+            <div class="col">
+                <button id="limparFiltro" type="button" class="btn btn-danger">Limpar</button>
+            </div>
+        </div>
+        <div class="form-group" style="margin-top: 25px;">
+            <div class="col">
+                <button form="formFiltro" asp-action="ExportarExcel" asp-controller="Home" type="submit" class="btn btn-success">Exportar Excel</button>
+            </div>
+        </div>
+    </div>
+</form>
+<br />
+<br />
+
+<table id="fluxo" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Cliente</th>
+            <th>CPF</th>
+            <th>Usuário</th>
+            <th>Status</th>
+            <th>Data e Hora</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var fluxo in Model.ListaAnaliseModel)
+        {
+            <tr>
+                <td>@fluxo.Cliente.Nome</td>
+                <td>@Convert.ToInt64(@fluxo.Cliente.Cpf).ToString(@"000\.000\.000\-00")</td>
+                <td>@fluxo.Usuario.Login_Usuario</td>
+                <td>@fluxo.StatusAnalise.Nome_Status</td>
+                <td>@fluxo.Data_Hora.ToString("dd/MM/yyyy HH:mm:ss")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="~/js/exp-fluxo.js"></script>
+
+@*@for (int i = 0; i < Model.ListaAnaliseModel.Count(); i++)
+    {
+        <tr>
+            <td>
+                <input type="hidden" asp-for="@Model.ListaAnaliseModel[i].Cliente.Nome" />
+                @Model.ListaAnaliseModel[i].Cliente.Nome
+            </td>
+            <td>
+                <input type="hidden" asp-for="@Model.ListaAnaliseModel[i].Cliente.Cpf" />
+                @Model.ListaAnaliseModel[i].Cliente.Cpf
+            </td>
+            <td>
+                <input type="hidden" asp-for="@Model.ListaAnaliseModel[i].Usuario.Login_Usuario" />
+                @Model.ListaAnaliseModel[i].Usuario.Login_Usuario
+            </td>
+            <td>
+                <input type="hidden" asp-for="@Model.ListaAnaliseModel[i].StatusAnalise.Nome_Status" />
+                @Model.ListaAnaliseModel[i].StatusAnalise.Nome_Status
+            </td>
+            <td>
+                <input type="hidden" asp-for="@Model.ListaAnaliseModel[i].Data_Hora" />
+                @Model.ListaAnaliseModel[i].Data_Hora.ToString("dd/MM/yyyy HH:mm:ss")
+            </td>
+        </tr>
+    }*@
+
+@*<button class="btn btn-success" id="exportarExcel">Exportar Excel</button>*@

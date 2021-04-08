@@ -1,6 +1,8 @@
 ﻿using BLL.DTO.Fluxo;
 using BLL.Interfaces.DAL;
+using BLL.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace DAL
@@ -112,6 +114,11 @@ namespace DAL
             {
                 throw e;
             }
+        }
+
+        public ListaFluxoDTO ListagemFluxo()
+        {
+            throw new NotImplementedException();
         }
     }
 }

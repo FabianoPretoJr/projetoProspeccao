@@ -244,9 +244,6 @@ C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProsp
 C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\obj\Debug\netcoreapp3.1\Razor\Views\Home\ClientesEncerrados.cshtml.g.cs
 C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\obj\Debug\netcoreapp3.1\Razor\Views\Home\CorrigirCadastro.cshtml.g.cs
-C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\obj\Debug\netcoreapp3.1\Razor\Views\Home\ClientesControleRisco.cshtml.g.cs
-C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\obj\Debug\netcoreapp3.1\Razor\Views\Home\ClientesGerencia.cshtml.g.cs
-C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\obj\Debug\netcoreapp3.1\Razor\Views\Home\ClientesOperacao.cshtml.g.cs
 C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\obj\Debug\netcoreapp3.1\Razor\Views\Home\ExibirErros.cshtml.g.cs
 C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\bin\Debug\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.dll
@@ -305,3 +302,10 @@ C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProsp
 C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
 C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
 C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\obj\Debug\netcoreapp3.1\Razor\Views\Home\Fluxo.cshtml.g.cs
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\bin\Debug\netcoreapp3.1\ClosedXML.dll
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\bin\Debug\netcoreapp3.1\DocumentFormat.OpenXml.dll
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\bin\Debug\netcoreapp3.1\ExcelNumberFormat.dll
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\bin\Debug\netcoreapp3.1\System.IO.Packaging.dll
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\bin\Debug\netcoreapp3.1\Utils.dll
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\bin\Debug\netcoreapp3.1\Utils.pdb

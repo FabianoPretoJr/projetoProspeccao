@@ -1,12 +1,17 @@
-﻿using BLL.Interfaces.Serrvices.PaisEstadoCidade;
+﻿using BLL.DTO.Fluxo;
+using BLL.Interfaces.Serrvices.PaisEstadoCidade;
 using BLL.Interfaces.Services.Cliente;
+using BLL.Interfaces.Services.Fluxo;
+using BLL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MVC.Models;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Utils.GerarArquivos;
 
 namespace MVC.Controllers
 {
@@ -15,15 +20,18 @@ namespace MVC.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IClienteService _serviceCliente;
         private readonly IPaisEstadoCidadeService _servicePaisEstadoCidade;
+        private readonly IFluxoService _serviceFluxo;
 
         public HomeController(
             ILogger<HomeController> logger, 
             IClienteService serviceCliente,
-            IPaisEstadoCidadeService servicePaisEstadoCidade)
+            IPaisEstadoCidadeService servicePaisEstadoCidade,
+            IFluxoService serviceFluxo)
         {
             _logger = logger;
             _serviceCliente = serviceCliente;
             _servicePaisEstadoCidade = servicePaisEstadoCidade;
+            _serviceFluxo = serviceFluxo;
         }
 
         public IActionResult Index()
@@ -45,6 +53,57 @@ namespace MVC.Controllers
                 return View(listaCliente);
             }
             catch(Exception e)
+            {
+                ErrosView listaErros = new ErrosView();
+                listaErros.Erros.Add(e.Message);
+                return View("../Home/ExibirErros", listaErros);
+            }
+        }
+
+        [Authorize]
+        public IActionResult Fluxo()
+        {
+            try
+            {
+                var listaFluxo = _serviceFluxo.ListagemFluxo();
+                return View(listaFluxo);
+            }
+            catch(Exception e)
+            {
+                ErrosView listaErros = new ErrosView();
+                listaErros.Erros.Add(e.Message);
+                return View("../Home/ExibirErros", listaErros);
+            }
+        }
+
+        [Authorize]
+        public IActionResult FiltrarFluxo(ListaFluxoDTO filtrosFluxo)
+        {
+            try
+            {
+                var listaFluxo = _serviceFluxo.ListagemFluxo(filtrosFluxo);
+                return View("../Home/Fluxo", listaFluxo);
+            }
+            catch (Exception e)
+            {
+                ErrosView listaErros = new ErrosView();
+                listaErros.Erros.Add(e.Message);
+                return View("../Home/ExibirErros", listaErros);
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult ExportarExcel(ListaFluxoDTO filtrosFluxo)
+        {
+            try
+            {
+                var listaFluxo = _serviceFluxo.ListagemFluxo(filtrosFluxo);
+                var stream = Excel.GerarArquivo(listaFluxo);
+                string fileName = $"FluxoClientes_{DateTime.Now}.xlsx";
+                return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+            }
+            catch (Exception e)
             {
                 ErrosView listaErros = new ErrosView();
                 listaErros.Erros.Add(e.Message);
@@ -113,29 +172,5 @@ namespace MVC.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-        //[Authorize(Roles = "2")]
-        //public IActionResult ClientesOperacao()
-        //{
-        //    var perfils = User.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
-        //    var listaCliente = _serviceCliente.ListarClientes(perfils);
-        //    return View(listaCliente);
-        //}
-
-        //[Authorize(Roles = "3")]
-        //public IActionResult ClientesGerencia()
-        //{
-        //    var perfils = User.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
-        //    var listaCliente = _serviceCliente.ListarClientes(perfils);
-        //    return View(listaCliente);
-        //}
-
-        //[Authorize(Roles = "4")]
-        //public IActionResult ClientesGerenciaControleRisco()
-        //{
-        //    var perfils = User.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
-        //    var listaCliente = _serviceCliente.ListarClientes(perfils);
-        //    return View(listaCliente);
-        //}
     }
 }

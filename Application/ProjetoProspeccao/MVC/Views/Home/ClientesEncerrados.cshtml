@@ -47,8 +47,8 @@
         {
             <tr>
                 <td>@cliente.Nome</td>
-                <td>@cliente.CPF</td>
-                <td>@cliente.RG</td>
+                <td>@Convert.ToInt64(@cliente.CPF).ToString(@"000\.000\.000\-00")</td>
+                <td>@Convert.ToInt64(@cliente.RG).ToString(@"00\.000\.000\-0")</td>
                 <td>@cliente.DataNascimento.ToString("dd/MM/yyyy")</td>
                 <td>@cliente.Email</td>
                 <td>@cliente.NomePais</td>

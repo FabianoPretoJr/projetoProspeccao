@@ -1,8 +1,10 @@
 ﻿using BLL.DTO.Fluxo;
 using BLL.Interfaces.DAL;
 using BLL.Interfaces.Services.Fluxo;
+using BLL.Models;
 using BLL.Validacoes;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BLL.Service.Fluxo
@@ -94,6 +96,35 @@ namespace BLL.Service.Fluxo
                 _fluxoDAL.ReprovarFluxo(fluxoDTO);
                 return null;
             }
+        }
+
+        public ListaFluxoDTO ListagemFluxo()
+        {
+            return _fluxoDAL.ListagemFluxo();
+        }
+
+        public ListaFluxoDTO ListagemFluxo(ListaFluxoDTO filtrosFluxo)
+        {
+            var listaFluxo = _fluxoDAL.ListagemFluxo();
+
+            if (filtrosFluxo.Filtros.ClienteCPF != null)
+            {
+                listaFluxo.ListaAnaliseModel = listaFluxo.ListaAnaliseModel.Where(a => a.Cliente.Cpf == filtrosFluxo.Filtros.ClienteCPF).ToList();
+            }
+            if (filtrosFluxo.Filtros.ClienteNome != null)
+            {
+                listaFluxo.ListaAnaliseModel = listaFluxo.ListaAnaliseModel.Where(a => a.Cliente.Nome.Contains(filtrosFluxo.Filtros.ClienteNome)).ToList();
+            }
+            if (filtrosFluxo.Filtros.DataInicio != null)
+            {
+                listaFluxo.ListaAnaliseModel = listaFluxo.ListaAnaliseModel.Where(a => a.Data_Hora.Date >= filtrosFluxo.Filtros.DataInicio).ToList();
+            }
+            if (filtrosFluxo.Filtros.DataFim != null)
+            {
+                listaFluxo.ListaAnaliseModel = listaFluxo.ListaAnaliseModel.Where(a => a.Data_Hora.Date <= filtrosFluxo.Filtros.DataFim).ToList();
+            }
+
+            return listaFluxo;
         }
     }
 }
