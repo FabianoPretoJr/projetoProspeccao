@@ -47,6 +47,21 @@
         </div>
         <div class="form-group">
             <div class="col">
+                <label>Status</label>
+                <select class="form-control" id="status" asp-for="Filtros.Status">
+                    <option value="0">Selecione</option>
+                    <option value="1">Cadastrado</option>
+                    <option value="2">Aguardando análise da gerência</option>
+                    <option value="4">Aguardando análise do controle de risco</option>
+                    <option value="3">Aprovado pela gerência</option>
+                    <option value="5">Aprovado pelo controle de risco</option>
+                    <option value="6">Reprovado</option>
+                    <option value="7">Correção de cadastro</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col">
                 <label>Data inicio</label>
                 <input type="date" class="form-control" id="dataInicio" asp-for="Filtros.DataInicio" />
             </div>

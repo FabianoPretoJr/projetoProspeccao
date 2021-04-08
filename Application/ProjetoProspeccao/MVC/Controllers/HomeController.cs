@@ -1,4 +1,5 @@
 ﻿using BLL.DTO.Fluxo;
+using BLL.Enums;
 using BLL.Interfaces.Serrvices.PaisEstadoCidade;
 using BLL.Interfaces.Services.Cliente;
 using BLL.Interfaces.Services.Fluxo;

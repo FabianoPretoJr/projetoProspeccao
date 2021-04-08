@@ -3,6 +3,7 @@
     $("#clienteCPF").val("");
     $("#dataInicio").val("");
     $("#dataFim").val("");
+    $("#status").val(0);
 });
 
 //var enderecoGerarExcel = "https://localhost:44360/Home/ExportarExcel/";
