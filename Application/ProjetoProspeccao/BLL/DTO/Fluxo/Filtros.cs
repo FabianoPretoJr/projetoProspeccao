@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BLL.Enums;
+using System;
 
 namespace BLL.DTO.Fluxo
 {
@@ -8,7 +7,7 @@ namespace BLL.DTO.Fluxo
     {
         public string ClienteNome { get; set; }
         public string ClienteCPF { get; set; }
-        public int Status { get; set; }
+        public EStatus Status { get; set; }
         public DateTime? DataInicio { get; set; }
         public DateTime? DataFim { get; set; }
     }

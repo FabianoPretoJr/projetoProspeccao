@@ -115,9 +115,9 @@ namespace BLL.Service.Fluxo
             {
                 listaFluxo.ListaAnaliseModel = listaFluxo.ListaAnaliseModel.Where(a => a.Cliente.Nome.Contains(filtrosFluxo.Filtros.ClienteNome)).ToList();
             }
-            if(filtrosFluxo.Filtros.Status > 0 && filtrosFluxo.Filtros.Status < 8)
+            if(filtrosFluxo.Filtros.Status != 0)
             {
-                listaFluxo.ListaAnaliseModel = listaFluxo.ListaAnaliseModel.Where(a => a.StatusAnalise.Id_Status == filtrosFluxo.Filtros.Status).ToList();
+                listaFluxo.ListaAnaliseModel = listaFluxo.ListaAnaliseModel.Where(a => a.StatusAnalise.Id_Status == (int)filtrosFluxo.Filtros.Status).ToList();
             }
             if (filtrosFluxo.Filtros.DataInicio != null)
             {
