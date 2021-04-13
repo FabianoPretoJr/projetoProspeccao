@@ -73,8 +73,11 @@ namespace DAL
                     cliente.Rg = dr["rg"].ToString();
                     cliente.DataNascimento = Convert.ToDateTime(dr["data_nascimento"]);
                     cliente.Email = dr["email"].ToString();
-                    cliente.IdTelefone = Convert.ToInt32(dr["id_telefone"]);
-                    cliente.NumeroTelefone = dr["numero_telefone"].ToString();
+                    
+                    //cliente.NumeroTelefone = Convert.ToInt32(dr["id_telefone"]);
+                    //cliente.NumeroTelefone = dr["numero_telefone"].ToString();
+
+
                     cliente.IdEndereco = Convert.ToInt32(dr["id_endereco"]);
                     cliente.Cep = dr["cep"].ToString();
                     cliente.Rua = dr["rua"].ToString();
@@ -114,7 +117,9 @@ namespace DAL
                 cmd.ExecuteNonQuery();
 
                 cmd.CommandText = "EXEC AtualizarTelefone @idTelefone, @numeroTelefone, @idCliente";
-                cmd.Parameters.AddWithValue("@idTelefone", cliente.IdTelefone);
+
+                //cmd.Parameters.AddWithValue("@idTelefone", cliente.IdTelefone);
+
                 cmd.Parameters.AddWithValue("@numeroTelefone", cliente.NumeroTelefone);
                 cmd.ExecuteNonQuery();
 
@@ -242,6 +247,11 @@ namespace DAL
             {
                 throw e;
             }
+        }
+
+        public void AtualizarTelefones(ClienteCorrecaoDTO cliente)
+        {
+            throw new NotImplementedException();
         }
     }
 }

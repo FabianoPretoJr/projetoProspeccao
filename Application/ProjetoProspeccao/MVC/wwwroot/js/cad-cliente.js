@@ -1,6 +1,7 @@
 ﻿var enderecoListarEstado = "https://localhost:44360/clientes/obterestado/";
 var enderecoListarCidade = "https://localhost:44360/clientes/obtercidade/";
 
+// código do Pais Estado Cidade
 function listarEstados(id_Pais) {
     $("#titleEstado").remove();
     $("#estado").remove();
@@ -41,4 +42,82 @@ function listarCidades(id_Estado) {
 
 function adcIdCidade(id_Cidade) {
     $("#idCidade").val(id_Cidade.value);
+}
+
+// código do telefone
+var cont = 0;
+var aux = true;
+var arrIndices = [];
+adicionarTelefone();
+
+function adicionarTelefone() {
+    if (aux) {
+        $("#render").append(`
+            <div id="campoTelefone${cont}">
+                <label id="labelNumero${cont}">Número ${cont + 1}</label>
+                <div class="row">
+                    <div class="col-sm-12 col-md-11">
+                        <input type="text" class="form-control" placeholder="Número de Telefone do cliente" maxlength="9" minlength="9" required id="NumeroTelefone_${cont}_" name="NumeroTelefone[${cont}]" value />
+                    </div>
+                    <div class="col-sm-12 col-md-1">
+                        <button class="btn btn-primary" style="margin-left: -30px;" id="btnOk${cont}" type="button" onClick="confirmarTelefone(${cont})">Ok</button>
+                        <button class="btn btn-danger" style="margin-left: -30px;" id="btnLimpar${cont}" hidden type="button" onClick="limparTelefone(${cont})">Limpar</button>
+                    </div>                               
+                </div><br />
+            </div>
+        `);
+        arrIndices.push(cont);
+        cont = cont + 1;
+        aux = false;
+    }
+    else {
+        alert("Adicione um telefone antes de criar outro campo!");
+    }
+};
+
+function limparTelefone(contId) {
+    $(`#campoTelefone${contId}`).remove();
+    cont = cont - 1;
+    acertarArrayIndices(contId);
+    aux = true;
+}
+
+function confirmarTelefone(contId) {
+    if ($(`#NumeroTelefone_${contId}_`).val().length == 9) {
+        $(`#btnOk${contId}`).hide();
+        $(`#btnLimpar${contId}`).prop("hidden", false);
+        $(`#NumeroTelefone_${contId}_`).prop("readonly", true);
+        aux = true;
+    }
+    else {
+        alert("Necessário 9 digitos para um telefone ser válido!");
+    }
+}
+
+function acertarArrayIndices(contId) {
+    var indice = arrIndices.indexOf(contId);
+    arrIndices.splice(indice, 1);
+
+    console.log(arrIndices);
+
+    var contIndice = contId;
+
+    arrIndices.forEach(item => {
+        if (item > contId) {
+            $(`#campoTelefone${item}`).prop("id", `campoTelefone${contIndice}`);
+            $(`#labelNumero${item}`).html(`Número ${contIndice + 1}`);
+            $(`#labelNumero${item}`).prop("id", `labelNumero${contIndice}`);
+            $(`#NumeroTelefone_${item}_`).prop("name", `NumeroTelefone[${contIndice}]`);
+            $(`#NumeroTelefone_${item}_`).prop("id", `NumeroTelefone_${contIndice}_`);
+            $(`#btnOk${item}`).attr("onclick", `confirmarTelefone(${contIndice})`);
+            $(`#btnOk${item}`).prop("id", `btnOk${contIndice}`);
+            $(`#btnLimpar${item}`).attr("onclick", `limparTelefone(${contIndice})`);
+            $(`#btnLimpar${item}`).prop("id", `btnLimpar${contIndice}`);
+
+            arrIndices[item - 1] = contIndice;
+            contIndice++;
+        }
+    });
+
+    console.log(arrIndices);
 }

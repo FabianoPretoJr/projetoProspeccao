@@ -32,10 +32,6 @@
     <input asp-for="Email" type="email" class="form-control" placeholder="Email do cliente" required maxlength="30" />
     <span asp-validation-for="Email"></span><br />
 
-    <label asp-for="NumeroTelefone"></label>
-    <input asp-for="NumeroTelefone" type="text" class="form-control" placeholder="Número de Telefone do cliente" maxlength="9" minlength="9" required />
-    <span asp-validation-for="NumeroTelefone"></span><br />
-
     <label asp-for="Cep"></label>
     <input asp-for="Cep" type="text" class="form-control" placeholder="CEP do cliente" maxlength="8" minlength="8" />
     <span asp-validation-for="Cep"></span><br />
@@ -69,7 +65,15 @@
     <div id="renderCidade"></div>
 
     <input type="hidden" asp-for="IdCidade" id="idCidade" />
-    <span asp-validation-for="IdCidade"></span><br /><br />
+    <span asp-validation-for="IdCidade"></span><br />
+
+    <fieldset>
+        <legend>Números de telefones</legend>
+        <button type="button" class="btn btn-primary" id="telefones" onclick="adicionarTelefone()">Adicionar telefone</button>
+        <br /><br />
+
+        <div id="render"></div>
+    </fieldset><br />
 
     <button class="btn btn-success">Cadastrar cliente</button>
 </form>

@@ -42,6 +42,8 @@ EXEC AtualizarEndereco 1, '12345678', 'Rua Vinte', '254', NULL, 'Paraiso', 1, 1;
 
 EXEC ExcluirCliente 33, 2;
 
+EXEC RetornarClienteCompleto 87;
+
 SELECT * FROM Cliente;
 SELECT * FROM Telefone;
 SELECT * FROM Endereco;

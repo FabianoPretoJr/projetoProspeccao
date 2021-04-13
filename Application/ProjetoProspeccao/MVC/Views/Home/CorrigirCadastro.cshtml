@@ -13,7 +13,6 @@
     <input type="hidden" asp-for="IdUsuario" value="@User.Claims.First(c => c.Type == "IdUsuario").Value" />
     <input type="hidden" asp-for="IdCliente" />
     <input type="hidden" asp-for="IdEndereco" />
-    <input type="hidden" asp-for="IdTelefone" />
 
     <label asp-for="Nome"></label>
     <input asp-for="Nome" type="text" class="form-control" placeholder="Nome do cliente" maxlength="45" required />
@@ -34,10 +33,6 @@
     <label asp-for="Email"></label>
     <input asp-for="Email" type="email" class="form-control" placeholder="Email do cliente" required maxlength="30" />
     <span asp-validation-for="Email"></span><br />
-
-    <label asp-for="NumeroTelefone"></label>
-    <input asp-for="NumeroTelefone" type="text" class="form-control" placeholder="Número de Telefone do cliente" maxlength="9" minlength="9" required />
-    <span asp-validation-for="NumeroTelefone"></span><br />
 
     <label asp-for="Cep"></label>
     <input asp-for="Cep" type="text" class="form-control" placeholder="CEP do cliente" maxlength="8" minlength="8" />
@@ -94,7 +89,33 @@
     <div id="renderCidade"></div>
 
     <input type="hidden" asp-for="IdCidade" id="idCidade" />
-    <span asp-validation-for="IdCidade"></span><br /><br />
+    <span asp-validation-for="IdCidade"></span><br />
+
+    <fieldset width="100%">
+        <legend>Números de telefones</legend>
+        <button type="button" class="btn btn-primary" id="telefones">Adicionar telefone</button>
+        <br /><br />
+        @{ int i; }
+        <div id="render">
+            @for (i = 0; i < Model.NumeroTelefone.Count(); i++)
+            {                  
+                <div id="campoTelefone@(i)">
+                    <label id="labelNumero@(i)">Número @(i + 1)</label>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-11">
+                            <input type="text" class="form-control" placeholder="Número de Telefone do cliente" maxlength="9" minlength="9" required="" readonly id="NumeroTelefone_@(i)__NumeroTelefone" name="NumeroTelefone[@i].NumeroTelefone" value="@Model.NumeroTelefone[i].NumeroTelefone">
+                            <input type="hidden" data-val="true" data-val-required="The IdTelefone field is required." id="NumeroTelefone_@(i)__IdTelefone" name="NumeroTelefone[@i].IdTelefone" value="@Model.NumeroTelefone[i].IdTelefone">
+                        </div>
+                        <div class="col-sm-12 col-md-1">
+                            <button class="btn btn-primary" style="margin-left: -30px;" id="btnOk@(i)" hidden type="button" onClick="confirmarTelefone(@(i))">Ok</button>
+                            <button class="btn btn-danger" style="margin-left: -30px;" id="btnLimpar@(i)" type="button" onClick="limparTelefone(@(i))">Limpar</button>
+                        </div>                                             
+                    </div><br />
+                </div>
+            }
+            <input type="hidden" id="valorDoContador" value="@i" />
+        </div>
+    </fieldset><br />
 
     <button class="btn btn-success">Corrigir cliente</button>
 </form>

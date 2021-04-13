@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -32,9 +33,8 @@ namespace BLL.DTO.Cliente
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Campo número de telefone de cliente é obrigatório")]
-        [StringLength(9, ErrorMessage = "Deve conter 9 caracteres o campo número de telefone de cliente")]
         [DisplayName("Nº Telefone")]
-        public string NumeroTelefone { get; set; }
+        public List<string> NumeroTelefone { get; set; } = new List<string>();
 
         [StringLength(8, ErrorMessage = "Máximo 8 caracteres para o campo CEP de cliente")]
         [DisplayName("CEP")]

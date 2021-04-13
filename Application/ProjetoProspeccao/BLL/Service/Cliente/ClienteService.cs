@@ -51,6 +51,7 @@ namespace BLL.Service.Cliente
             }
             else
             {
+                _clienteDAL.AtualizarTelefones(cliente);
                 _clienteDAL.CorrigirCliente(cliente);
                 return null;
             }

@@ -28,10 +28,14 @@ namespace Data.EF
                 var usuario = Valida.Usuario(_database, cliente.IdUsuario);
                 int idStatus = (int)EStatus.Cadastrado;
 
-                var telefone = new TelefoneModel(cliente.NumeroTelefone);
+                var listaTelefone = new List<TelefoneModel>();
+                foreach(var telefone in cliente.NumeroTelefone)
+                {
+                    listaTelefone.Add(new TelefoneModel(telefone));
+                }
                 var endereco = new EnderecoModel(cliente.Cep, cliente.Rua, cliente.Numero, cliente.Complemento, cliente.Bairro, cliente.IdCidade);
                 var analise = new AnaliseModel(idStatus, usuario.Id_Usuario);
-                var clienteModel = new ClienteModel(cliente.Nome, cliente.Cpf, cliente.Rg, cliente.DataNascimento, cliente.Email, idStatus, telefone, endereco, analise);
+                var clienteModel = new ClienteModel(cliente.Nome, cliente.Cpf, cliente.Rg, cliente.DataNascimento, cliente.Email, idStatus, listaTelefone, endereco, analise);
 
                 _database.Add(clienteModel);
                 _database.SaveChanges();
@@ -49,11 +53,35 @@ namespace Data.EF
             {
                 var usuario = Valida.Usuario(_database, cliente.IdUsuario);
 
-                var telefone = new TelefoneModel(cliente.IdTelefone, cliente.NumeroTelefone, cliente.IdCliente);
+                var listaTelefone = new List<TelefoneModel>();
+                foreach (var telefone in cliente.NumeroTelefone)
+                {
+                    listaTelefone.Add(new TelefoneModel(telefone.IdTelefone, telefone.NumeroTelefone, cliente.IdCliente));
+                }
                 var endereco = new EnderecoModel(cliente.IdEndereco, cliente.Cep, cliente.Rua, cliente.Numero, cliente.Complemento, cliente.Bairro, cliente.IdCidade, cliente.IdCliente);
-                var clienteModel = new ClienteModel(cliente.IdCliente, cliente.Nome, cliente.Cpf, cliente.Rg, cliente.DataNascimento, cliente.Email, (int)EStatus.correcao_cadastro, telefone, endereco);
+                var clienteModel = new ClienteModel(cliente.IdCliente, cliente.Nome, cliente.Cpf, cliente.Rg, cliente.DataNascimento, cliente.Email, (int)EStatus.correcao_cadastro, listaTelefone, endereco);
 
                 _database.Update(clienteModel);
+                _database.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public void AtualizarTelefones(ClienteCorrecaoDTO cliente)
+        {
+            try
+            {
+                var listaTelefones = _database.Telefone.Where(t => t.Id_Cliente == cliente.IdCliente);
+
+                foreach(var telefone in cliente.NumeroTelefone)
+                {
+                    listaTelefones = listaTelefones.Where(lt => lt.Id_Telefone != telefone.IdTelefone);
+                }
+
+                _database.Telefone.RemoveRange(listaTelefones);
                 _database.SaveChanges();
             }
             catch (Exception e)
@@ -125,8 +153,10 @@ namespace Data.EF
 
                 foreach(var telefone in clienteCompleto.Telefones)
                 {
-                    cliente.IdTelefone = telefone.Id_Telefone;
-                    cliente.NumeroTelefone = telefone.Numero_Telefone;
+                    var telefoneDTO = new TelefoneDTO();
+                    telefoneDTO.IdTelefone = telefone.Id_Telefone;
+                    telefoneDTO.NumeroTelefone = telefone.Numero_Telefone;
+                    cliente.NumeroTelefone.Add(telefoneDTO);
                 }
 
                 foreach(var endereco in clienteCompleto.Enderecos)

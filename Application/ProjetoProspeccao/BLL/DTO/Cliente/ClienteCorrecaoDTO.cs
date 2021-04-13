@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -7,8 +8,6 @@ namespace BLL.DTO.Cliente
     public class ClienteCorrecaoDTO
     {
         public int IdCliente { get; set; }
-
-        public int IdTelefone { get; set; }
 
         public int IdEndereco { get; set; }
 
@@ -41,10 +40,7 @@ namespace BLL.DTO.Cliente
         [DisplayName("E-mail")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Campo número de telefone de cliente é obrigatório")]
-        [StringLength(9, ErrorMessage = "Deve conter 9 caracteres o campo número de telefone de cliente")]
-        [DisplayName("Nº Telefone")]
-        public string NumeroTelefone { get; set; }
+        public List<TelefoneDTO> NumeroTelefone { get; set; } = new List<TelefoneDTO>();
 
         [StringLength(8, ErrorMessage = "Deve conter 8 caracteres o campo CEP de cliente")]
         [DisplayName("CEP")]

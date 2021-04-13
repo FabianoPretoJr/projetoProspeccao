@@ -22,7 +22,7 @@ namespace BLL.Models
             DateTime data_Nascimento, 
             string email, 
             int id_Status,
-            TelefoneModel telefone,
+            List<TelefoneModel> telefone,
             EnderecoModel endereco)
         {
             this.Id_Cliente = id_Cliente;
@@ -33,7 +33,7 @@ namespace BLL.Models
             this.Email = email;
             this.Id_Status = id_Status;
             this.Telefones = new List<TelefoneModel>();
-            this.Telefones.Add(telefone);
+            this.Telefones.AddRange(telefone);
             this.Enderecos = new List<EnderecoModel>();
             this.Enderecos.Add(endereco);
         }
@@ -45,7 +45,7 @@ namespace BLL.Models
             DateTime data_Nascimento, 
             string email,
             int id_Status,
-            TelefoneModel telefone,
+            List<TelefoneModel> telefone,
             EnderecoModel endereco,
             AnaliseModel analise)
         {
@@ -56,7 +56,7 @@ namespace BLL.Models
             this.Email = email;
             this.Id_Status = id_Status;
             this.Telefones = new List<TelefoneModel>();
-            this.Telefones.Add(telefone);
+            this.Telefones.AddRange(telefone);
             this.Enderecos = new List<EnderecoModel>();
             this.Enderecos.Add(endereco);
             this.Analises = new List<AnaliseModel>();
@@ -126,8 +126,8 @@ namespace BLL.Models
             private set { _enderecos = value; }
         }
 
-        private ICollection<TelefoneModel> _telefones;
-        public virtual ICollection<TelefoneModel> Telefones
+        private List<TelefoneModel> _telefones;
+        public virtual List<TelefoneModel> Telefones
         {
             get { return _telefones; }
             private set { _telefones = value; }
