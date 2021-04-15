@@ -4,7 +4,6 @@ CREATE PROCEDURE CadastroCliente
 	@RG				CHAR(8),
 	@DataNascimento	DATE,
 	@Email			VARCHAR(30),
-	@NumeroTelefone	VARCHAR(9),
 	@CEP			CHAR(8),
 	@Rua			VARCHAR(20),
 	@Numero			VARCHAR(6),
@@ -44,13 +43,11 @@ BEGIN
 			DECLARE @IdCliente	INT;
 			SELECT @IdCliente = SCOPE_IDENTITY();
 
-			EXEC InserirTelefone @NumeroTelefone, @IdCliente;
-
 			EXEC InserirEndereco @CEP, @Rua, @Numero, @Complemento, @Bairro, @IdCliente, @IdCidade;
 
 			EXEC RegistroAnaliseFluxo @IdCliente, @IdStatus, @IdUsuario;
 
-			SELECT 'Cliente cadastrado!' AS Retorno;
+			SELECT @IdCliente AS id_cliente;
 		COMMIT TRAN
 	END TRY
 	BEGIN CATCH

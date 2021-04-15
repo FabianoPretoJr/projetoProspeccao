@@ -5,8 +5,9 @@ namespace BLL.Models
 {
     public class ClienteModel
     {
-        public ClienteModel(string nome, string cpf, string rg, DateTime data_Nascimento, string email)
+        public ClienteModel(int id_Cliente, string nome, string cpf, string rg, DateTime data_Nascimento, string email)
         {
+            this.Id_Cliente = id_Cliente;
             this.Nome = nome;
             this.Cpf = cpf;
             this.Rg = rg;

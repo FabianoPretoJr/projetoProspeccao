@@ -19,6 +19,15 @@ namespace BLL.Models
             this.Data_Hora = DateTime.UtcNow;
         }
 
+        public AnaliseModel(int id_Analise, ClienteModel cliente, UsuarioModel usuario, StatusAnaliseModel statusAnalise, DateTime data_Hora)
+        {
+            this.Id_Analise = id_Analise;
+            this.Cliente = cliente;
+            this.Usuario = usuario;
+            this.StatusAnalise = statusAnalise;
+            this.Data_Hora = data_Hora;
+        }
+
         private int _id_Analise;
         public int Id_Analise
         {

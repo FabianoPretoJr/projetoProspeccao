@@ -47,6 +47,50 @@ namespace Data.EF
             }
         }
 
+        public ClienteCorrecaoDTO ObterDadosCliente(int idCliente)
+        {
+            try
+            {
+                var clienteCompleto = Valida.Cliente(_database, idCliente);
+
+                ClienteCorrecaoDTO cliente = new ClienteCorrecaoDTO();
+
+                cliente.IdCliente = clienteCompleto.Id_Cliente;
+                cliente.Nome = clienteCompleto.Nome;
+                cliente.Cpf = clienteCompleto.Cpf;
+                cliente.Rg = clienteCompleto.Rg;
+                cliente.DataNascimento = clienteCompleto.Data_Nascimento;
+                cliente.Email = clienteCompleto.Email;
+
+                foreach (var telefone in clienteCompleto.Telefones)
+                {
+                    var telefoneDTO = new TelefoneDTO();
+                    telefoneDTO.IdTelefone = telefone.Id_Telefone;
+                    telefoneDTO.NumeroTelefone = telefone.Numero_Telefone;
+                    cliente.NumeroTelefone.Add(telefoneDTO);
+                }
+
+                foreach (var endereco in clienteCompleto.Enderecos)
+                {
+                    cliente.IdEndereco = endereco.Id_Endereco;
+                    cliente.Cep = endereco.Cep;
+                    cliente.Rua = endereco.Rua;
+                    cliente.Numero = endereco.Numero;
+                    cliente.Complemento = endereco.Complemento;
+                    cliente.Bairro = endereco.Bairro;
+                    cliente.IdCidade = endereco.Cidade.Id_Cidade;
+                    cliente.IdEstado = endereco.Cidade.Estado.Id_Estado;
+                    cliente.IdPais = endereco.Cidade.Estado.Pais.Id_Pais;
+                }
+
+                return cliente;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public void CorrigirCliente(ClienteCorrecaoDTO cliente)
         {
             try
@@ -62,26 +106,6 @@ namespace Data.EF
                 var clienteModel = new ClienteModel(cliente.IdCliente, cliente.Nome, cliente.Cpf, cliente.Rg, cliente.DataNascimento, cliente.Email, (int)EStatus.correcao_cadastro, listaTelefone, endereco);
 
                 _database.Update(clienteModel);
-                _database.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
-        public void AtualizarTelefones(ClienteCorrecaoDTO cliente)
-        {
-            try
-            {
-                var listaTelefones = _database.Telefone.Where(t => t.Id_Cliente == cliente.IdCliente);
-
-                foreach(var telefone in cliente.NumeroTelefone)
-                {
-                    listaTelefones = listaTelefones.Where(lt => lt.Id_Telefone != telefone.IdTelefone);
-                }
-
-                _database.Telefone.RemoveRange(listaTelefones);
                 _database.SaveChanges();
             }
             catch (Exception e)
@@ -110,7 +134,7 @@ namespace Data.EF
 
                 List<ClienteListagemDTO> listaCliente = new List<ClienteListagemDTO>();
 
-                foreach(var cli in clientes)
+                foreach (var cli in clientes)
                 {
                     ClienteListagemDTO cliente = new ClienteListagemDTO();
 
@@ -121,7 +145,7 @@ namespace Data.EF
                     cliente.DataNascimento = cli.Data_Nascimento;
                     cliente.Email = cli.Email;
                     cliente.IdStatus = cli.Id_Status;
-                    cliente.UsuarioPermitido = cli.Analises.First().Id_Usuario != idUsuario || 
+                    cliente.UsuarioPermitido = cli.Analises.First().Id_Usuario != idUsuario ||
                                                cli.Analises.First().Id_Status == (int)EStatus.Cadastrado ? true : false;
                     cliente.NomePais = cli.Enderecos.First().Cidade.Estado.Pais.Nome_Pais;
 
@@ -129,50 +153,6 @@ namespace Data.EF
                 }
 
                 return listaCliente;
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
-        public ClienteCorrecaoDTO ObterDadosCliente(int idCliente)
-        {
-            try
-            {
-                var clienteCompleto = Valida.Cliente(_database, idCliente);
-
-                ClienteCorrecaoDTO cliente = new ClienteCorrecaoDTO();
-
-                cliente.IdCliente = clienteCompleto.Id_Cliente;
-                cliente.Nome = clienteCompleto.Nome;
-                cliente.Cpf = clienteCompleto.Cpf;
-                cliente.Rg = clienteCompleto.Rg;
-                cliente.DataNascimento = clienteCompleto.Data_Nascimento;
-                cliente.Email = clienteCompleto.Email;
-
-                foreach(var telefone in clienteCompleto.Telefones)
-                {
-                    var telefoneDTO = new TelefoneDTO();
-                    telefoneDTO.IdTelefone = telefone.Id_Telefone;
-                    telefoneDTO.NumeroTelefone = telefone.Numero_Telefone;
-                    cliente.NumeroTelefone.Add(telefoneDTO);
-                }
-
-                foreach(var endereco in clienteCompleto.Enderecos)
-                {
-                    cliente.IdEndereco = endereco.Id_Endereco;
-                    cliente.Cep = endereco.Cep;
-                    cliente.Rua = endereco.Rua;
-                    cliente.Numero = endereco.Numero;
-                    cliente.Complemento = endereco.Complemento;
-                    cliente.Bairro = endereco.Bairro;
-                    cliente.IdCidade = endereco.Cidade.Id_Cidade;
-                    cliente.IdEstado = endereco.Cidade.Estado.Id_Estado;
-                    cliente.IdPais = endereco.Cidade.Estado.Pais.Id_Pais;
-                }
-
-                return cliente;
             }
             catch (Exception e)
             {
@@ -195,7 +175,7 @@ namespace Data.EF
 
                 List<ClienteListagemDTO> listaCliente = new List<ClienteListagemDTO>();
 
-                foreach(var clienteEncerrado in clientesEncerrados)
+                foreach (var clienteEncerrado in clientesEncerrados)
                 {
                     ClienteListagemDTO cliente = new ClienteListagemDTO();
 
@@ -233,6 +213,26 @@ namespace Data.EF
                 }
                 else
                     throw new ArgumentException(message: "Este cliente não está em fase de cadastro");
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public void AtualizarTelefones(ClienteCorrecaoDTO cliente)
+        {
+            try
+            {
+                var listaTelefones = _database.Telefone.Where(t => t.Id_Cliente == cliente.IdCliente);
+
+                foreach (var telefone in cliente.NumeroTelefone)
+                {
+                    listaTelefones = listaTelefones.Where(lt => lt.Id_Telefone != telefone.IdTelefone);
+                }
+
+                _database.Telefone.RemoveRange(listaTelefones);
+                _database.SaveChanges();
             }
             catch (Exception e)
             {

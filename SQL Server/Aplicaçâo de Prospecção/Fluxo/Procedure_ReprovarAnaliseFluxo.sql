@@ -34,8 +34,8 @@ BEGIN
 			)                                  
 				THROW 50000, 'Usuário não possui permissão para essa modificação', 1;
 
-			IF(EXISTS(SELECT * FROM Analise WHERE id_cliente = @IdCliente AND id_usuario = @IdUsuario))
-				THROW 50000, 'Usuário não pode interagir de novo com o fluxo desde cliente', 1;
+			/*IF(EXISTS(SELECT * FROM Analise WHERE id_cliente = @IdCliente AND id_usuario = @IdUsuario))
+				THROW 50000, 'Usuário não pode interagir de novo com o fluxo desde cliente', 1;*/
 
 			INSERT INTO Analise (id_status, id_cliente, id_usuario, data_hora)
 						VALUES (6, @IdCliente, @IdUsuario, GETDATE());

@@ -31,7 +31,7 @@ namespace Data.EF
                 {
                     usuarioDTO.IdUsuario = usuario.Id_Usuario;
                     usuarioDTO.Login = usuario.Login_Usuario;
-                    usuarioDTO.Senha = usuario.Senha;
+                    usuarioDTO.Senha = null;
 
                     retorno = true;
                 }
@@ -52,7 +52,7 @@ namespace Data.EF
             List<PerfilDeUsuarioDTO> list = new List<PerfilDeUsuarioDTO>();
             try
             {
-                var usuarioModel = new UsuarioModel(usuarioDTO.IdUsuario, usuarioDTO.Login, usuarioDTO.Senha);
+                var usuarioModel = new UsuarioModel(usuarioDTO.IdUsuario, usuarioDTO.Login, null);
 
                 var perfils = _database.Acesso.Where(a => a.Id_Usuario == usuarioModel.Id_Usuario).Include(a => a.Perfil).ToList();          
 

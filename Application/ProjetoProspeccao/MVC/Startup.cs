@@ -55,13 +55,17 @@ namespace MVC
             );
 
             services.AddTransient<IClienteService, ClienteService>();
-            services.AddTransient<IClienteDAL, ClienteEF>();
+            services.AddTransient<IClienteDAL, ClienteDAL>();
+            // services.AddTransient<IClienteDAL, ClienteEF>();
             services.AddTransient<IPaisEstadoCidadeService, PaisEstadoCidadeService>();
-            services.AddTransient<IPaisEstadoCidadeDAL, PaisEstadoCidadeEF>();
+            services.AddTransient<IPaisEstadoCidadeDAL, PaisEstadoCidadeDAL>();
+            // services.AddTransient<IPaisEstadoCidadeDAL, PaisEstadoCidadeEF>();
             services.AddTransient<IUsuarioService, UsuarioService>();
-            services.AddTransient<IUsuarioDAL, UsuarioEF>();
+            services.AddTransient<IUsuarioDAL, UsuarioDAL>();
+            // services.AddTransient<IUsuarioDAL, UsuarioEF>();
             services.AddTransient<IFluxoService, FluxoService>();
-            services.AddTransient<IFluxoDAL, FluxoEF>();
+            services.AddTransient<IFluxoDAL, FluxoDAL>();
+            // services.AddTransient<IFluxoDAL, FluxoEF>();
 
             services.AddAuthorization(options =>
                 options.AddPolicy("CadastroCorrecaoCliente", policy => policy.RequireClaim("IdPerfil", $"{(int)EPerfil.Administracao}", $"{(int)EPerfil.Operacao}"))

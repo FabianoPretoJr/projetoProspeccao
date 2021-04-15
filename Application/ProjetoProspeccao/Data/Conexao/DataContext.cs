@@ -1,6 +1,7 @@
 ﻿using BLL.Models;
 using Data.Mapping;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Data.Conexao
 {

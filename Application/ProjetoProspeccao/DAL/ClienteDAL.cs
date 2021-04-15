@@ -1,4 +1,5 @@
 ﻿using BLL.DTO.Cliente;
+using BLL.Enums;
 using BLL.Interfaces.DAL;
 using DAL.Extensoes;
 using System;
@@ -18,13 +19,12 @@ namespace DAL
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con.Conectar();
 
-                cmd.CommandText = @"EXEC CadastroCliente @nome, @cpf, @rg, @dataNascimento, @email, @numeroTelefone, @cep, @rua, @numero, @complemento, @bairro, @idCidade, @idUsuario";
+                cmd.CommandText = @"EXEC CadastroCliente @nome, @cpf, @rg, @dataNascimento, @email, @cep, @rua, @numero, @complemento, @bairro, @idCidade, @idUsuario";
                 cmd.Parameters.AddWithValue("@nome", cliente.Nome);
                 cmd.Parameters.AddWithValue("@cpf", cliente.Cpf);
                 cmd.Parameters.AddWithValue("@rg", cliente.Rg);
                 cmd.Parameters.AddWithValue("@dataNascimento", cliente.DataNascimento);
                 cmd.Parameters.AddWithValue("@email", cliente.Email);
-                cmd.Parameters.AddWithValue("@numeroTelefone", cliente.NumeroTelefone);
                 if(cliente.Cep == null)
                     cmd.Parameters.AddWithValue("@cep", DBNull.Value);
                 else
@@ -39,7 +39,22 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@idCidade", cliente.IdCidade);
                 cmd.Parameters.AddWithValue("@idUsuario", cliente.IdUsuario);
 
-                cmd.ExecuteNonQuery();
+                SqlDataReader dr =  cmd.ExecuteReader();
+                dr.Read();
+                int idCliente = Convert.ToInt32(dr["id_cliente"]);
+                dr.Close();
+
+                foreach(var telefone in cliente.NumeroTelefone)
+                {
+                    cmd.Parameters.Clear();
+                    cmd.CommandText = "EXEC InserirTelefone @numeroTelefone, @idCliente";
+
+                    cmd.Parameters.AddWithValue("@numeroTelefone", telefone);
+                    cmd.Parameters.AddWithValue("@idCliente", idCliente);
+
+                    cmd.ExecuteNonQuery();
+                }
+               
                 con.Desconectar();
             }
             catch (Exception e)
@@ -73,10 +88,6 @@ namespace DAL
                     cliente.Rg = dr["rg"].ToString();
                     cliente.DataNascimento = Convert.ToDateTime(dr["data_nascimento"]);
                     cliente.Email = dr["email"].ToString();
-                    
-                    //cliente.NumeroTelefone = Convert.ToInt32(dr["id_telefone"]);
-                    //cliente.NumeroTelefone = dr["numero_telefone"].ToString();
-
 
                     cliente.IdEndereco = Convert.ToInt32(dr["id_endereco"]);
                     cliente.Cep = dr["cep"].ToString();
@@ -89,6 +100,18 @@ namespace DAL
                     cliente.IdPais = Convert.ToInt32(dr["id_pais"]);
 
                     dr.Close();
+                }
+
+                cmd.CommandText = "SELECT * FROM Telefone WHERE id_cliente = @idCliente";
+
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    var telefoneDTO = new TelefoneDTO();
+                    telefoneDTO.IdTelefone = Convert.ToInt32(dr["id_telefone"]);
+                    telefoneDTO.NumeroTelefone = dr["numero_telefone"].ToString();
+                    cliente.NumeroTelefone.Add(telefoneDTO);
                 }
 
                 con.Desconectar();
@@ -116,12 +139,18 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@email", cliente.Email);
                 cmd.ExecuteNonQuery();
 
-                cmd.CommandText = "EXEC AtualizarTelefone @idTelefone, @numeroTelefone, @idCliente";
+                foreach(var telefone in cliente.NumeroTelefone)
+                {
+                    cmd.Parameters.Clear();
 
-                //cmd.Parameters.AddWithValue("@idTelefone", cliente.IdTelefone);
+                    cmd.CommandText = "EXEC AtualizarTelefone @idTelefone, @numeroTelefone, @idCliente";
 
-                cmd.Parameters.AddWithValue("@numeroTelefone", cliente.NumeroTelefone);
-                cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("@idTelefone", telefone.IdTelefone);
+                    cmd.Parameters.AddWithValue("@numeroTelefone", telefone.NumeroTelefone);
+                    cmd.Parameters.AddWithValue("@idCliente", cliente.IdCliente);
+
+                    cmd.ExecuteNonQuery();
+                }               
 
                 cmd.CommandText = "EXEC AtualizarEndereco @idEndereco, @cep, @rua, @numero, @complemento, @bairro, @idCliente, @idCidade";
                 cmd.Parameters.AddWithValue("@idEndereco", cliente.IdEndereco);
@@ -152,16 +181,26 @@ namespace DAL
             try
             {
                 SqlCommand cmd = new SqlCommand();
-                cmd.Connection = con.Conectar();         
+                cmd.Connection = con.Conectar();
 
-                cmd.CommandText = @"SELECT * FROM Cliente c 
-                                    WHERE id_status IN (@idsStatus) AND 
-                                          NOT EXISTS(SELECT * FROM Analise a 
-                                                     WHERE c.id_cliente = a.id_cliente AND
-                                                           (id_usuario = @idUsuario AND (c.id_status <> 7 AND c.id_status <> 1)))";
+                // Query pra trazer somente clientes que e posso mexer como usuário
+                // cmd.CommandText = @"SELECT * FROM Cliente c 
+                //                     WHERE id_status IN (@idsStatus) AND 
+                //                           NOT EXISTS(SELECT * FROM Analise a 
+                //                                      WHERE c.id_cliente = a.id_cliente AND
+                //                                            (id_usuario = @idUsuario AND (c.id_status <> 7 AND c.id_status <> 1)))";
+                // cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+
+                // Query que eu trago todos usuários, mas não vou permirir mexer em alguns caso eu seja o ultimo que mexeu nele
+                cmd.CommandText = @"SELECT * FROM Cliente cli
+	                                    INNER JOIN Endereco e ON (e.id_cliente = cli.id_cliente) 
+	                                    INNER JOIN Cidade c ON (c.id_cidade = e.id_cidade)
+                                        INNER JOIN Estado es ON (es.id_estado = c.id_estado)
+                                        INNER JOIN Pais p ON (p.id_pais = es.id_pais)
+	                                    INNER JOIN Analise a ON (a.id_cliente = cli.id_cliente)
+                                    WHERE cli.id_status IN (@idsStatus) AND a.id_analise IN (SELECT MAX(a.id_analise) FROM Analise a GROUP BY(a.id_cliente))";
 
                 cmd.AddArrayParameters("@idsStatus", idsStatus);
-                cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
 
                 SqlDataReader dr = cmd.ExecuteReader();
           
@@ -178,6 +217,9 @@ namespace DAL
                     cliente.DataNascimento = Convert.ToDateTime(dr["data_nascimento"]);
                     cliente.Email = dr["email"].ToString();
                     cliente.IdStatus = Convert.ToInt32(dr["id_status"]);
+                    cliente.UsuarioPermitido = Convert.ToInt32(dr["id_usuario"]) != idUsuario ||
+                                               Convert.ToInt32(dr["id_status"]) == (int)EStatus.Cadastrado ? true : false;
+                    cliente.NomePais = dr["nome_pais"].ToString();
 
                     listaCliente.Add(cliente);
                 }
@@ -198,7 +240,12 @@ namespace DAL
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con.Conectar();
 
-                cmd.CommandText = @"SELECT * FROM Cliente WHERE id_status = 3 OR id_status = 5 OR id_status = 6";
+                cmd.CommandText = @"SELECT * FROM Endereco e
+	                                    INNER JOIN Cliente cli ON (cli.id_cliente = e.id_cliente) 
+	                                    INNER JOIN Cidade c ON (c.id_cidade = e.id_cidade)
+                                        INNER JOIN Estado es ON (es.id_estado = c.id_estado)
+                                        INNER JOIN Pais p ON (p.id_pais = es.id_pais)
+                                    WHERE cli.id_status = 3 OR cli.id_status = 5 OR cli.id_status = 6;";
 
                 SqlDataReader dr = cmd.ExecuteReader();
 
@@ -215,6 +262,7 @@ namespace DAL
                     cliente.DataNascimento = Convert.ToDateTime(dr["data_nascimento"]);
                     cliente.Email = dr["email"].ToString();
                     cliente.IdStatus = Convert.ToInt32(dr["id_status"]);
+                    cliente.NomePais = dr["nome_pais"].ToString();
 
                     listaCliente.Add(cliente);
                 }
@@ -251,7 +299,30 @@ namespace DAL
 
         public void AtualizarTelefones(ClienteCorrecaoDTO cliente)
         {
-            throw new NotImplementedException();
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con.Conectar();
+
+                cmd.CommandText = @"DELETE FROM Telefone WHERE id_cliente = @idCliente AND id_telefone NOT IN (@idsTelefones)";
+
+                cmd.Parameters.AddWithValue("@idCliente", cliente.IdCliente);
+
+                var idsTelefones = new List<int>();
+                foreach(var telefone in cliente.NumeroTelefone)
+                {
+                    idsTelefones.Add(telefone.IdTelefone);
+                }
+                cmd.AddArrayParameters("@idsTelefones", idsTelefones);
+
+                cmd.ExecuteNonQuery();
+
+                con.Desconectar();
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

@@ -12,7 +12,9 @@ BEGIN
 				THROW 50000, 'Campo número telefone está vazio', 1;
 
 			IF(NOT EXISTS(SELECT * FROM Telefone WHERE id_telefone = @IdTelefone AND id_cliente = @IdCliente))
-				THROW 50000, 'Telefone não encontrado na base de dados', 1;
+				BEGIN
+					EXEC InserirTelefone @NumeroTelefone, @IdCliente;
+				END
 
 			UPDATE Telefone
 				SET numero_telefone = @NumeroTelefone
