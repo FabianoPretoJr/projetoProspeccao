@@ -46,64 +46,64 @@
     <tbody>
         @foreach (var cliente in Model)
         {
-        <tr>
-            <td>@cliente.Nome</td>
-            <td>@Convert.ToInt64(@cliente.CPF).ToString(@"000\.000\.000\-00")</td>
-            <td>@Convert.ToInt64(@cliente.RG).ToString(@"00\.000\.000\-0")</td>
-            <td>@cliente.DataNascimento.ToString("dd/MM/yyyy")</td>
-            <td>@cliente.Email</td>
-            <td>@cliente.NomePais</td>
-            <td>
-                @switch (cliente.IdStatus)
-                {
-                    case 1:
-                        <p>Cadastrado</p>
-                        break;
-                    case 2:
-                        <p>Aguardando análise da gerência</p>
-                        break;
-                    case 4:
-                        <p>Aguardando análise do controle de risco</p>
-                        break;
-                    case 7:
-                        <p>Correção de cadastro</p>
-                        break;
-                    default:
-                        break;
-                }
-            </td>
-            <td>
-                @if (cliente.UsuarioPermitido)
-                {
+            <tr>
+                <td>@cliente.Nome</td>
+                <td>@Convert.ToInt64(@cliente.CPF).ToString(@"000\.000\.000\-00")</td>
+                <td>@Convert.ToInt64(@cliente.RG).ToString(@"00\.000\.000\-0")</td>
+                <td>@cliente.DataNascimento.ToString("dd/MM/yyyy")</td>
+                <td>@cliente.Email</td>
+                <td>@cliente.NomePais</td>
+                <td>
                     @switch (cliente.IdStatus)
                     {
                         case 1:
-                            <a href="/Clientes/EnviarAnaliseGerencia/@cliente.Id" class="btn btn-success">Enviar Análise da Gerência</a>
-                            <a href="/Clientes/ExcluirCliente/@cliente.Id" class="btn btn-danger">Excluir</a>
+                            <p>Cadastrado</p>
                             break;
                         case 2:
-                            <a href="/Clientes/AprovarFluxo/@cliente.Id" class="btn btn-success">Aprovar</a>
-                            <a href="/Clientes/CorrecaoDeCadastro/@cliente.Id" class="btn btn-warning">Correção</a>
-                            <a href="/Clientes/ReprovarFluxo/@cliente.Id" class="btn btn-danger">Reprovar</a>
+                            <p>Aguardando análise da gerência</p>
                             break;
                         case 4:
-                            <a href="/Clientes/AprovarFluxo/@cliente.Id" class="btn btn-success">Aprovar</a>
-                            <a href="/Clientes/CorrecaoDeCadastro/@cliente.Id" class="btn btn-warning">Correção</a>
-                            <a href="/Clientes/ReprovarFluxo/@cliente.Id" class="btn btn-danger">Reprovar</a>
+                            <p>Aguardando análise do controle de risco</p>
                             break;
                         case 7:
-                            <a href="/Home/CorrigirCadastro/@cliente.Id" class="btn btn-warning">Corrigir cadastro</a>
+                            <p>Correção de cadastro</p>
                             break;
                         default:
                             break;
                     }
-                }
-                else
-                {
-                    <p>Intereção bloqueada</p>
-                }
-            </td>
-        </tr>
+                </td>
+                <td>
+                    @if (cliente.UsuarioPermitido)
+                    {
+                        @switch (cliente.IdStatus)
+                        {
+                            case 1:
+                                <a href="/Clientes/EnviarAnaliseGerencia/@cliente.Id" class="btn btn-success">Enviar Análise da Gerência</a>
+                                <a href="/Clientes/ExcluirCliente/@cliente.Id" class="btn btn-danger">Excluir</a>
+                                break;
+                            case 2:
+                                <a href="/Clientes/AprovarFluxo/@cliente.Id" class="btn btn-success">Aprovar</a>
+                                <a href="/Clientes/CorrecaoDeCadastro/@cliente.Id" class="btn btn-warning">Correção</a>
+                                <a href="/Clientes/ReprovarFluxo/@cliente.Id" class="btn btn-danger">Reprovar</a>
+                                break;
+                            case 4:
+                                <a href="/Clientes/AprovarFluxo/@cliente.Id" class="btn btn-success">Aprovar</a>
+                                <a href="/Clientes/CorrecaoDeCadastro/@cliente.Id" class="btn btn-warning">Correção</a>
+                                <a href="/Clientes/ReprovarFluxo/@cliente.Id" class="btn btn-danger">Reprovar</a>
+                                break;
+                            case 7:
+                                <a href="/Home/CorrigirCadastro/@cliente.Id" class="btn btn-warning">Corrigir cadastro</a>
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        <p>Intereção bloqueada</p>
+                    }
+                </td>
+            </tr>
         }
     </tbody>
 </table>

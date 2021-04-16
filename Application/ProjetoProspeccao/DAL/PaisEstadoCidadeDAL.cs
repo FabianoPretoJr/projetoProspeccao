@@ -104,5 +104,20 @@ namespace DAL
                 throw e;
             }
         }
+
+        public List<ListarPaisEstadoCidadeDTO> Listar()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Cadastrar(ListarPaisEstadoCidadeDTO item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Atualizar(ListarPaisEstadoCidadeDTO item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

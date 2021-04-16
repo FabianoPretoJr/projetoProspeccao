@@ -1,0 +1,22 @@
+﻿@model BLL.Models.UsuarioModel
+@{
+    ViewData["Title"] = "Cadastrar clientes";
+}
+@{
+    Layout = "_LayoutAdmin";
+}
+
+<h2>Cadastro de cliente</h2>
+<hr />
+
+<form class="form-horizontal" asp-action="Cadastrar" asp-controller="Usuarios" method="POST">
+    <label asp-for="Login_Usuario">Login</label>
+    <input asp-for="Login_Usuario" type="text" class="form-control" placeholder="Login do usuário" maxlength="45" required />
+    <span asp-validation-for="Login_Usuario"></span><br />
+
+    <label asp-for="Senha">Senha</label>
+    <input asp-for="Senha" type="text" class="form-control" placeholder="Senha do usuário" maxlength="11" minlength="11" required />
+    <span asp-validation-for="Senha"></span><br />
+
+    <button class="btn btn-success">Cadastrar cliente</button>
+</form>

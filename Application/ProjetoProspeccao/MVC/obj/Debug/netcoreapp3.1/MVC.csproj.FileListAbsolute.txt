@@ -309,3 +309,8 @@ C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProsp
 C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\bin\Debug\netcoreapp3.1\System.IO.Packaging.dll
 C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\bin\Debug\netcoreapp3.1\Utils.dll
 C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\bin\Debug\netcoreapp3.1\Utils.pdb
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\obj\Debug\netcoreapp3.1\Razor\Views\Home\PaisEstadoCidade.cshtml.g.cs
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\obj\Debug\netcoreapp3.1\Razor\Views\Home\Perfils.cshtml.g.cs
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\obj\Debug\netcoreapp3.1\Razor\Views\Home\Status.cshtml.g.cs
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\obj\Debug\netcoreapp3.1\Razor\Views\Home\Usuarios.cshtml.g.cs
+C:\Users\FOEU\My Private Documents\Plano de Estudos UBS BB\projetos\projetoProspeccao\Application\ProjetoProspeccao\MVC\obj\Debug\netcoreapp3.1\Razor\Views\Home\CadastrarUsuario.cshtml.g.cs

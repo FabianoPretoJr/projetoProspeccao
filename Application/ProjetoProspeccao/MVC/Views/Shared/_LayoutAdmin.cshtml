@@ -86,6 +86,33 @@
                     <span>Fluxo</span>
                 </a>
             </li>
+            @if (@User.Claims.Where(p => p.Type == "IdPerfil").Any(p => p.Value == "1"))
+            {
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Usuarios" asp-controller="Home">
+                        <i class="fas fa-fw fa-people-carry"></i>
+                        <span>Usuários</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Perfils" asp-controller="Home">
+                        <i class="fas fa-fw fa-people-carry"></i>
+                        <span>Perfils</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Status" asp-controller="Home">
+                        <i class="fas fa-fw fa-people-carry"></i>
+                        <span>Status</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="PaisEstadoCidade" asp-controller="Home">
+                        <i class="fas fa-fw fa-people-carry"></i>
+                        <span>Pais | Estado | Cidade</span>
+                    </a>
+                </li>
+            }
         </ul>
         <div id="content-wrapper">
             <div class="container-fluid">

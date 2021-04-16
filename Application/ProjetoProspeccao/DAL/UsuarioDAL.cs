@@ -1,14 +1,21 @@
 ﻿using BLL.DTO.Usuario;
 using BLL.Interfaces.DAL;
+using BLL.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 
 namespace DAL
 {
     public class UsuarioDAL : IUsuarioDAL
     {
         Conexao con = new Conexao();
+
+        public void Atualizar(UsuarioModel item)
+        {
+            throw new NotImplementedException();
+        }
 
         public bool Autenticar(ref UsuarioAutenticarDTO usuario)
         {
@@ -47,6 +54,26 @@ namespace DAL
                 throw e;
             }
             return retorno;
+        }
+
+        public void Cadastrar(UsuarioModel item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Deletar(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ListaUsuariosDTO> Listar()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ListaUsuariosDTO Listar(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public List<PerfilDeUsuarioDTO> ListarPerfilsDeUsuario(UsuarioAutenticarDTO usuario)

@@ -3,6 +3,7 @@ using BLL.Enums;
 using BLL.Interfaces.Serrvices.PaisEstadoCidade;
 using BLL.Interfaces.Services.Cliente;
 using BLL.Interfaces.Services.Fluxo;
+using BLL.Interfaces.Services.Usuario;
 using BLL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,17 +23,20 @@ namespace MVC.Controllers
         private readonly IClienteService _serviceCliente;
         private readonly IPaisEstadoCidadeService _servicePaisEstadoCidade;
         private readonly IFluxoService _serviceFluxo;
+        private readonly IUsuarioService _serviceUsuario;
 
         public HomeController(
             ILogger<HomeController> logger, 
             IClienteService serviceCliente,
             IPaisEstadoCidadeService servicePaisEstadoCidade,
-            IFluxoService serviceFluxo)
+            IFluxoService serviceFluxo,
+            IUsuarioService serviceUsuario)
         {
             _logger = logger;
             _serviceCliente = serviceCliente;
             _servicePaisEstadoCidade = servicePaisEstadoCidade;
             _serviceFluxo = serviceFluxo;
+            _serviceUsuario = serviceUsuario;
         }
 
         public IActionResult Index()
@@ -154,6 +158,84 @@ namespace MVC.Controllers
                 ViewBag.listaEstado = _servicePaisEstadoCidade.ListarEstado(dadosCliente.IdPais);
                 ViewBag.listaCidade = _servicePaisEstadoCidade.ListarCidade(dadosCliente.IdEstado);
                 return View(dadosCliente);
+            }
+            catch (Exception e)
+            {
+                ErrosView listaErros = new ErrosView();
+                listaErros.Erros.Add(e.Message);
+                return View("../Home/ExibirErros", listaErros);
+            }
+        }
+        
+        [Authorize(Policy = "Administrador")]
+        public IActionResult Usuarios()
+        {
+            try
+            {
+                var listaUsuarios = _serviceUsuario.ListarUsuarios();
+                return View(listaUsuarios);
+            }
+            catch (Exception e)
+            {
+                ErrosView listaErros = new ErrosView();
+                listaErros.Erros.Add(e.Message);
+                return View("../Home/ExibirErros", listaErros);
+            }
+        }
+
+        [Authorize(Policy = "Administrador")]
+        public IActionResult CadastrarUsuario()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception e)
+            {
+                ErrosView listaErros = new ErrosView();
+                listaErros.Erros.Add(e.Message);
+                return View("../Home/ExibirErros", listaErros);
+            }
+        }
+
+        [Authorize(Policy = "Administrador")]
+        public IActionResult Perfils()
+        {
+            try
+            {
+                _serviceUsuario.ListarPerfils();
+                return View();
+            }
+            catch (Exception e)
+            {
+                ErrosView listaErros = new ErrosView();
+                listaErros.Erros.Add(e.Message);
+                return View("../Home/ExibirErros", listaErros);
+            }
+        }
+
+        [Authorize(Policy = "Administrador")]
+        public IActionResult Status()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception e)
+            {
+                ErrosView listaErros = new ErrosView();
+                listaErros.Erros.Add(e.Message);
+                return View("../Home/ExibirErros", listaErros);
+            }
+        }
+
+        [Authorize(Policy = "Administrador")]
+        public IActionResult PaisEstadoCidade()
+        {
+            try
+            {
+                var cep = _servicePaisEstadoCidade.Listar();
+                return View(cep);
             }
             catch (Exception e)
             {

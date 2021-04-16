@@ -1,6 +1,8 @@
-﻿using BLL.Interfaces.DAL;
+﻿using BLL.DTO.PaisEstadoCidade;
+using BLL.Interfaces.DAL;
 using BLL.Models;
 using Data.Conexao;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,6 +88,32 @@ namespace Data.EF
             {
                 throw e;
             }
+        }
+
+        public List<ListarPaisEstadoCidadeDTO> Listar()
+        {
+            var listaCep = _database.Cidade.Include(c => c.Estado).ThenInclude(e => e.Pais);
+
+            var listaPaisEstadoCidade = new List<ListarPaisEstadoCidadeDTO>();
+            foreach(var cep in listaCep)
+            {
+                var paisEstadoCidade = new ListarPaisEstadoCidadeDTO();
+                paisEstadoCidade.Pais = cep.Estado.Pais.Nome_Pais;
+                paisEstadoCidade.Estado = cep.Estado.Nome_Estado;
+                paisEstadoCidade.Cidade = cep.Nome_Cidade;
+                listaPaisEstadoCidade.Add(paisEstadoCidade);
+            }
+            return listaPaisEstadoCidade;
+        }
+
+        public void Cadastrar(ListarPaisEstadoCidadeDTO item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Atualizar(ListarPaisEstadoCidadeDTO item)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -6,14 +6,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Data.Repository;
+using System.Threading.Tasks;
 
 namespace Data.EF
 {
-    public class UsuarioEF : IUsuarioDAL
+    public class UsuarioEF : BaseRepository<UsuarioModel>, IUsuarioDAL
     {
         private readonly DataContext _database;
 
-        public UsuarioEF(DataContext database)
+        public UsuarioEF(DataContext database) : base(database)
         {
             _database = database;
         }
@@ -31,7 +33,7 @@ namespace Data.EF
                 {
                     usuarioDTO.IdUsuario = usuario.Id_Usuario;
                     usuarioDTO.Login = usuario.Login_Usuario;
-                    usuarioDTO.Senha = null;
+                    usuarioDTO.Senha = usuario.Senha;
 
                     retorno = true;
                 }
@@ -69,6 +71,94 @@ namespace Data.EF
                 throw e;
             }
             return list;
+        }
+
+        public List<ListaUsuariosDTO> Listar()
+        {
+            try
+            {
+                var listaUsuarios = _database.Usuario.Include(u => u.Acesso).ThenInclude(a => a.Perfil).ToList();
+
+                var listaUsuarioDTO = new List<ListaUsuariosDTO>();
+                foreach (var usuario in listaUsuarios)
+                {
+                    var usuarioDTO = new ListaUsuariosDTO();
+                    usuarioDTO.Id = usuario.Id_Usuario;
+                    usuarioDTO.Login = usuario.Login_Usuario;
+                    usuarioDTO.Ativo = usuario.Ativo;
+                    foreach (var acesso in usuario.Acesso)
+                    {
+                        var perfil = new PerfilDeUsuarioDTO();
+                        perfil.IdPerfil = acesso.Perfil.Id_Perfil;
+                        perfil.NomePerfil = acesso.Perfil.Nome_Perfil;
+                        usuarioDTO.Perfils.Add(perfil);
+                    }
+                    listaUsuarioDTO.Add(usuarioDTO);
+                }
+
+                return listaUsuarioDTO;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public ListaUsuariosDTO Listar(int id)
+        {
+            try
+            {
+                var usuariosModel = _database.Usuario.Where(u => u.Id_Usuario.Equals(id))
+                                                           .Include(u => u.Acesso)
+                                                           .ThenInclude(a => a.Perfil)
+                                                           .First();
+
+                var usuarioDTO = new ListaUsuariosDTO();
+                usuarioDTO.Id = usuariosModel.Id_Usuario;
+                usuarioDTO.Login = usuariosModel.Login_Usuario;
+                usuarioDTO.Ativo = usuariosModel.Ativo;
+                foreach(var acesso in usuariosModel.Acesso)
+                {
+                    var perfil = new PerfilDeUsuarioDTO();
+                    perfil.IdPerfil = acesso.Perfil.Id_Perfil;
+                    perfil.NomePerfil = acesso.Perfil.Nome_Perfil;
+                    usuarioDTO.Perfils.Add(perfil);
+                }
+                return usuarioDTO;
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public void Deletar(int id)
+        {
+            try
+            {
+                var usuario = _database.Usuario.FirstOrDefault(u => u.Id_Usuario.Equals(id));
+                usuario.Desativar(usuario);
+                _database.Update(usuario);
+                _database.SaveChanges();
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public List<PerfilDeUsuarioDTO> ListarPerfils()
+        {
+            try
+            {
+                var listaPerfils = _database.Perfil.ToList();
+
+                return null;
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

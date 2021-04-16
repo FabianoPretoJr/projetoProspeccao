@@ -5,5 +5,7 @@
         public int IdPerfil { get; set; }
 
         public string NomePerfil { get; set; }
+
+        public bool Ativo { get; set; }
     }
 }

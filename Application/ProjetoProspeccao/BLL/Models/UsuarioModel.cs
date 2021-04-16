@@ -16,6 +16,7 @@ namespace BLL.Models
             this.Id_Usuario = id_Usuario;
             this.Login_Usuario = login_Usuario;
             this.Senha = senha;
+            this.Ativo = true;
         }
 
         private int _id_Usuario;
@@ -58,6 +59,11 @@ namespace BLL.Models
         {
             get { return _analises; }
             private set { _analises = value; }
+        }
+
+        public void Desativar(UsuarioModel usuario)
+        {
+            usuario.Ativo = false;
         }
     }
 }

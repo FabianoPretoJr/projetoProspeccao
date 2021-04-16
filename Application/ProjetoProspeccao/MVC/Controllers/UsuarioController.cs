@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using MVC.Models;
 using System.Linq;
 using MVC.Utils;
+using BLL.Models;
 
 namespace MVC.Controllers
 {
@@ -105,6 +106,21 @@ namespace MVC.Controllers
             };
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal, propriedadesDeAutenticacao);
+        }
+
+        public IActionResult Cadastrar(UsuarioModel usuario)
+        {
+            try
+            {
+                _serviceUsuario.Cadastrar(usuario);
+                return View("../Home/Usuarios");
+            }
+            catch (Exception e)
+            {
+                ErrosView listaErros = new ErrosView();
+                listaErros.Erros.Add(e.Message);
+                return View("../Home/ExibirErros", listaErros);
+            }
         }
     }
 }

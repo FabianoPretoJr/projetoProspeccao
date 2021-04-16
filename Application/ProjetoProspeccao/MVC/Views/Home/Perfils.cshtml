@@ -1,0 +1,54 @@
+﻿@model IEnumerable<BLL.DTO.Usuario.PerfilDeUsuarioDTO>
+@{
+    Layout = "_LayoutAdmin";
+}
+@{
+    ViewData["Title"] = "Perfils";
+}
+
+<div>
+    <h2>Perfils</h2><br />
+    <a class="btn btn-primary" asp-action="" asp-controller="">Cadastrar Perfil</a>
+</div>
+<hr />
+
+<script>
+    $(document).ready(function () {
+        $('#perfil').DataTable({
+            //"info" : false,
+            "language": {
+                "lengthMenu": "Mostrando _MENU_ registros por página",
+                "zeroRecords": "Desculpe, nada encontrado",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "infoEmpty": "Nenhum registro disponível",
+                "search": "Buscar:",
+                "paginate": {
+                    "first": "Primeiro",
+                    "last": "Último",
+                    "next": "próximo",
+                    "previous": "Anterior"
+                }
+            }
+        });
+    });
+</script>
+
+<table id="perfil" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Nome perfil</th>
+            <th>Ativo</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var perfil in Model)
+        {
+            <tr>
+                <td>@perfil.NomePerfil</td>
+                <td>@perfil.Ativo</td>
+                <td>Produção</td>
+            </tr>
+        }
+    </tbody>
+</table>
